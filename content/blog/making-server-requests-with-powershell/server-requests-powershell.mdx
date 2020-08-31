@@ -7,12 +7,14 @@ author: "Jordan"
 featuredImage: powershell-servers-req.jpg
 tags: ["CLI"]
 ---
+import { Link } from "gatsby" 
 
 In this post I'll show you how to make server requests using PowerShell cmdlets. While you can use `curl` directly from Cmd or PowerShell in 
 Windows 10 this article will focus on using PowerShell cmdlets [`Invoke-WebRequest`](https://docs.microsoft.com/en-us/powershell/module/Microsoft.PowerShell.Utility/Invoke-WebRequest?view=powershell-7#examples) 
 and [`Invoke-RestMethod`](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/invoke-restmethod?view=powershell-7) and not the 
 differences between `curl`. 
 
+Make sure to check out my <Link to={"/powershell-for-devs"}>PowerShell for developers</Link> crash course if you'd like to refresh on some of the basics. 
 ### Requesting Data from a REST API
 
 Let's first have a look at how we can get data from an API using `Invoke-WebRequest`. I'll be using 
