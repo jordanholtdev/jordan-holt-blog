@@ -1,0 +1,174 @@
+---
+title: Common String Methods
+slug: common-string-methods-javascript
+date: "2020-08-14"
+description: "Discover some of the most commonly used string methods in JavaScript"
+author: "Jordan"
+featuredImage: common-string.jpg
+tags: ["JavaScript"]
+---
+
+Working with strings in JavaScript can be a breeze if you take advantage of 
+the built-in string methods.  Here are a few of the most commonly used string methods in JavaScript.
+
+### slice()
+
+The slice() method is a non-destructive method that extracts a certain section of the string and returns that 
+section as a new string. 
+
+It takes two parameters:
+
+1. **beginIndex** - The index at which you would like the extraction to begin.
+2. **endIndex** - The index at which the extraction will end. This index will not be included in 
+the new string.
+
+```javascript
+const vaderQuote = "I am altering the deal. Pray I don’t alter it any further";
+
+const newStr = vaderQuote.slice(0, 23);
+console.log(newStr); // expected output: "I am altering the deal."
+```
+
+If we omit the endIndex then the slice() method extracts to the end of the string. 
+
+```javascript
+const vaderQuote = "I am altering the deal. Pray I don’t alter it any further";
+
+const newStr = vaderQuote.slice(31);
+console.log(newStr); // expected output: "don’t alter it any further"
+```
+
+We can also pass in negative indexes to the slice() method. 
+
+```javascript
+const vaderQuote = "I am altering the deal. Pray I don’t alter it any further";
+
+const newStr = vaderQuote.slice(-33);
+console.log(newStr); // expected output: "Pray I don’t alter it any further"
+```
+In the example above slice() counts backwards by 33  and then 
+returns the rest of that string.
+
+And here is an example using a negative endIndex. Slice() starts to extract the string from index 5, and then
+counts backwards from the end of the string to find the endIndex at -21.
+
+```javascript
+const vaderQuote = "I am altering the deal. Pray I don’t alter it any further";
+
+const newStr = vaderQuote.slice(5, -21);
+console.log(newStr); // expected output: "altering the deal. Pray I don’t"
+```
+
+You can use any integer for the begin and end index. 
+
+```javascript
+const vaderQuote = "I am altering the deal. Pray I don’t alter it any further";
+const lukeQuote = "You’ll find I’m full of surprises";
+
+const strtIndex = vaderQuote.length - lukeQuote.length;
+
+const newStr = vaderQuote.slice(strtIndex, -12);
+console.log(newStr); // expected output: "Pray I don’t alter it"
+```
+
+### lastIndexOf()
+
+The lastIndexOf() method returns the index of the last appearance of a string that is passed into the
+searchValue.
+
+Here's a break down of the parameters:
+
+1. **searchValue** - Takes a string that will act as the search value. 
+The searchValue is case sensitive.
+2. **fromIndex** - This is an optional parameter which when set, will indicate the last
+character to be considered in the search. 
+
+Let's have a look at this method in use.
+
+```javascript
+const yodaQuote= "Fear is the path to the dark side. Fear leads to anger. Anger leads to hate. Hate leads to suffering.";
+const searchTerm = "Fear";
+
+const index = yodaQuote.lastIndexOf(searchTerm);
+console.log(index); //expected output: 35
+```
+In the example above the last appearance of the search term "Fear" starts at index 35 of the string.  
+
+Here we include the optional fromIndex parameter and limit the search to 8 characters. The expected output
+will be 0 because the last character in the string that is a match is located at the 0 index. 
+
+```javascript
+const yodaStr = "control, control, you must learn control!";
+
+console.log(yodaStr.lastIndexOf("control", 8)); //expected output: 0
+```
+
+### substr() 
+
+The substr() method is very similar to the slice() method that we looked at above but the
+second parameter indicates how many characters from the start parameter we want to extract. 
+
+```javascript
+const yodaQuote = "Many of the truths that we cling to depend on our point of view.";
+
+console.log(yodaQuote.substr(12, 5)); //expected output: "truth"
+```
+Just like the slice() method the second parameter is optional. If it is not included it will return the 
+remainder of the string.
+
+```javascript
+const yodaQuote = "Many of the truths that we cling to depend on our point of view.";
+
+console.log(yodaQuote.substr(50)); //expected output: "point of view."
+```
+
+### replace()
+
+The replace method does what it sounds like, it replaces a certain portion of a string that we define using a pattern, with a 
+replacement that we define. 
+It is non-destructive and returns a new string. It takes a pattern as an argument, which can either be
+a simple string or a RegExp. If the pattern is a string then it will match only the first occurrence and replace that match.
+
+Here's a breakdown of the parameters. 
+
+1. **Pattern** - This is either a Regular Expression or a simple string. If the pattern is 
+a simple string then only the first match will be replaced.
+2. **Replacement** - The replacement can either be a simple string or a function that will be
+invoked when the pattern matches. 
+
+Let's have a look at a basic example of the replace() method.
+
+```javascript
+let str = "I really hate working with strings in JavaScript";
+
+let newStr = str.replace("hate", "love");
+console.log(newStr); // expected output: "I really love working with strings in JavaScript"
+```
+You can use a Regex as the pattern instead of a string.
+
+```javascript
+let str = "I really hate working with strings in JavaScript";
+
+let newStr = str.replace(/hate/i, "love");
+console.log(newStr); // expected output: "I really love working with strings in JavaScript"
+```
+You can also use the global Regex flag to match all cases in the string. 
+
+```javascript
+let str = "I hate, hate, hate! Working with strings in JavaScript";
+
+let newStr = str.replace(/hate/g, "love");
+console.log(newStr); // expected output: "I love, love, love! Working with strings in JavaScript"
+```
+
+Replace() is a very powerful string method and one that we will have a closer look at in future posts.
+
+## Wrap up
+
+In this post we looked at some of the most commonly used string methods in JavaScript and their basic uses.
+These are definitely great tools to have at our disposal when working with strings and can help 
+us cut down on the amount of code we need to write. 
+
+In the next post we will look at an example of how we can combine these methods. 
+
+

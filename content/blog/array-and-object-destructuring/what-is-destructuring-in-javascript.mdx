@@ -1,0 +1,134 @@
+---
+title: Array and Object Destructuring
+slug: array-and-object-destructuring-javascript
+date: "2020-08-13"
+description: "Learn how to use the destructuring assignment syntax in JavaScript when working with Arrays and Objects"
+author: "Jordan"
+featuredImage: destructure.jpg
+tags: ["JavaScript"]
+---
+
+The destructuring syntax in JavaScript was introduced in ES6 and is a powerful expression that makes working with Arrays and 
+Objects much more manageable and provides added flexibility.  You might have already been using destructuring when importing  
+JavaScript modules without knowing it. 
+
+Using the destructuring assignment syntax we can unpack values from Arrays and properties from Objects 
+and assign them into distinct variables. 
+
+Lets have a look at the basics of destructuring assignment.
+
+## Array destructuring
+
+Using the destructuring syntax we can unpack specific values from an Array and assign them to a variable.
+Here is an example using basic variable assignment with.
+
+```javascript
+const nameArray = ["Joe", "Frank", "Katherine", "Lisa"];
+
+const [a, b, c] = nameArray;
+console.log(a)
+```
+Expected output:
+```code
+"Joe"
+```
+
+We can also assign variable values seperately from the declaration. 
+
+```javascript
+let a, b;
+
+[a, b] = ["Joe", "Frank"]
+console.log(a, b)
+
+```
+Expected output:
+```code
+"Joe", "Frank"
+```
+
+#### ...rest
+
+Using the rest pattern we unpack the remaining values in an Array to one variable. 
+
+```javascript
+let a;
+
+[a, ...rest] = ["Joe", "Frank", "Katherine", "Lisa"];
+console.log(rest);
+```
+Expected output:
+```code
+["Frank", "Katherine", "Lisa"]  
+```
+We can name the variable using the ..rest pattern to something other than rest, depending on our use case.
+
+```javascript
+let a, b;
+
+[a, ...remainingNames] = ["Joe", "Frank", "Katherine", "Lisa"];
+console.log(remainingNames);    
+```
+## Object destructuring
+
+Using the same syntax we can extract values from Objects as well using basic desctructuring assignment. 
+
+```javascript
+const motorcycle = {
+	engineType: "750cc",
+  type: "cruiser",
+  color: "red",
+  used: true,
+  mileage: 1000,
+}
+
+const { color, used, mileage } = motorcycle;
+console.log(color, used, mileage)
+```
+Expected output:
+```code
+"red", true, 1000
+```
+
+We can also use the desctructuring assignment without a variable declaration, with some addtional requirements.
+
+```javascript
+let color, mileage;
+
+({ color, mileage, ...rest } =  { 
+    engineType: "750cc", 
+    type: "cruiser",
+    color: "red", 
+    used: true, 
+    mileage: 1000,
+});
+console.log(color, mileage)
+```
+
+Notice about how we wrapped the assignment statement in parentheses (...) which is required when not using
+a variable decleration. 
+
+## Combining Array and Object destructuring
+
+We commonly work with Arrays of Objects in JavaScript. We can combine Array and Object desctructuring. 
+For example if we wanted to extract the name property from the first Object in the users Array below.
+
+```javascript
+const users = [
+    { user: 1, name: "Joe" },
+    { user: 2, name: "Lisa" },
+    { user: 3, name: "Fred" }
+];
+
+const [{ name }, b, c] = users;
+console.log(name)
+```
+Expected output:
+```code
+"Joe"
+```
+
+## Wrap up 
+
+In this post we saw how we can use the destructuring syntax in JavaScript to extract values from Arrays and Objects. 
+This can be a great way to cleanly access values. I'll be diving deeper into destructuring in future posts.   

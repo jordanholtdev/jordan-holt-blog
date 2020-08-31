@@ -1,0 +1,114 @@
+---
+title: Create comments in an HTML file
+slug: create-comments-in-html
+date: "2020-08-20"
+description: "Learn how to add comments in HTML files."
+author: "Jordan"
+featuredImage: comments-image.jpg
+tags: ["HTML"]
+---
+
+Comments are a great way to help keep your projects organized. If you're working
+on a team or looking back at an older code base you'll be glad to have used comments to help
+explain your process. In this post you'll learn how to create comments in an HTML file.
+
+### Why use comments?
+
+Here's a few reasons why you might want to use comments in an HTML file.
+
+- Use comments to help your future self understand why you used specific HTML
+- Use comments to help team members explain changes or updates
+- Remove sections of HTML you don't want displayed. This could be for testing purposes.
+- Leave specific comments in production to help clients or end-users understand the HTML layout. For example
+if you create themes for a specific framework.
+
+### Adding comments
+
+An HTML comment begins with `<!--` and ends with `-->`.
+To create an comment in HTML we wrap the comment in those special markers which the browser will then 
+ignore and not display. 
+
+```html
+<!-- Everything inside these markers will be a comment and will be ignored by the browser -->
+
+<h1>This is a heading and will this will be rendered by the browser</h1>
+                                                                
+```
+
+Here are a couple of examples of how you might use comments.
+
+```html
+<!-- Added a simple form below for the mailing list. Needs input validation -->
+
+<div class="form-container">
+  <form action="" method="get" class="form-example">
+    <div class="form-example">
+      <label for="name">Enter your name: </label>
+      <input type="text" name="name" id="name" required />
+    </div>
+    <div class="form-example">
+      <label for="email">Enter your email: </label>
+      <input type="email" name="email" id="email" required />
+    </div>
+    <div class="form-example">
+      <input type="submit" value="Subscribe!" />
+    </div>
+  </form>
+  <div />
+</div>
+```
+
+Above we left a comment indicating changes to the HTML file, in this case the addition of a simple form.
+We also left a note that the form still requires input validation.
+
+Let's have a look at another example.
+
+```html
+<!-- I updated the form and temporarily removed the Name input field for testing -->
+
+<div class="form-container">
+  <form action="" method="get" class="form-example">
+    <!-- <div class="form-example">
+      <label for="name">Enter your name: </label>
+      <input type="text" name="name" id="name" required />
+    </div> -->
+    <div class="form-example">
+      <label for="email">Enter your email: </label>
+      <input type="email" name="email" id="email" required />
+    </div>
+    <div class="form-example">
+      <input type="submit" value="Subscribe!" />
+    </div>
+  </form>
+  <div />
+</div>
+```
+
+In the example above we added a comment that refers to a change in the form. We also
+removed or commented out part of the form for testing purposes. The HTML will that is between the 
+special markers `<!--` `-->` will be ignored by the browser.
+
+
+### When to avoid using comments
+
+Comments are a great way to keep organized, particularly when in development but here are a few scenerios 
+when you should avoid using comments. 
+
+1. You have a ton of of HTML that's been commented out in your production code.
+    * In this case you might want to remove the HTML that isn't being used, as a larger HTML file can effect speed.
+
+2. Storing any private data in comments.
+    * While the browser will ignore comments it is still possible to view the source code using [dev tools](https://developer.mozilla.org/en-US/docs/Tools) 
+
+3. The comments serve no purpose.
+    * If your comments are not actually helping to explain changes or updates then lose them. The more 
+    lines of code the more chance of an error. 
+
+## Wrap up
+
+HTML comments are a great way to add notes in the code to explain changes or updates. This is really useful
+if you are returning to a project after a long time away or there are multiple people working on the same
+code base.  We create an HTML comment by wrapping it with these special markers `<!--`  `-->`.
+
+Make sure to check out the [HTML5 Specs](https://html.spec.whatwg.org/multipage/syntax.html#comments) 
+for a bit more information on HTML comments.

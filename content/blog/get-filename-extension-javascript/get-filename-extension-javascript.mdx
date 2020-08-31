@@ -1,0 +1,98 @@
+---
+title: Get the extension of a filename using JavaScript
+slug: get-filename-extension-javascript
+date: "2020-08-15"
+description: "Use common JavaScript string methods to get the extension of a filename"
+author: "Jordan"
+featuredImage: file-extension-images.jpg
+tags: ["JavaScript"]
+---
+
+In the last post we had a look at some common string methods in JavaScript. In this post we'll combine 
+a couple of those string methods in a useful function that will return the extension of the filename passed into it. 
+
+For the purpose of this post we will consider a filename extension to be delimited from the filename with a dot character.
+Here are a few typical examples:
+
+* **index.html**    - *.html* is the filename extension
+* **app.js**    - *.js* is the filename extension
+* **package.json**  - *.json* is the filename extension
+* **README.md**  - *.md* is the filename extension
+
+This post is not a deep-dive into filename extensions. It's purpose is to highlight how you can combine
+string methods together in useful ways. Make sure to check out the [Wikipedia article](https://en.wikipedia.org/wiki/Filename_extension) on 
+filename extensions for more resources.
+
+
+First thing we are going to do is create our function. This will be an arrow function and we'll call it getExtension().
+
+```javascript
+const getExtension = () => {};
+```
+
+This function will have one parameter, a string, which will be our filename. Since our arrow function 
+only has one parameter we can remove the brackets. 
+
+```javascript
+const getExtension = str => {};
+```
+
+## slice() method
+
+As you learned in the previous post, the slice() method can extract a specific portion of a string based on indexes you
+pass into it. You can take advantage of that in your function as you'll see shortly. Let's add that in now.
+
+```javascript
+const getExtension = str => {str.slice()};
+```
+The first parameter of the slice() method dictates where the extraction will begin, and the second parameter indicates 
+where in the string it should end. With that in mind lets have another look at a common file name and determine how to best use
+slice() in this scenario.
+
+**index.html**
+
+The extension of the *index.html* filename begins with the dot character so in this case the extension would be **.html**.
+So we want to start our slice() extraction at the dot character.
+
+We do not need to include the endIndex parameter in the slice() method since we want to extract all the characters of the 
+string starting from the dot character until the end of the string.
+
+So how do you determine the index of the last dot character in each filename? 
+
+## lastIndexOf()
+
+Since the lastIndexOf() method returns the index of the last occurrence of a matching pattern its a good choice.
+
+```javascript
+const getExtension = str => {str.slice(str.lastIndexOf("."))};
+```
+If you pass in the "." (dot character) as the pattern for lastIndexOf(), it will return its index and that index is then used as the beginIndex 
+for the slice() method. We can also remove the curly braces from our arrow function since it fits on one line.
+
+And that should do it. Let's try it out. 
+
+```javascript
+const getExtension = str => str.slice(str.lastIndexOf("."));
+
+console.log(getExtension("package.json")); // expected output: ".json"
+```
+
+And because we are using the lastIndexOf() method this can work on certain filenames that contain multiple dot characters. 
+such as mysite.index.html
+
+```javascript
+const getExtension = str => str.slice(str.lastIndexOf("."));
+
+console.log(getExtension("mysite.index.html")); // expected output: ".html"
+```
+
+## Wrap up
+
+In this post you saw how two common JavaScript string methods can be combined in a useful function. 
+
+Depending on your use case this function may not be appropriate. Filename extensions are not always delimited from the filename 
+with a dot character, and in some cases have more than one extension which you may need access to.  If that's the case
+you could modify this function to accommodate those requirements. 
+
+In future posts we will combine more string methods and we'll have a closer look at the replace() method. 
+

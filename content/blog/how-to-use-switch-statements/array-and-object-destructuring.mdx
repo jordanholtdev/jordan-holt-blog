@@ -1,0 +1,140 @@
+---
+title: How to use switch statements
+slug: how-to-use-switch-statements
+date: "2020-08-10"
+description: "Learn how to use a switch statement to evaluate an expression against multiple possibilities"
+author: "Jordan"
+featuredImage: green-switches.jpg
+tags: ["JavaScript"]
+---
+
+Switch statements are a useful when you need to evaluate an expression against multiple possibilities. They can be a great alternative to other conditional statements like using multiple else if statements.
+
+Lets have a look and see how to use them.
+
+## Basic switch statement syntax
+
+Let's have a look at the syntax of a basic switch statement. Here's an example:
+
+```javascript
+const expr = "Hand soap"
+
+switch (expr) {
+  case "Hand soap":
+    console.log("Hand soap is $1.29.")
+}
+```
+
+You must use the `switch` keyword, followed by parenthesis () which will accept the expression to be evaluated, the `case` keyword that will evaluate the expression that was passed into the statement and a colon (" : ") that will indicate the start of the code block to be run if that case evaluates true.
+
+In the example above, the `case` evaluates to true so the code block will run and log `Hand soap is $1.29.` to the console.
+
+When the expression being evaluated is true the switch statement executes the associated cases code block, as well statements that follow the matching case.
+
+If you run the following code you will see that both case statements are executed and the console will log `Hand soap is $1.29.` and `Deodorant is $2.59 each.`.
+
+```javascript
+const expr = "Hand soap"
+
+switch (expr) {
+  case "Hand soap":
+    console.log("Hand soap is $1.29.")
+  case "Deodorant":
+    console.log("Deodorant is $2.59 each.")
+}
+```
+
+## Break statement
+
+You can use the `break` statement to make sure the program breaks out of the switch logic once the matching statement is executed.
+
+```javascript
+const item = "Hand soap"
+
+switch (item) {
+  case "Hand soap":
+    console.log("Hand soap is $1.29.")
+    break
+  case "Deodorant":
+    console.log("Deodorant is $2.59 each.")
+    break
+}
+```
+
+Once a matched statement executes the program will break out of the switch statement.
+
+## Default clause
+
+If no matching cases are found we can use a `default` clause with an associated code block that will exucute.
+
+```javascript
+const item = "Face masks"
+
+switch (item) {
+  case "Hand soap":
+    console.log("Hand soap is $1.29.")
+    break
+  case "Deodorant":
+    console.log("Deodorant is $2.59 each.")
+    break
+  default:
+    console.log(`Sorry, we are out of ${item}.`)
+}
+```
+
+## Multiple cases
+
+You can also take advatange of the optional `break` statement to create helpful logic.
+
+Here we use multiple cases with a single operation that will execute if any of those cases are true.
+
+```javascript
+const item = "Shampoo"
+
+switch (item) {
+  case "Hand soap":
+  case "Deodorant":
+  case "Shampoo":
+  case "Toothpaste":
+    console.log(`${item} is on sale!`)
+    break
+  default:
+    console.log(`${item} is not on sale right now.`)
+}
+```
+
+The example above is known as a multi-case single operation statement. We have multiple cases that will perform the same operation.
+
+We could can also have multiple cases and chain operations for more complex logic:
+
+```javascript
+const memberLevel = 4
+let message = "You get free: "
+
+switch (memberLevel) {
+  case 5:
+    message += "Personal coaching, "
+  case 4:
+    message += "Monthly group calls "
+  case 3:
+    message += "Private FB group, "
+  case 2:
+    message += "Email suport, "
+  case 1:
+    message += "Tutorials"
+    message += "!"
+    console.log(message)
+    break
+  case 0:
+    console.log("Thanks for becoming a memeber! Have a free t-shirt!")
+    break
+  default:
+    console.log("Join now to become a member with great benefits!")
+}
+```
+
+## Wrap up
+
+If your control flow logic uses several else if statements or is becoming verbose and difficult to read then consider using a switch statement.
+
+If you're interested in learning more about switch statements check out the [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/switch) reference pages as well as this [Stack Overflow](https://stackoverflow.com/questions/13207927/switch-statement-multiple-cases-in-javascript) thread that dives deeper into some use cases.

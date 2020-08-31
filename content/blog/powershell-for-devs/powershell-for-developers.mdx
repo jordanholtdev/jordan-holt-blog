@@ -1,0 +1,497 @@
+---
+title: A crash course on PowerShell for Developers
+slug: powershell-for-devs
+date: "2020-08-21"
+description: "Learn to use PowerShell and level up your development workflow"
+author: "Jordan"
+featuredImage: powershell-dev-image.jpg
+tags: ["CLI"]
+---
+
+While some developers might consider web development on Windows to be lacking compared to Linux and macOS, PowerShell has greatly improved the 
+web development workflow on Windows and is not just for Admins. PowerShell gives you access to the computers file system, allows you to make server requests as well as interact with 
+a huge amount of other technologies. PowerShell is a scripting language and command-line shell so it has a lot of potential!
+
+If you're a developer in the Microsoft ecosystem then learning PowerShell will help improve your workflow. This crash course
+is designed for Windows users, however PowerShell is cross-platform and can be used on Linux and macOS. 
+
+This course uses [PowerShell version 7.03](https://github.com/PowerShell/PowerShell/releases) and assumes you have a basic understanding of what a [command-line shell](https://en.wikipedia.org/wiki/Shell_%28computing%29) is and 
+that you've perhaps opened and explored one before or are familiar with Linux or macOS shells. 
+If not, no worries, you can still follow along and learn a few things. This course rapidly goes through a lot of information, 
+as it's intended to get you working with PowerShell quickly. However, I will be diving deep into the concepts and commands introduced here in upcoming articles.
+
+## Command-let
+
+PowerShell uses something called a cmdlet (command-let) which is described by Microsoft as a "lightweight command that is used in the PowerShell environment".
+These are very similar to a function in other programming languages. 
+
+For example in JavaScript you might invoke or call a function like this:
+
+```JavaScript
+exampleFunction(Value1);
+```
+
+However, the cmdlet syntax is a bit different. For example we could write something like this. 
+
+```powershell
+New-Item -Name "Value1"
+```
+
+We'll dive deeper into into the cmdlet syntax later, but for now let's look at some basics you should know about cmdlets:
+
+* PowerShell calls its arguments **Parameters**
+* Parameters always start with a dash, `-Path`, `-Name`, `-PassThru`.  
+* Parameters are order-independent, we don't need to just provide parameter values in a specific order we need to provide the parameter names. 
+* Some parameters don't have values, they will only have one effect. These are called [switch parameters](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_functions_advanced_parameters?view=powershell-7#switch-parameters)
+```powershell
+# -PassThru is a switch parameter
+Set-Location -Path "C:\Users\jordan\Desktop\" -PassThru
+```
+* PowerShell is not case sensitive: `New-Item`, `new-item` & `neW-ITem` would all work the same.
+* Cmdlets always use the naming pattern of verb-noun to help us figure out what they do. 
+* PowerShell can sometimes assume that a value type is a string without wrapping the value in double quotes. 
+
+```powershell
+# these are the same
+New-Item -Name "Value1"
+New-Item -Name Value1
+```
+* Some parameters are [Positional](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_parameters?view=powershell-7). If 
+a parameter is positional then we do not need to include the parameter name, however the order of a positional parameter is important. More on that later. 
+
+```powershell
+# these are the same, the second cmdlet  uses the positional parameter -Path 
+New-Item -Path "c:\" -Name "Value1"  -ItemType "directory"
+New-Item  "c:\" -Name "Value1" -ItemType "directory"
+```
+
+* Many cmdlets have aliases which are meant to make them easier to use. You can also create your 
+own aliases but we'll cover that another time. 
+
+```powershell
+# these cmdlets are the same, ni is an alias
+new-item
+ni
+```
+```powershell
+# these cmdlets are the same
+Get-History
+ghy
+h
+history
+```
+* Parameters can also have aliases 
+
+I wanted to start with the basics of cmdlets because you'll often run across many different variations of a PowerShell cmdlet,
+and it can be confusing at first. While there are many variations and shortcuts to write a PowerShell script, I recommend that you try and 
+begin with the long-hand versions for readability. 
+
+## Get-Help
+
+One of the first things you should know when working with PowerShell is where to look for information about commands. Luckily 
+you can use the `Get-Help` cmdlet to accomplish this. 
+
+There are 3 different types of help information that can be display:
+1. **Help files**. These are files that can be downloaded and installed locally on your computers. You can use the cmdlet `Update-Help` to install these files.
+2. **Auto-generated help info**. These are much smaller bits of help information that PowerShell generates if no help files are available on your computer locally.  
+3. **Online help**.  `Get-Help` can open online help information from the Microsoft [TechNet Library](https://docs.microsoft.com/en-us/)
+
+Here's how we can use it to display help about the `new-item` command. 
+
+```powershell
+# this will display the help files for the new-item cmdlet one page at a time.
+Get-Help new-item
+```
+We can also use the PowerShell function `help` that runs the `Get-Help` cmdlet to do the same thing. 
+
+```powershell
+# these do the same thing. man is an alias of help
+help new-item
+man new-item
+```
+You might recognize `man` which is kind of like the Unix verion of `Get-Help`.  Many aliases are from other systems to make it 
+easier to transition which is nice 👍. 
+
+In addition to the general information you can also pass in the `-examples` parameter which will display examples of how 
+cmdlets and functions are used. 
+
+```powershell
+# this will display examples of how to use new-item
+help new-item -examples
+```
+If at anytime you need to exit the help pages you can simply press `q` or `ctrl + c`.
+
+Opening the online help results:
+```powershell
+# this will open the online help results for new-item
+help new-item -online
+```
+## Navigating 
+
+Learning how to effectively navigate a file system will speed up your workflow and make for a better overall experience. If you execute a command 
+while in the wrong directory it can be confusing or worst case, completely ruin your day. 
+
+Understanding where you are is really the first step in all navigation. 
+
+You can determine where you are in the file system by using the `Get-Location` cmdlet. This is the similar to the `pwd` command on Unix systems. You can 
+still use `pwd` which is an alias for `Get-Location`. 
+
+```powershell
+# this will display your current location
+Get-Location
+
+# my current location 
+Path
+----
+C:\Users\jordan
+```
+
+```powershell
+# these are the same 
+Get-Location
+gl
+pwd
+```
+
+#### Change Locations
+
+Once you know where you currently are you can change your location with the `Set-Location` cmdlet. You can also use the 
+alias `cd` (change directory) that comes from Unix. You'll often see `cd` in documentation and if you're used to Unix then it might be 
+easier to remember. [^1] 
+
+The `Set-Location` cmdlet has a `-Path` parameter which will take in the target path. 
+
+```powershell
+# these all do the same thing
+Set-Location -Path "C:\Users\jordan\Desktop\"
+sl -Path "C:\Users\jordan\Desktop\"
+cd -Path "C:\Users\jordan\Desktop\"
+```
+Because the `-Path` parameter is has a positional value of 0 you can omit it and just indicate the target location
+
+```powershell
+# this are the same
+cd "C:\Users\jordan\Desktop\"
+cd -Path "C:\Users\jordan\Desktop\"
+```
+You can also use the `-PassThru` parameter, which will return the location. This can be a handy way to confirm you're in 
+the correct location after navigating to a new directory without using a seperate cmdlet like `pwd`.
+
+```powershell
+cd "C:\Users\jordan\Desktop\" -PassThru
+
+Path
+----
+C:\Users\jorda\Desktop
+```
+You can take advantage of [Tab Completion](https://docs.microsoft.com/en-us/powershell/scripting/windows-powershell/ise/how-to-use-tab-completion-in-the-script-pane-and-console-pane?view=powershell-7) when 
+entering a path so you don't have to the whole thing out. 
+
+You can also use a few shortcuts to change locations. 
+
+```powershell
+# this will take you to the logged in users directory
+cd ~
+```
+To move up one level in the file system you could write the following:
+
+```powershell
+# moves up one level
+cd ..
+```
+You might be familiar with using the two dot characters (without a space) `..` if you have imported JavaScript modules or linked CSS files from different 
+directories. 
+
+If you're using PowerShell v6.2 or higher than you can also use `-` and `+` as values for the `-Path` parameter. PowerShell keeps a short history
+of the last 20 locations and you can use those characters to navigate between them. 
+
+```powershell
+# this will navigate backwards in your history 
+cd -
+# this will navigate forwards in your history 
+cd +
+```
+#### Listing the contents of a directory
+
+Once you've successfully navigated to your desired location it can be helpful to find out exactly what files or directories are inside. 
+
+You can use the `Get-ChildItem` cmdlet to list all the items in one or more locations. You can also use the alias `ls` from Unix. 
+
+```powershell
+# this will return the names of all the files in the current directory 
+Get-ChildItem -Name
+
+# these do the same thing
+ls -Name
+gci -Name
+```
+By default, if no parameters are entered `Get-ChildItem` will list:
+* Mode
+* LastWriteTime
+* File Size (Length)
+* Name
+
+```powershell
+# heres what the default looks like in my case
+Get-ChildItem 
+
+    Directory: C:\Users\jordan\Desktop
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d----          2020-08-20  1:21 PM                testing
+-a---          2020-08-21  5:22 PM        1593744 audio-image.jpg
+```
+
+#### View the contents of a file
+
+Now that you've navigated to your desired location and you've listed out all the contents of a directory, perhaps you'd like 
+to see the contents of a specific file. 
+
+You can use the `Get-Content` cmdlet to display the contents of a file. The aliases for this cmdlet are `cat` which comes from Unix and `type`. 
+
+```powershell
+# this will display the contents of the animals.json file in my current directory 
+Get-Content -Path animals.json
+
+# the contents of animals.json
+{
+  "name": "lion",
+  "color": "gold",
+  "description": "king of the jungle",
+  "friend": "hippo",
+  "food": "zebra"
+}
+```
+Because `-Path` is a positional parameter with a position of 0 we can omit it and just write
+
+```powershell
+# this will have the same result as above
+Get-Content animals.json
+```
+Because many files contain a ton of information you might want to limit the amount that is displayed. You can do that by using the 
+`-TotalCount` parameter and specify the total number of lines you want displayed.
+
+
+```powershell
+Get-Content animals.json -TotalCount 3
+
+{
+  "name": "lion",
+  "color": "gold",
+```
+
+## Create new files and directories
+
+If you're a web developer you're likely creating new files all the time as your projects grow. Luckily PowerShell makes it pretty easy 
+to create new files and directories using the `New-Item` cmdlet. 
+
+This course is just going to cover the basics of `New-Item` but I will be deep diving into that cmdlet in future posts 
+because it's such a powerful command that you can leverage to make your web development workflow more efficient.   
+
+#### Creating new files
+
+You can create a new file using the `New-Item` cmdlet, which has an alias `ni`. 
+
+```powershell
+# here's a basic example of creating a new file
+New-Item -Path . -Name "index.html" -ItemType "file"
+```
+In the example above we created a file in the current directory called `index.html`.  We used a parameter called `-ItemType` to specify
+the file type. 
+
+You can write a shorthand version that takes advantage of an alias, positional parameters and default values. `-Path` has a position of 0 and it's default
+value is the current location.  You can also pass in the name of the file into the `-Path` parameter.  We can also omit the `-ItemType` parameter 
+in this case because we are including the file extension in the name. 
+
+So, the shorthand could look something like this:
+
+```powershell
+# these are the same
+ni index.html
+New-Item -Path . -Name "index.html" -ItemType "file"
+```
+
+You can also easily create multiple files with the same command. `-Path` takes in multiple strings, seperated by a comma. Here we create
+two files, `app.js` and `index.html`. 
+
+```powershell
+# this will create two files in the current directory
+New-Item app.js, index.html -Type "file"
+```
+You can also create mulitple files at different locations by specifying the paths. In this example 
+we create two different files, `app.js` created at `c:\Users\Jordan\Client-Projects\` and `index.js` created 
+at `c:\Users\Jordan\Personal-Projects\`.
+
+```powershell
+# here we are creating two files, at two different locations
+New-Item "c:\Users\Jordan\Client-Projects\app.js", "c:\Users\Jordan\Personal-Projects\index.js"
+```
+#### Creating new directories
+
+To create a new directory you can also use the `New-Item` cmdlet, and specify "directory" as the `Item-Type`
+
+```powershell
+# these are the same
+New-Item -Path . -Name "styles" -ItemType "directory" 
+New-Item "styles" -ItemType "directory" 
+ni "styles" -ItemType "directory"
+ni "styles" -Type "directory"
+```
+
+If you're coming from a Unix background you might be familiar with the `mkdir` (make directory) command. In PowerShell `mkdir` is a function that
+references the `New-Item` cmdlet and hard codes the `-Type` parameter as `Directory`.
+
+It's a convenient function that makes is a bit shorter and easier to remember, particularly if you're coming from other shells.
+Here's how you can use it:
+
+```powershell
+# creates a directory in the current location called client
+mkdir client 
+
+# creates a directory in the root of the C: drive called foo
+mkdir C:\foo
+```
+
+And of course its easy to create multiple directories as well. Here we create  directories named `styles`, `client-scripts` and `images`
+in the current location. 
+
+```powershell
+# these do the same thing
+mkdir styles, client-scripts, images
+New-Item styles, client-scripts, images -ItemType "directory" 
+```
+
+#### Combining cmdlets
+
+Now that you know a couple of the basic cmdlets, you can begin to combine them and start to unleash some of the real potential of 
+working with PowerShell. 
+
+There are a few ways to combine cmdlets together, all producing different results. Let's have a look at some of the ways we can combine commands. 
+
+**Statement Operator**  
+This is one of the easiest ways to combine cmdlets. Using a semicolon (`;`) you can write multiple commands on one line. 
+
+```powershell
+# create a directory and then navigate to it
+mkdir styles; cd styles 
+```
+In the example above we created a new directory called `styles` then we navigated to it using `cd`.  However the statement operator has 
+it's limitations when used to combine commands since the second command will execute regardless of if the first one was successful. 
+
+Luckily, there are a couple of other operators we can use to avoid errors and add some logic when creating more complex commands. 
+
+**Pipeline Chain Operators**
+
+I'm not going to get too deep into pipes right now but I do want to keep you excited about the possibilities when working with PowerShell. 
+So I will introduce [pipeline chain operators](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_pipeline_chain_operators?view=powershell-7) 
+and provide some examples to show you how you can use them. 
+
+For now you just need to know the basics of pipeline chain operators:
+
+* `&&` This operator will run the second command (on the right hand side of the pipe) only if the first command succeeds.
+* `||` This operator will run the second command (on the right hand side of the pipe) only if the first one fails.
+
+Here are a couple basic examples using the `Write-Output` cmdlet which can display or print to the PowerShell console, and the `Write-Error` cmdlet 
+which we will use to create an error to simulate a failed command. This way you can better visualize the results of the commands. 
+
+Here we use the `&&` operator with two successful commands. Since the first command (the one on the left hand side of the pipe) is successful
+the second command runs. 
+
+```powershell
+Write-Output 'First command is successful' && Write-Output 'so this second command is runs'
+
+# console output
+First command is successful
+so this second command is runs
+```
+
+Here we the first command fails and so the second command will not execute:
+
+```powershell
+Write-Error "This command failed" && Write-Output "This command will not run"
+
+# console output
+Write-Error "This command failed"
+```
+
+Using the `||` operator
+```powershell
+Write-Output "The first command was successful" || Write-Output "so this command will not run"
+
+# console output
+"The first command was successful"
+```
+Using the `||` operator with the first command failing:
+```powershell
+Write-Error "This command failed" || Write-Output "so the second command runs"
+
+# console output
+Write-Error: This command failed
+so the second command runs
+```
+
+So that's all good and fine you might say, but how about a practical example?
+
+Here's an example taking advantage of the pipeline chain operators, to quicly create a project directory structure:
+```powershell
+# create a basic web development structure
+mkdir todo-app && cd todo-app `
+&& mkdir styles, scripts, images `
+&& ni C:\Users\jordan\Projects\todo-app\styles\styles.css, index.html, README.md
+
+# console output
+    Directory: C:\Users\jordan\Projects\todo-app
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d----          2020-08-21  1:10 PM                todo-app
+
+    Directory: C:\Users\jorda\Desktop\todo-app
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d----          2020-08-21  1:10 PM                styles
+d----          2020-08-21  1:10 PM                scripts
+d----          2020-08-21  1:10 PM                images
+
+    Directory: C:\Users\jordan\Projects\todo-app\styles
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a---          2020-08-21  1:10 PM              0 styles.css
+
+    Directory: C:\Users\jordan\Projects\todo-app
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a---          2020-08-21  1:10 PM              0 index.html
+-a---          2020-08-21  1:10 PM              0 README.md
+```
+In the example above we create a project directory called `todo-app`, if that command is successful then we navigate inside the `todo-app`
+directory and create 3 directories called `images`, `scripts` and `styles`. Then we use the `ni` cmdlet to create 3 files, `index.html` and `README.md`
+which will be at the root of the `todo-app` directory and a `styles.css` file that will be located in the `styles` directory. You can use a backtick ( ` ) to 
+to create a newline in the command for readability. 
+
+Because we used the `&&` operator each command will only run if the one before it is successful. You can see with this example how we can
+combine commands to quicly create a project structure. This concept starts to become really helpful when we combine commands like this in custom
+scripts that you can easily reuse. 
+
+## Wrap up 
+
+In this crash course you learned how you can use PowerShell to increase your web development workflow by using basci `cmdlets`. You 
+learned the basic syntax of a `cmdlet`, how to find information in PowerShell, how to navigate, create files and directories as well 
+as combine commands to create project structures. 
+
+Don't worry if you don't understand everything that was covered in this crash course. Re-read it as many times as you need to and 
+have a look at some of the resources I linked to.  Using a shell to perform regular tasks takes time to become comfortable with but the more 
+you use it the better you'll become and soon you'll become a power user! 
+
+In future posts I will dive deeper into `cmdlets` and show you some more web development focused commands such as how to make server
+requests and write custom scripts that you can reuse in your projects. 
+
+[^1]: While using aliases that come from Unix might be more familiar, consider that if you're 
+writing PowerShell scripts that will be used by others it might be thoughtful to use the PowerShell cmdlet names and not 
+aliases for better readability. 
+
+ Update-Help

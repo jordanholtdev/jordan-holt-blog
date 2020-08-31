@@ -1,0 +1,172 @@
+---
+title: How to use a for loop
+slug: how-to-use-a-for-loop
+date: "2020-08-11"
+description: "Learn how to use a for loop in JavaScript"
+author: "Jordan"
+featuredImage: postImage.jpg
+tags: ["JavaScript"]
+---
+
+Loops are a very important concept in programming and the for loop is a classic. Almost all languages have an implementation of 
+the for loop. 
+They are foundational to control flow and can be found in most programs. 
+
+
+Before we look specifically at a for loop in JavaScript, lets have a quick look at the features most programming loops share in common. 
+The job of a loop is to loop through a portion of code over and over, which is called iteration. To iterate is to perform or repeat an action on each item in a set.
+Loops in programming usually have the following features:
+
+1. **Counter**. This is the starting point for the loop and will initial value. This will keep track of how many times we iterate over each item.
+2. **Condition**. This condition will evaluate to either true or false and is used to determine if the loop should continue to run.
+3. **Iterator**. The iterator will usually increments the counter by a set amount each loop.
+
+## Standard for loop
+
+Lets have a look at a for loop contruct.
+
+1. **Initializer**. The initializer is an expression that is evaluated before the loop begins. The expression can be a variable decleration.
+   This is usually used as a counter variable.
+2. **Condition**. This expression will be evaluated once before every loop iteration. If this expression evaluates true then the code block will execute.
+   The condition is optional. If not included the condition will evaluate to true. If false it will not cycle through the code
+   block.
+3. **Final-expression**. This expression is evaluated at the end of each iteration as long as the condition evaluates to true.
+   This is often used to increment the counter.
+4. **Statement**. This statement will execute if the condition evaluates to true.
+   We can use multiple statements by grouping them with in a block statement using curly braces {}.
+
+```javascript
+for (Initializer; Condition; Final - expression) {
+  //   code block to execute known as the statement.
+}
+```
+
+Here's a classic example of using a for loop as a counter.
+
+```javascript
+for (let i = 0; i <= 10; i++) {
+  console.log(i)
+}
+```
+
+Let's describe what's happening above.
+We declare a variable called **i** ( which stands for index ) that is evaluated before the loop begins.
+Then on every iteration of the loop, the condition checks to see if **i** is less than or equal to 10.
+If that condition is true the final-expression executes and increments **i** by 1.
+Then, since our condition was true the statement executes and logs the value of **i** to the console.
+
+## Expressions are optional
+
+The expressions in the for loop are optional. Here we do not include the initializer block in the for loop, we can
+declare a variable outside of the for loop head.
+
+```javascript
+let i = 0
+for (; i <= 10; i++) {
+  console.log(i)
+}
+```
+
+Here we omit the condition so that it always evaluates to true.
+
+```javascript
+let i = 0
+for (; ; i++) {
+  console.log(i)
+  if (i > 9) break
+}
+```
+
+Because we are working with loops its important that we include logic that breaks out of the
+loop once the a condition is met or we can create infinte loops. Infinte loops quicly fill up memory and can crash our program.
+If you want to try it out yourself, just remove the if statement and break keyword from the example above.
+
+And lastly we can remove the final-expression from the head of the for loop.
+We still provide a way to increment the variable, this case in the block statement.
+
+```javascript
+let i = 0
+for (;;) {
+  console.log(i)
+  if (i > 9) break
+  i++
+}
+```
+
+## Looping through arrays
+
+Looping through arrays is a common task in JavaScript and the standard for loop can be a good choice depending on
+your use case. We can iterate over an array with a standard for loop in the same way we layed out above.
+
+```javascript
+let animalsArray = ["lion", "tiger", "zebra", "elephant", "rhino"]
+
+let i = 0
+for (; i < animalsArray.length; i++) {
+  console.log(animalsArray[i])
+}
+```
+
+In the example above we have an array of animal names called **animalsArray**. Since arrays in JavaScript are
+zero based, meaning that the first items index in the array is zero, we set the initializer to 0.
+
+Then the condition that is set will be true as long as the initializer is less than the total length of the array.
+We use the .length property on the **animalsArray** to indicate how many items are in the array. We for each loop iteration we simply log
+each current item in the **animalArray** to the console.
+
+Expected output:
+
+```powershell
+"lion"
+"tiger"
+"zebra"
+"elephant"
+"rhino"
+```
+
+The tricky part with using a standard for loop with arrays is when you are working with second level properties. You can nest for loops to solve this problem.
+In those cases you'll likely need to declare a seperate index variable and will need to keep track of that as well.
+
+```javascript
+let allAnimals = [
+  {
+    animals: ["lion", "tiger", "zebra", "elephant", "rhino"],
+  },
+  {
+    animals: ["cat", "dog", "bunny", "hamster"],
+  },
+];
+
+let i = 0
+for (; i < allAnimals.length; i++) {
+  let childArray = allAnimals[i].animals
+
+  for (let j = 0; j < childArray.length; j++) {
+    console.log(childArray[j])
+  }
+}
+```
+
+Expected output:
+
+```powershell
+"lion"
+"tiger"
+"zebra"
+"elephant"
+"rhino"
+"cat"
+"dog"
+"bunny"
+"hamster"
+```
+As you can see nested for loops could become verbose in some circumstances so depending on your use case it might
+be easier to employ an array method like forEach().  
+
+
+## Wrap up
+
+The for loop is a JavaScript classic and essential part of a JavaScript developers tool kit. Almost all languages have an implementaion of the 
+for loop. Get to know how to use this powerful loop by using it in your next project. Be sure to check out 
+the [MDN Article](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/statements/for) on for loops for more 
+in depth reading. 
