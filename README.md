@@ -59,6 +59,6 @@ Whether you use this codebase, have learned something from one of the articles, 
 
 <p align="left">
   <a href="https://github.com/jordanholtdev/jordan-holt-blog/blob/master/LICENSE">
-    <img src="https://img.shields.io/github/license/jordanholtdev/jordan-holt-blog?color=green" />
+    <img src="https://img.shields.io/github/license/jordanholtdev/jordan-holt-blog?label=License%20%F0%9F%92%A5" />
   </a>
 </p>
