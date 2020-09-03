@@ -8,7 +8,7 @@
 
 <p align="center">
   <a href="https://twitter.com/intent/follow?screen_name=jordanholtdev">
-    <img src="https://img.shields.io/twitter/follow/jordanholtdev?  label=Follow%20Me&style=social" />
+    <img src="https://img.shields.io/twitter/follow/jordanholtdev?style=social" />
   </a>
   <a href="https://blog.jordanholt.dev/">
     <img src="https://img.shields.io/website?url=https%3A%2F%2Fblog.jordanholt.dev%2F" />
