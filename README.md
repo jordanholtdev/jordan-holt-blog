@@ -22,7 +22,10 @@
 This is the codebase behind my personal blog where I write about web development. 
 I created this as a way to sharpen my Gatsby and React skills but primarily as a platform where I could write about the things I'm learning about and interested in. 
 
-<p align="center">You can view the <a href="https://blog.jordanholt.dev/">live site here.</a></p>
+<p align="left">You can view the <a href="https://blog.jordanholt.dev/">live site here.</a></p>
+
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/91d72b89-3696-4864-9221-7f3859ac1efb/deploy-status)](https://app.netlify.com/sites/competent-babbage-9bca20/deploys)
 
 ![Home Preview](./content/assets/home-preview.jpg)
 
