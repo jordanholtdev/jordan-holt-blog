@@ -100,7 +100,7 @@ const AllPosts = ({ pageContext, data }) => {
   return (
     <Layout>
       <SEO
-        title={data.site.siteMetadata.title}
+        title={"Blog"}
         description={data.site.siteMetadata.description}
       />
       <StyledHero data={data} />
