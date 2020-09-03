@@ -7,10 +7,16 @@
 </h1>
 
 <p align="center">
-  <img src="https://img.shields.io/twitter/follow/jordanholtdev?label=Follow%20Me&style=social" />
-  <img src="https://img.shields.io/website?url=https%3A%2F%2Fblog.jordanholt.dev%2F" />
+  <a href="https://twitter.com/intent/follow?screen_name=jordanholtdev">
+    <img src="https://img.shields.io/twitter/follow/jordanholtdev?  label=Follow%20Me&style=social" />
+  </a>
+  <a href="https://blog.jordanholt.dev/">
+    <img src="https://img.shields.io/website?url=https%3A%2F%2Fblog.jordanholt.dev%2F" />
+  </a>
   <img src="https://img.shields.io/maintenance/yes/2020" />
-  <img src="https://img.shields.io/github/commit-activity/w/jordanholtdev/jordan-holt-blog"/>
+  <a href="https://github.com/jordanholtdev/jordan-holt-blog/graphs/commit-activity">
+    <img src="https://img.shields.io/github/last-commit/jordanholtdev/jordan-holt-blog"/>
+  </a>
 </p>
 
 This is the codebase behind my personal blog where I write about web development. 
@@ -52,5 +58,7 @@ Whether you use this codebase, have learned something from one of the articles, 
 ### License
 
 <p align="left">
-  <img src="https://img.shields.io/github/license/jordanholtdev/jordan-holt-blog?color=green" />
+  <a href="https://github.com/jordanholtdev/jordan-holt-blog/blob/master/LICENSE">
+    <img src="https://img.shields.io/github/license/jordanholtdev/jordan-holt-blog?color=green" />
+  </a>
 </p>
