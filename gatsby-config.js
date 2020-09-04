@@ -18,7 +18,7 @@ module.exports = {
       summary: `I'm a JavaScript developer and I am passionate about technology creating cool things.`,
     },
     description: `A blog about web development & technology.`,
-    siteUrl: `https://jordanholt.dev/`,
+    siteUrl: `https://blog.jordanholt.dev/`,
     social: {
       twitter: `jordanholtdev`,
       github: `jordanholtdev`,

@@ -1,6 +1,7 @@
 import React from "react";
 
 import styled from "styled-components"
+import { Coffee } from "@styled-icons/fa-solid"
 
 const List = styled.footer`
   margin-top: 2rem;
@@ -10,14 +11,33 @@ const List = styled.footer`
   list-style: none;
 `
 
+const StyledCoffee = styled(Coffee)`
+  color: ${props => props.theme.colors.orangePeel};
+  height: 20px;
+  :hover{
+    opacity: 0.75;
+  }
+`
+
 const Footer = () => {
     return (
-        <footer>
-            <List>               
-                <li><a href="https://interactiveimmersive.io/blog/">Interactive Immersive</a></li>
-                <li>© {new Date().getFullYear()} Jordan Holt</li>
-            </List>
-        </footer>
+      <footer>
+        <List>
+          <li>
+            <a href={"https://www.buymeacoffee.com/jordanholtdev"}>
+              Buy me a coffee
+              <br />
+              <StyledCoffee />
+            </a>
+          </li>
+          <li>
+            <a href="https://interactiveimmersive.io/blog/">
+              Interactive Immersive
+            </a>
+          </li>
+          <li>© {new Date().getFullYear()} Jordan Holt</li>
+        </List>
+      </footer>
     )
 };
 
