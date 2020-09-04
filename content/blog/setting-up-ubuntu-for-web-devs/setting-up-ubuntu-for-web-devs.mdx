@@ -1,0 +1,146 @@
+---
+title: Setting up Ubuntu for web development
+slug: ubuntu-for-web-dev
+date: "2020-09-04"
+description: "Explore the tools you need to setup Ubuntu for web development"
+author: "Jordan"
+featuredImage: ubuntu-setup-image.jpg
+tags: ["Linux"]
+---
+
+Ubuntu is an open source Linux distribution, that comes with regular releases as well as 
+commercial support for desktops and servers. It's a great choice for developers just getting started on Linux and 
+seasoned Linux users alike. 
+In this post I'll be talking about setting up Ubuntu for web development.
+
+Every developer will have slightly different requirements, workflows and preferences, this post is meant as a general guide to the setup and tools required for a development environment on Ubuntu. I won't get into the details of installing each tool, as there are often more than one way to install them. 
+If you're just getting started with Ubuntu you should check out the [Ubuntu docs](https://help.ubuntu.com/lts/ubuntu-help/index.html).  
+
+## Basic Setup
+
+Before you get too deep into setting up your Ubuntu development environment, the first thing you should do is determine what 
+version of Ubuntu is installed on your machine, and make sure you update to the newest version. [^1] The current version of[ Ubuntu LTS](https://ubuntu.com/download/desktop) 
+is 20.04 at the time of this writing. 
+
+Luckily you can easily check the version via the command-line.
+
+##### Determine Ubuntu version
+Here are a couple of commands that will display the current Ubuntu version. The first one uses the [cat command](https://manpages.ubuntu.com/manpages/trusty/man1/cat.1.html):
+```bash
+cat /etc/os-release
+```
+And the second method uses the [lsb_release command](https://manpages.ubuntu.com/manpages/bionic/man8/lsb.8.html).
+```bash
+lsb_release -a
+```
+
+##### Updating Ubuntu 
+I'm not going to cover the steps to upgrading Ubuntu in this article, because the steps can be different depending on your system and I'd like to focus on setting up the system for development.
+However, if you need to upgrade check out the detailed [Ubuntu docs here](https://ubuntu.com/tutorials/upgrading-ubuntu-desktop#1-before-you-start) that cover upgrading. 
+
+## Data backups
+One of the first things I like to do when setting up a new system for development is to decide on a backup plan for my data. This deserves its own in-depth post but I wanted 
+to at least touch on the subject as I feel it's an important and often overlooked step to setting up a development environment. I'll just briefly mention a couple of strategies and options. Make sure
+to check out [this Ubuntu article](https://help.ubuntu.com/community/BackupYourSystem) for more information on backups. 
+
+* **Manual Backups** - This could be as simple as plugging in an external drive and making regular backups at user defined intervals.
+* **Local Automated** - This would be backups that use a drive that is physically attached to your machine at automated intervals. 
+* **Remote Automated** - Automated backups that are done over a network. 
+
+Here are a couple of popular tools for backups:
+* [**Déjà Dup**](https://wiki.gnome.org/Apps/DejaDup/Details) - This is the default Ubuntu app for backups. It is a GUI for the [Duplicity CLI](https://help.ubuntu.com/community/DuplicityBackupHowto)
+* [**borgbackup**](https://www.borgbackup.org/) - encrypted, authenticated backups. 
+
+Whatever tool you decide to use it should be easy for you to use so that you create backups of your data. Data loss is only preventable if you have a backup plan. 
+## Startup applications
+Once you've got an updated version of Ubuntu on your machine, then next thing I like to do is configure the startup applications. You might prefer to skip this step and launch the applications 
+manually each session but if you're using the same applications all the time this can save you time. 
+
+1. **Open Startup Applications** - You can use the [**`super`**](https://help.ubuntu.com/stable/ubuntu-help/keyboard-key-super.html.en) key and search for Startup Applications or press **`alt`** + **`F2`** and run `gnome-session-properties`
+2. **Click Add** - You can enter commands that will be executed at login. You can also click **`Browse`** and search the `usr/bin` folder for applications.
+
+This is also a good time to setup your default applications. Use the **`super`** key and type **Default Applications**, click on the Default Applications tab and set your preferences. 
+
+## GNOME extensions
+Ubuntu uses [GNOME-Shell](https://en.wikipedia.org/wiki/GNOME_Shell) by default, but to download GNOME extensions [^2] you'll need to install the [GNOME browser integration](https://chrome.google.com/webstore/detail/gnome-shell-integration/gphhapmejobijbbhgpjhcjognlahblep?hl=en) extension 
+as well as the GNOME browser connector which you can install by running this command `sudo apt install chrome-gnome-shell`. Once that's done you can install extensions from [https://extensions.gnome.org/](https://extensions.gnome.org/).
+
+* [**GNOME Tweaks**](https://wiki.gnome.org/Apps/Tweaks) - This is a GUI for advanced GNOME 3 settings, it's a great way to manage the GNOME settings in Ubuntu but not required for using GNOME extensions. 
+
+Here are a few of my favourite GNOME extensions:
+
+* [**Auto Move Windows**](https://extensions.gnome.org/extension/16/auto-move-windows/) - This extension automatically moves applications to specific workspaces when they create windows.
+* [**Caffeine**](https://extensions.gnome.org/extension/517/caffeine/) - Disables screensaver and auto suspend. 
+* [**Clipboard Indicator**](https://extensions.gnome.org/extension/779/clipboard-indicator/) - Caches clipboard history in a top panel. This is a great tool for developers but if you're privacy oriented it can cache sensitive data. 
+
+## Command-line 
+There are a ton of great tools out there to accommodate many different workflows. Here's a short list of some of my favourite command-line tools. 
+
+* [**Tilix**](https://gnunn1.github.io/tilix-web/) - Tilix is a terminal emulator with a ton of features. 
+* [**Bash**](https://en.wikipedia.org/wiki/Bash_%28Unix_shell%29) - This is the default shell used when you launch a terminal in Ubuntu. I'd recommend learning Bash before starting with a different shell. 
+* [**Zsh**](https://www.zsh.org/) - This is a shell and scripting langauge that's another great choice and very popular with developers. 
+* [**curl**](https://manpages.ubuntu.com/manpages/xenial/en/man1/curl.1.html) - Used for making server requests and to transfer data. Install using `sudo apt install curl`
+* [**tree**](https://en.wikipedia.org/wiki/Tree_(command)) - Tool for recursively listing directories. You can install using `sudo apt install tree`
+* [**tldr**](https://github.com/tldr-pages/tldr) - This is a good alternative to the often cryptic [man pages](https://en.wikipedia.org/wiki/Man_page). 
+* [**Pandoc**](https://pandoc.org/getting-started.html) - Tool for converting markdown files from one format to another. 
+* [**asciinema**](https://asciinema.org/) - This is a free and open source tool for recording terminal sessions. Great for recording terminal tutorials, completely text based. 
+
+## Productivity tools
+
+It's easy to get overwhelmed with the amount of productivity tools floating out there. Everyone will have different preferences and requirements but I like to 
+keep things relatively simple. 
+
+* [**Standard Notes**](https://standardnotes.org/) - This is an open-source and encrypted notes app. There are a ton of great extensions and themes included. 
+* [**Stretchly**](https://hovancik.net/stretchly/downloads/) - Break time reminder app. It's too easy to get caught up in a project without taking a break 💤
+* [**Libre Office**](https://www.libreoffice.org/) - Depending on your workflow you might only use Google Docs, however Libre Office is a great alternative for desktop users on Ubuntu. 
+* [**Discord**](https://discord.com/) - Connect with your team using Discord. 
+* [**Signal**](https://www.signal.org/#signal) - Encrypted messaging with a Linux desktop version. 
+* [**draw.io**](https://snapcraft.io/drawio) - This is the desktop version of draw.io, I use this all the time for anything from database modeling to tutorial diagrams. 
+* [**Thunderbird**](https://help.ubuntu.com/community/Thunderbird) - Email/News/RSS client, comes with Ubuntu. 
+* [**Bitwarden**](https://bitwarden.com/) - This is an open source password manager.
+* [**KeePass**](https://keepass.info/) - This another great option for password management, free and open source. 
+
+## Browsers
+There are a number of great browsers available in Ubuntu but if you're in web development chances are you'll need Chrome and Firefox. 
+
+* [**Firefox**]() - Currently my browser of choice. For non-development browsing I use [these plugins](https://www.privacytools.io/browsers/#addons).
+* [**Google Chrome**](https://www.google.com/chrome/) - This is my secondary browser. I take advantage of [Lighthouse](https://chrome.google.com/webstore/detail/lighthouse/blipmdconlkpinefehnmjammfjpmpbjk) with on Chrome. 
+
+## Text editors
+
+* [**VScode**](https://code.visualstudio.com/Download) - Currently my preferred text editor for web development. 
+* [**Sublime**](https://www.sublimetext.com/) - Sublime is currently my second choice. 
+* [**Atom**](https://snapcraft.io/atom) - Another great option, free and open source.
+
+## Development environment & tools
+The development tools you install are based on your individual requirements. Make sure to check out the Ubuntu developer docs for more tools to fit your requirements. 
+The following tools are a few of the basic ones I use regularly. 
+
+* [**Git**](https://git-scm.com/download/linux) - Version control system. Take a look at [Git For Humans guide by Lucio Martinez](https://gist.github.com/luciomartinez/11277737).
+* [**Node**](https://nodejs.org/en/) - Javascript runtime built on Chromes V8 engine. Available from the Snap Store [here](https://snapcraft.io/node).
+* [**Heroku CLI**](https://devcenter.heroku.com/articles/heroku-cli) - If you're deploying apps on Heroku the CLI can simplifies the process. 
+* [**MongoDB**](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/) - Document based database. 
+* [**doctl**](https://snapcraft.io/doctl) - CLI for interacting with the DigitalOcean API.
+* [**MicroK8s**](https://snapcraft.io/microk8s) - Lightweight Kubernates for Linux. 
+* [**Insomnia**](https://snapcraft.io/insomnia) - This is my preferred HTTP client for testing APIs, no signup required 😊. 
+* [**Postman**](https://snapcraft.io/postman) - Another option for API development. Requires you to signup. 
+
+## Media - Graphics & Audio
+Again, everyones needs are different here. Ubuntu is capable of processing graphics and audio quite well these days. Here are a couple of apps I use regularly. 
+
+* [**MediaInfo**](https://mediaarea.net/en/MediaInfo) - Displays technical data of video and audio files. 
+* [**VLC Media Player**](https://www.videolan.org/vlc/download-ubuntu.html) - I've been using VLC for years, free and open source.
+* [**GIMP**](https://www.gimp.org/downloads/) - A free and open source alternative to Photoshop, a bit of a learning curve if you're just starting out with the program. 
+* [**OBS**](https://snapcraft.io/obs-studio) - If you stream, record tutorials than you're probably familiar with OBS. 
+* [**Rhythmbox**](https://help.ubuntu.com/community/Rhythmbox) - This is the default music player for Ubuntu. I like owning all my own music so this suits my needs. 
+
+## Wrap up 
+All in all, Ubuntu is a great choice for web developers. It is one of the most popular open source OS for development as well as deployment. It has a ton of powerful tools that can improve your
+workflow, only some of which I covered in this article. With new features like out of the box support for nVIDIA hardware, Ubuntu is definitely an OS worth trying out. 
+
+There are plenty of other great [Linux distributions](https://en.wikipedia.org/wiki/List_of_Linux_distributions) available and I encourage you to check them out as well. 
+
+[^1]: Before you proceed with any operating system update it's a good idea to make sure that any hardware or software applications that you require will be supported 
+by the updated operating system. 
+
+[^2]: Running GNOME extensions can cause performance issues so if you're experiencing problems try disabling GNOME extensions. 
