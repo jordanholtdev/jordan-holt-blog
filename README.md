@@ -31,11 +31,14 @@ I created this as a way to sharpen my Gatsby and React skills but primarily as a
 
 ### Features
 
-* Algolia Search feature
-* PWA - Progressive Web App
-* Responsive Design
-* Pagination
-* Weekly posts about web development and programming
+* 👐 Open Source - See a mistake, typo or have something to add? Make a pull request!
+* 🔎 Algolia Search feature
+* 📈  SEO optimized
+* 📱 Responsive Design
+* 📃 Pagination
+* ✍ Posts written in MDX
+* 📆 Weekly posts about web development and programming
+* 👀 Uses tags to group posts
 
 ### Buy me a coffee
 
@@ -46,10 +49,11 @@ Whether you use this codebase, have learned something from one of the articles, 
 
 ### Technologies
 
-* Gatsby
-* React.js
-* Styled-Components 
-* Hosted & Deployed using Netlify
+* Gatsby v2.24.43
+* React v16.12.0
+* 📴 PWA - Progressive Web App
+* 💅 CSS-in-JS via Styled-Components 
+* 🏠 Hosted & Deployed using Netlify
 * npm
 * React Instant-Search
 
