@@ -5,12 +5,12 @@ module.exports = {
     title: `Jordan Holt`,
     menuLinks: [
       {
-        name: 'home',
-        link: '/'
+        name: "home",
+        link: "/",
       },
       {
-        name: 'about',
-        link: '/about'
+        name: "about",
+        link: "/about",
       },
     ],
     author: {
@@ -30,7 +30,7 @@ module.exports = {
       options: {
         appId: process.env.GATSBY_ALGOLIA_APP_ID,
         apiKey: process.env.ALGOLIA_ADMIN_KEY,
-        queries: require("./src/utils/algolia-queries")
+        queries: require("./src/utils/algolia-queries"),
       },
     },
     {
@@ -65,7 +65,7 @@ module.exports = {
           },
           `gatsby-remark-prismjs`,
           `gatsby-remark-copy-linked-files`,
-          `gatsby-remark-smartypants`,          
+          `gatsby-remark-smartypants`,
         ],
       },
     },
@@ -76,7 +76,7 @@ module.exports = {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
         trackingId: process.env.GOOGLE_TRACKING_ID,
-        head: true
+        head: true,
       },
     },
     {
@@ -89,6 +89,13 @@ module.exports = {
         theme_color: `#663399`,
         display: `minimal-ui`,
         icon: `content/assets/site-icon.png`,
+      },
+    },
+    {
+      resolve: "gatsby-plugin-mailchimp",
+      options: {
+        endpoint: process.env.MAILCHIMP_ENDPOINT,
+        timeout: 3500, // number; the amount of time, in milliseconds, that you want to allow mailchimp to respond to your request before timing out. defaults to 3500
       },
     },
     `gatsby-plugin-offline`,
@@ -114,11 +121,13 @@ module.exports = {
                 return Object.assign({}, edge.node.frontmatter, {
                   description: edge.node.excerpt,
                   date: edge.node.frontmatter.date,
-                  url: site.siteMetadata.siteUrl + "/blog" + edge.node.fields.slug,
-                  guid: site.siteMetadata.siteUrl + "/blog" + edge.node.fields.slug,
-                  custom_elements: [{ "content:encoded": edge.node.html }]
-                });
-              });
+                  url:
+                    site.siteMetadata.siteUrl + "/blog" + edge.node.fields.slug,
+                  guid:
+                    site.siteMetadata.siteUrl + "/blog" + edge.node.fields.slug,
+                  custom_elements: [{ "content:encoded": edge.node.html }],
+                })
+              })
             },
             query: `
               {
@@ -145,9 +154,9 @@ module.exports = {
             // if `string` is used, it will be used to create RegExp and then test if pathname of
             // current page satisfied this regular expression;
             // if not provided or `undefined`, all pages will have feed reference inserted
-          }
-        ]
-      }
+          },
+        ],
+      },
     },
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-sitemap`,
