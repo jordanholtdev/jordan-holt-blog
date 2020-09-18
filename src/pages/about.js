@@ -5,6 +5,7 @@ import AboutGrid from "../styles/aboutGridWrapper"
 import Img from "gatsby-image"
 
 import Seo from "../components/seo"
+import SubscribeForm from "../components/subscribeForm"
 import styled from "styled-components"
 
 // component styles
@@ -51,7 +52,7 @@ const BioWrapper = styled.div`
   }
 `
 const BioText = styled.p`
-  text-align: center;
+  text-align: left;
   font-size: ${props => props.theme.fontSizes.small};
   color: ${props => props.theme.colors.darkText};
 `
@@ -70,7 +71,7 @@ const About = ({ data, location }) => {
       <Title>About</Title>
       <AboutGrid>
         <ImageWrapper>
-          <BioText>Hey! I'm Jordan</BioText>
+          <h3>Hey I'm Jordan</h3>
           <Img
             fluid={data.jordan.childImageSharp.fluid}
             style={{ position: "relative", maxWidth: "800px" }}
@@ -78,17 +79,39 @@ const About = ({ data, location }) => {
         </ImageWrapper>
         <BioWrapper>
           <BioText>
-            I spent a decade in music production and broadcast video, now I'm a
-            web developer. Follow my journey and you might learn a trick or two.
+            <strong>
+              I am a JavaScript enthusiast, digital creative and blogger.
+            </strong>{" "}
+            I started this blog because I wanted to share what I've learned
+            about web development and help others reach their goals. That's why
+            I write about the obstacles I've faced, the solutions I've found and
+            the reason this whole site is open source. Since I started this
+            blog, I've met some incredible people and have become part of an
+            awesome community of talented developers. I'm looking to grow as a
+            developer and share what I've learned.
           </BioText>
+          <BioText>
+            If you're interested in learning with me and levelling up your dev
+            skills, then make sure to sign up to my monthly newletter{" "}
+            <span role="img" aria-label="emoji">
+              👇
+            </span>
+          </BioText>
+          <SubscribeForm />
           <SubHeading>A litte bit more about me...</SubHeading>
           <BioText>
-            <strong>I am in love with web development</strong> and I have a
-            passion for using the latest technology to solve problems.
+            <strong>
+              I spent a decade in music production and broadcast video.
+            </strong>{" "}
+            now I'm a web developer. Follow my journey and you might learn a
+            trick or two.
+            <br />
+            <strong>I have a passion for web development</strong> and I like
+            using the latest technology to solve problems.
           </BioText>
           <SubHeading>This site is built using...</SubHeading>
           <BioText>
-            <strong>Gatsby</strong> is the framework I used for this website.
+            <strong>Gatsby</strong> is the framework I used for this website.          
           </BioText>
           <BioText>
             All of the blog posts were written in Markdown. I choose{" "}

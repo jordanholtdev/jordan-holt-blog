@@ -5,6 +5,7 @@ import styled from "styled-components"
 
 // components
 import Footer from "./footer";
+import SubscribeForm from "./subscribeForm"
 import { TwitterSquare, GithubSquare } from "@styled-icons/fa-brands"
 import { RssSquare } from "@styled-icons/fa-solid"
 
@@ -161,6 +162,7 @@ const Sidebar = () => {
                   </Link> 
                 </li>
               </StyledUl>
+              <SubscribeForm />
             </SocialIconWrap>
           </SocialWrapper>
           <TagWrapper>
