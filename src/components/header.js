@@ -43,15 +43,6 @@ const Title = styled.h4`
   font-size: ${props => props.theme.fontSizes.medium};
   font-weight: 800;
   margin: 0;
-  ::after {
-    content: "";
-    display: inline-block;
-    width: 7px;
-    height: 7px;
-    background-color: ${props => props.theme.colors.orangePeel};
-    border-radius: 50%;
-    margin-left: 5px;
-  }
   @media ${props => props.theme.breakpoints.xSmallViewport} {
     font-size: ${props => props.theme.fontSizes.medium};
     margin-left: auto;
@@ -88,7 +79,7 @@ const StyledLink = styled(Link)`
   opacity: 0.5;
 };
 :active {
-  color: ${props => props.theme.colors.roseMadder};
+  color: ${props => props.theme.colors.orangePeel};
   opacity: 1;
 }
 `
@@ -125,6 +116,9 @@ const Header = () => {
           </ListLink>
           <ListLink to="/about/">
             About
+          </ListLink>
+          <ListLink to="/newsletter/">
+            Newsletter
           </ListLink>
         </List>
       </Nav>
