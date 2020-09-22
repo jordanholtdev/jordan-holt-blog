@@ -2,7 +2,7 @@ import React from "react";
 import addToMailchimp from 'gatsby-plugin-mailchimp'
 import styled from "styled-components";
 
-const StyledTitle = styled.h3`
+const StyledTitle = styled.h1`
   color: ${props => props.theme.colors.darkText};
 `
 
