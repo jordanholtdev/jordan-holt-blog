@@ -34,8 +34,6 @@ const StyledButton = styled.button`
   }
 `
 
-
-
 class SubscribeForm extends React.Component {
     
     state = { email: "", result: null, message: 'Subscribe to my newsletter!' }
