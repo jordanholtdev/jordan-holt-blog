@@ -5,7 +5,7 @@ import AboutGrid from "../styles/aboutGridWrapper"
 import Img from "gatsby-image"
 
 import Seo from "../components/seo"
-import SubscribeForm from "../components/subscribeForm"
+import SubscribeForm from "../components/Forms/subscribeForm"
 import styled from "styled-components"
 
 // component styles
