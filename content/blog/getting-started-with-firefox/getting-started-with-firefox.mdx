@@ -1,16 +1,16 @@
 ---
 title: Getting started with Firefox
 slug: getting-started-with-firefox
-date: "2020-09-24"
+date: "2020-09-25"
 description: "Thinking about using Firefox as your main browser? Get started here."
 author: "Jordan"
 featuredImage: fire-fox-image.jpg
 tags: ["Learning"]  
 ---
 
-I've been using Firefox for several years as one of my preferred browser, but only recently started using it as my main browser for development. There's lots of great articles about why some people prefer using Firefox for development, but I'm not going to that here. However, I will say that part of my decision is that it's open-source and is more committed to privacy than some other browsers, and the [Firefox developer edition](https://www.mozilla.org/en-CA/firefox/developer/) has some great features that I use all the time. 
+I've been using Firefox for several years as one of my preferred browser, but only recently started using it as my main browser for development. Part of my decision is that it's open-source and is more committed to privacy than some other browsers, and the [Firefox developer edition](https://www.mozilla.org/en-CA/firefox/developer/) has some great features that I use all the time.  If you've decided to try out Firefox for the first time, or are returning to it from another browser this article might help you get started. 
 
-If you've decided to try out Firefox for the first time, or are returning to it from another browser I have a few suggestions to help you get started. 
+## In this article
 
 * [Versions](#versions)
 * [Customizing](#customizing)
@@ -18,6 +18,7 @@ If you've decided to try out Firefox for the first time, or are returning to it 
 * [Developer Shortcuts](#developer-shortcuts)
 * [Extensions](#extensions)
 * [Developer Tools](#developer-tools)
+* [Further Reference](#reference)
 
 ## <a name="versions"></a> Which version should you use?
 
@@ -27,10 +28,10 @@ If you already have Firefox installed and you're not sure what update channel yo
 * In the address bar type `about:config`
 * Then in the search box that appears type `app.update.channel`. On the right hand side you'll see the channel name. 
 
+<br />
 
 
-
-| Name | Update Channel Name | Stable | Description | 
+| Name | Channel Name | Stable | Description | 
 | -------- | -------- | -------- | -------- |
 | [Firefox Extended Support Release (ESR)](https://www.mozilla.org/en-US/firefox/enterprise/)    | esr |  Special releases. Stable     | This is a special update channel which is used by large organizations that need extended support. New features are not included regularly in this version. Features are supported for over a year with security and stability updates.      |
 | [Firefox](https://www.mozilla.org/en-US/firefox/new/)    | release | Final releases. Stable     | This is the official release. After another 4 weeks of stabilizing the features included in Beta, a new version of Firefox is shipped. |
@@ -72,7 +73,7 @@ Once I've decided on a version, [downloaded and installed it](https://support.mo
 
 #### <a name="general-shortcuts"></a> General Shortcuts in Firefox
 
-If you're working with a browser regularly it can be a real benefit to thoroughly learn the basics of using one.  I think that it's especially important if you're in a technical role that requires you to use a browser with a client present. I've been in a ton of recording sessions, creative meetings, live events and presentations where I've been called upon to perform some browser based task. Effective and knowledgeable use of a browser in front of clients can help enhance their confidence in you.  Here are some of the general shortcuts I use regularly. 
+If you're working with a browser regularly it can be a real benefit to learn the basics of using one.  I think that it's especially important if you're in a technical role that requires you to use a browser with a client present. I've been in a ton of recording sessions, creative meetings, live events and product presentations where I've been called upon to perform some browser based task. Effective and knowledgeable use of a browser in front of clients can help enhance their confidence in you.  Here are some of the general shortcuts I use regularly. 
 
 
 * **Focus the Address Bar** `Alt` + `D` 
@@ -89,9 +90,9 @@ If you're working with a browser regularly it can be a real benefit to thoroughl
 	* Enter `view_source` in the search filter. 
 	* Select the `view_source.editor.external` option, make sure its set to `true`
 		* Then select the `view_source.editor.path` and enter the path to your preferred editor. In my case I'm using Visual Studio Code so my path might look like  `C:\Program Files\Microsoft VS Code\Code.exe`, but you could use NotePad++, Sublime etc...
-*  **Open Web Console**  `Crtl` + `Shift` + `K`  I find it very handy to keep the web console open in a seperate window while I develop. I'll regularly check for errors and edit styles via the console .  
+*  **Open Web Console**  `Crtl` + `Shift` + `K` on Windows, and `Cmd` + `Opt` + `K` on macOS. I find it very handy to keep the web console open in a seperate window while I develop. I'll regularly check for errors and edit styles via the console .  
 *  **Caret Browsing** `F6`  When this setting is enabled, Firefox will display a movable cursor in web pages. I find this really helpful when I'm learning something new and I'm referring to the documentation. 
-*  **Toggle Responsive Design Mode** `Ctrl` + `Shift` + `M`  I use this shortcut all the time, I'm always looking at different sites to see how they've gone about responsive designs. Depending on the project, I usually start with the mobile design so I work in this mode regularly while developing. 
+*  **Toggle Responsive Design Mode** `Ctrl` + `Shift` + `M` on Windows, or  `Cmd` + `Opt` + `M` on macOS. I use this shortcut all the time, I'm always looking at different sites to see how they've gone about responsive designs. Depending on the project, I usually start with the mobile design so I work in this mode regularly while developing. 
 *  **
 
 
@@ -107,17 +108,45 @@ These are some of my favourite extensions for Firefox, not all are dev specific 
 
 ## <a name="developer-tools"></a> Developer Tools
 
-I'm not going to dive deep into the developer tools as I think that deserves its own post, but they are an important part of getting started with Firefox. The following is a brief introduction to the core Firefox developer tools and some of the features that are available in the Firefox Developer Edition, as well as some of my thoughts about them. 
+I'm not going to dive deep into the developer tools because they a seperate post, but they are an important part of getting started with Firefox. The following is a brief introduction to the [core Firefox developer tools](https://developer.mozilla.org/en-US/docs/Tools) and some of the features that are available in the Firefox Developer Edition, as well as some of my thoughts about them. 
 
 * **[Page Inspector](https://developer.mozilla.org/en-US/docs/Tools/Page_Inspector)** - This tool is used to examine as well as modify the HTML and CSS of a web page. One thing I like (since I always seem to struggle with CSS) is the [Inactive CSS feature](https://hacks.mozilla.org/2019/10/firefox-70-a-bountiful-release-for-all/#developertools) which grays out valid, but inactive CSS. When you hover over the inactive CSS you get a nice hint on how to fix it that has a link to more info.  For further reading on the Page Inspector have a look at the [UI tour](https://developer.mozilla.org/en-US/docs/Tools/Page_Inspector/UI_Tour).
-* **[Web Console](https://developer.mozilla.org/en-US/docs/Tools/Web_Console)** - The console let's you interact with a page as well as log information associated with that page. `console.log("too many features to mention here")`.  It provides a JavaScript command line to use.  One thing I will mention is that it's worthwhile learning the [helper commands](https://developer.mozilla.org/en-US/docs/Tools/Web_Console/Helpers). 
+	* To open the page inspector press `Ctrl` + `Shift` + `C` on Windows, or `Cmd` + `Shift` + `C` on macOS.
+	* Or you can right-click on an element and select Inspect Element.
+
+![opening the page inspector](page-inspector.gif)
+
+* **[Web Console](https://developer.mozilla.org/en-US/docs/Tools/Web_Console)** - The console let's you interact with a page as well as log information associated with that page, often used for debugging. It provides a JavaScript command line to use.  One thing I will mention is that it's worthwhile learning the [helper commands](https://developer.mozilla.org/en-US/docs/Tools/Web_Console/Helpers). 
+	* To open the Web Console press `Ctrl` + `Shift` + `K` on Windows, or  `Cmd` + `Opt` + `K` on macOS.
+
+![using the web console](web-console.gif)
+
 * **[JavaScript Debugger](https://developer.mozilla.org/en-US/docs/Tools/Debugger)** - This debugger allows you to control the executrion of your code to step through it and track down bugs.  Make sure to take a [look at the UI](https://developer.mozilla.org/en-US/docs/Tools/Debugger/UI_Tour).  I currently don't use the Firefox debugger but I know a few people who do, and I'll probably try it out soon. 
 * **[Network Monitor](https://developer.mozilla.org/en-US/docs/Tools/Network_Monitor)** - This tool displays all the network requests that Firefox makes. I use this all the time when I'm developing. I like using the [Performance analysis tool](https://developer.mozilla.org/en-US/docs/Tools/Network_Monitor/Performance_analysis) for a quick look at the resource sizes.  
-* **[]()**
+	* To open the Network Monitor press `Ctrl` + `Shift` + `E` on Windows, or  `Cmd` + `Opt` + `E` on macOS.
 
-## Reference
+![using the network tool](network-tool.gif)
+
+* **[Performance Tools](https://developer.mozilla.org/en-US/docs/Tools/Performance)** - This tool allows you to record your site over a period of time and display a profile of the responsiveness, JavaScript and layout performance. This is handy for checking the [frame rate](https://developer.mozilla.org/en-US/docs/Tools/Performance/Frame_rate) of your site among other things. 
+*  **[Responsive Design Mode](https://developer.mozilla.org/en-US/docs/Tools/Responsive_Design_Mode)** - This mode helps simulate screen size, pixel density, network throttling and touch features that are commonly found on mobile devices. This mode allows us to see what our designs will look like on various devices. 
+	* To open Responsive Design Mode press `Ctrl` + `Shift` + `M` on Windows, or `Cmd` + `Opt` + `M` on macOS.
+* **[Accessibility Inspector](https://developer.mozilla.org/en-US/docs/Tools/Accessibility_inspector)** - This tool gives will display information related to [assistive technologies ](https://www.w3.org/WAI/people-use-web/tools-techniques/) via the accissibility tree.
+	* You can open the Accessibility Inspector by right-clicking in the main browser window, and then choosing the Inspect Accessibility Properties in the context menu.
+	* Or select the Accessibility tab in the Developer Tools toolbox.
+* **[Application Panel](https://developer.mozilla.org/en-US/docs/Tools/Application)** - This tool is used for inspecting and debugging [Progressive Web Apps](https://web.dev/progressive-web-apps/). 
+
+## Wrap up
+
+In this article you saw some of the differences between the desktop versions of Firefox, how to get started with customizing Firefox, extensions, shortcuts, as well as a quick introduction to the developer tools.
+Hopefully this served as a helpful overview to get you started using Firefox as your main development browser. 
+
+
+## <a name="reference"></a> Further Reference
+
+If you're interested in learning more there are a ton of great resources available for Firefox. Here are a few below:
 
 * [Firefox Font Tab - Mozilla](https://developer.mozilla.org/en-US/docs/Tools/Page_Inspector/How_to/Edit_fonts)
+* [How People with Disabilities Use the Web - W3](https://www.w3.org/WAI/people-use-web/)
 * [Protect your Privacy - Mozilla](https://support.mozilla.org/en-US/products/firefox/protect-your-privacy)
 * [Bugzilla - search known bugs](https://bugzilla.mozilla.org/buglist.cgi)
 * [FireFox developer edition - Mozilla](https://www.mozilla.org/en-CA/firefox/developer/)

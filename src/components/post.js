@@ -109,6 +109,10 @@ const PostWrapper = styled.main`
       font-size: 1.15rem;
       line-height: 1.5rem;
       font-weight: 500;
+      overflow-wrap: anywhere; 
+      @media ${props => props.theme.breakpoints.smallViewport} {
+        overflow-wrap: normal;
+  }
   }
 
   table,
