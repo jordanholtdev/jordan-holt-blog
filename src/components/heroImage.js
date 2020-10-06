@@ -11,12 +11,14 @@ const StyledBackground = styled(BackgroundImage)`
 `
 
 const HeroImage = ({ image, children }) => {
-    if(!image) {
-        return null
-    }
-    return (
-    <StyledBackground fluid={image.childImageSharp.fluid} >{children}</StyledBackground>
-    )
+  if (!image) {
+    return null
+  }
+  return (
+    <StyledBackground fluid={image.childCloudinaryAsset.fluid}>
+      {children}
+    </StyledBackground>
+  )
 }
 
 export default HeroImage

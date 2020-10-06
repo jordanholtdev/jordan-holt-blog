@@ -73,7 +73,7 @@ const About = ({ data, location }) => {
         <ImageWrapper>
           <h3>Hey I'm Jordan</h3>
           <Img
-            fluid={data.jordan.childImageSharp.fluid}
+            fluid={data.image.childCloudinaryAsset.fluid}
             style={{ position: "relative", maxWidth: "800px" }}
           />
         </ImageWrapper>
@@ -111,7 +111,7 @@ const About = ({ data, location }) => {
           </BioText>
           <SubHeading>This site is built using...</SubHeading>
           <BioText>
-            <strong>Gatsby</strong> is the framework I used for this website.          
+            <strong>Gatsby</strong> is the framework I used for this website.
           </BioText>
           <BioText>
             All of the blog posts were written in Markdown. I choose{" "}
@@ -130,7 +130,7 @@ const About = ({ data, location }) => {
   )
 }
 
-export default About 
+export default About
 
 export const pageQuery = graphql`
   query {
@@ -139,23 +139,10 @@ export const pageQuery = graphql`
         title
       }
     }
-    jordan: file(relativePath: {eq: "about-page.jpg"}) {
-      childImageSharp {
-        fluid(
-          quality: 100,
-          maxWidth: 1200,
-          ) {
-          ...GatsbyImageSharpFluid
-        }
-      }
-    }
-    audio: file(relativePath: {eq: "audio-image.jpg"}) {
-      childImageSharp {
-        fluid(
-          quality: 100,
-          maxWidth: 1200,
-          ) {
-          ...GatsbyImageSharpFluid
+    image: file(name: { eq: "about-page" }) {
+      childCloudinaryAsset {
+        fluid {
+          ...CloudinaryAssetFluid
         }
       }
     }

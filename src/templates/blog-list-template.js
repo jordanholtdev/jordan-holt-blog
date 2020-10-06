@@ -99,10 +99,7 @@ const AllPosts = ({ pageContext, data }) => {
 
   return (
     <Layout>
-      <SEO
-        title={"Blog"}
-        description={data.site.siteMetadata.description}
-      />
+      <SEO title={"Blog"} description={data.site.siteMetadata.description} />
       <StyledHero data={data} />
       <GridWrapper>
         <div>
@@ -173,12 +170,12 @@ export const pageQuery = graphql`
             description
             date(formatString: "MMMM DD, YYYY")
             featuredImage {
-              childImageSharp {
+              childCloudinaryAsset {
                 fluid {
-                  ...GatsbyImageSharpFluid
+                  ...CloudinaryAssetFluid
                 }
                 fixed {
-                  ...GatsbyImageSharpFixed
+                  ...CloudinaryAssetFixed
                 }
               }
             }

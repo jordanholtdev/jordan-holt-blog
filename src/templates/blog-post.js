@@ -10,9 +10,7 @@ import PostGridWrapper from "../styles/postGridWrapper"
 import Post from "../components/post"
 import SEO from "../components/seo"
 
-
-
-// styled components 
+// styled components
 
 const Article = styled.article`
   text-align: left;
@@ -45,7 +43,7 @@ const Title = styled.h1`
   font-weight: 900;
   font-size: 3.2rem;
   @media screen and (min-width: 320px) {
-    font-size: calc(3rem + 6 * ((100vw - 320px) / 680))
+    font-size: calc(3rem + 6 * ((100vw - 320px) / 680));
   }
   @media screen and (min-width: 1000px) {
     font-size: 3.6rem;
@@ -63,13 +61,13 @@ const PostDescription = styled.h2`
     font-size: 1.5rem;
     padding: 0;
   }
-  @media screen and (min-width: 1200px){
+  @media screen and (min-width: 1200px) {
     font-size: 2rem;
   }
 `
 
 const Date = styled.p`
-  color: #8f8f8f; 
+  color: #8f8f8f;
   display: block;
   font-weight: 600;
   padding-bottom: 2rem;
@@ -110,13 +108,12 @@ const StyledButton = styled.div`
   border-radius: 3rem;
   background-color: ${props => props.theme.colors.orangePeel};
   color: ${props => props.theme.colors.babyPowder};
-  :hover{
+  :hover {
     opacity: 0.5;
   }
 `
 
 const BlogPostTemplate = ({ data, pageContext, location }) => {
-
   const post = data.mdx
   const siteTitle = data.site.siteMetadata.title
   const { previous, next } = pageContext
@@ -172,33 +169,33 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
 export default BlogPostTemplate
 
 export const pageQuery = graphql`
-query BlogPostBySlug($slug: String!) {
-  site {
-    siteMetadata {
-      title
+  query BlogPostBySlug($slug: String!) {
+    site {
+      siteMetadata {
+        title
+      }
     }
-  }
-  mdx(fields: {slug: {eq: $slug}}) {
-    id
-    frontmatter {
-      date(formatString: "MMMM DD, YYYY")
-      title
-      slug
-      description
-      tags
-      featuredImage {
-        childImageSharp{    
-          fixed (quality: 100,  width: 1500) {
-            ...GatsbyImageSharpFixed
+    mdx(fields: { slug: { eq: $slug } }) {
+      id
+      frontmatter {
+        date(formatString: "MMMM DD, YYYY")
+        title
+        slug
+        description
+        tags
+        featuredImage {
+          childCloudinaryAsset {
+            fixed(width: 1500) {
+              ...CloudinaryAssetFixed
+            }
           }
         }
       }
+      fields {
+        slug
+      }
+      body
+      excerpt
     }
-    fields {
-      slug
-    }
-    body
-    excerpt
   }
-}
 `

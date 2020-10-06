@@ -4,7 +4,7 @@ import Img from "gatsby-image"
 
 const ImageWrapper = styled.div`
   overflow: hidden;
-  grid-column: 1/ span 15;
+  grid-column: 1 / span 15;
   grid-row: 1 / 4;
   margin-top: 1rem;
 
@@ -24,11 +24,19 @@ const FeaturedImage = ({ image, alt }) => {
   }
   return (
     <ImageWrapper>
-      <Img fixed={image.childImageSharp.fixed} alt={alt} style={{ postition: "absolute", left: 0, top: 0, height: "100%", width: "100%"}} />
+      <Img
+        fixed={image.childCloudinaryAsset.fixed}
+        alt={alt}
+        style={{
+          postition: "absolute",
+          left: 0,
+          top: 0,
+          height: "100%",
+          width: "100%",
+        }}
+      />
     </ImageWrapper>
   )
 }
 
 export default FeaturedImage
-
-

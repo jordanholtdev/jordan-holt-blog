@@ -7,7 +7,7 @@ import AllPostImg from "../components/allPostImg"
 import GridWrapper from "../styles/gridWrapper"
 import Sidebar from "../components/sidebar"
 import { Link, graphql } from "gatsby"
-import Layout from "../components/layout";
+import Layout from "../components/layout"
 
 // component styles
 
@@ -35,17 +35,17 @@ const ArticleContainer = styled.article`
   background-color: #fefefe;
   padding: 1.5rem;
   :hover {
-    border: 1px solid; 
+    border: 1px solid;
     border-color: ${props => props.theme.colors.tiffanyBlue};
   }
   @media ${props => props.theme.breakpoints.xSmallViewport} {
     grid-template-columns: 100%;
   }
   @media ${props => props.theme.breakpoints.smallViewport} {
-    grid-template-columns: 1fr  3fr;
+    grid-template-columns: 1fr 3fr;
   }
   @media ${props => props.theme.breakpoints.largeViewport} {
-    grid-template-columns: 1fr  3fr;
+    grid-template-columns: 1fr 3fr;
   }
 `
 const StyledLink = styled(Link)`
@@ -84,7 +84,7 @@ const Date = styled.small`
 `
 const AllButton = styled.button`
   border: none;
-  padding: 0.50em;
+  padding: 0.5em;
   color: white;
   background-color: ${props => props.theme.colors.roseMadder};
   font-weight: 700;
@@ -193,9 +193,9 @@ export const pageQuery = graphql`
             title
             description
             featuredImage {
-              childImageSharp{
+              childCloudinaryAsset {
                 fluid {
-                  ...GatsbyImageSharpFluid
+                  ...CloudinaryAssetFluid
                 }
               }
             }

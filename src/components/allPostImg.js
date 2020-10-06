@@ -2,14 +2,13 @@ import React from "react"
 import styled from "styled-components"
 import Img from "gatsby-image"
 
-
 const ImageWrapper = styled.div`
-    display: inline-flex;
-    flex-direction: column;
-    width: 100%;
-    height: 100%;
-    position: relative;
-    justify-content: center;
+  display: inline-flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  justify-content: center;
 `
 
 const AllPostImg = ({ image, alt }) => {
@@ -18,7 +17,7 @@ const AllPostImg = ({ image, alt }) => {
   }
   return (
     <ImageWrapper>
-      <Img fluid={image.childImageSharp.fluid} alt={alt}/>
+      <Img fluid={image.childCloudinaryAsset.fluid} alt={alt} />
     </ImageWrapper>
   )
 }
