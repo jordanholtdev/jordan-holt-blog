@@ -1,38 +1,38 @@
 import React from "react"
 import Pagination from "../components/pagination"
 import { Link, graphql } from "gatsby"
+import Img from "gatsby-image"
 import kebabCase from "lodash/kebabCase"
 
 import Layout from "../components/layout"
 import GridWrapper from "../styles/gridWrapper"
+import SingleArticleWrapper from "../styles/singleArticleWrapper"
 import Sidebar from "../components/sidebar"
-import StyledHero from "../components/hero"
-import AllPostImg from "../components/allPostImg"
 import styled from "styled-components"
 import SEO from "../components/seo"
 
-const ArticleWrapper = styled.article`
-  grid-template-columns: 100%;
-  border-block-end: 1px dotted black;
-  padding: 1rem;
-  text-align: center;
-  gap: 1rem;
-  background-color: ${props => props.theme.colors.babyPowder};
-  :hover {
-    border: 1px solid;
-    border-color: ${props => props.theme.colors.tiffanyBlue};
-  }
+const StyledHero = styled.section`
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  margin: 3rem 0 3rem 0;
+`
+const StyledHeroDiv = styled.div`
+  display: block;
+  position: relative;
+  width: 375px;
+  box-shadow: 12px 12px 34px #dce1de, -12px -12px 34px #ffffff;
   @media ${props => props.theme.breakpoints.xSmallViewport} {
-    display: grid;
-    grid-template-columns: 1fr 3fr;
-    width: 100%;
-    gap: 0.5rem 1.5rem;
-    text-align: left;
-    padding: 1rem;
-    border-block-end: 1px dotted black;
-    overflow: hidden;
+    width: 600px;
+  }
+  @media ${props => props.theme.breakpoints.mediumViewport} {
+    width: 800px;
+  }
+  @media ${props => props.theme.breakpoints.largeViewport} {
+    width: 1200px;
   }
 `
+
 const StyledLink = styled(Link)`
   box-sizing: content-box;
   display: block;
@@ -78,8 +78,8 @@ const TagItem = styled.span`
 `
 const Tagbtn = styled.button`
   border: none;
-  background-color: ${props => props.theme.colors.tiffanyBlue};
-  color: ${props => props.theme.colors.babyPowder};
+  background-color: ${props => props.theme.colors.mainBrandColor};
+  color: ${props => props.theme.colors.lightShades};
   font-weight: 700;
   border-radius: 0.2rem;
   :hover {
@@ -100,19 +100,22 @@ const AllPosts = ({ pageContext, data }) => {
   return (
     <Layout>
       <SEO title={"Blog"} description={data.site.siteMetadata.description} />
-      <StyledHero data={data} />
+      <StyledHero>
+        <StyledLink to="/newsletter/">
+          <StyledHeroDiv>
+            <Img
+              fluid={data.image.childCloudinaryAsset.fluid}
+              alt="Newsletter promotion banner"
+            />
+          </StyledHeroDiv>
+        </StyledLink>
+      </StyledHero>
       <GridWrapper>
-        <div>
+        <ol>
           {posts.map(({ node }) => {
             const title = node.frontmatter.title || node.fields.slug
             return (
-              <ArticleWrapper key={node.fields.slug}>
-                <Link to={node.fields.slug}>
-                  <AllPostImg
-                    image={node.frontmatter.featuredImage}
-                    alt={title}
-                  />
-                </Link>
+              <SingleArticleWrapper key={node.fields.slug}>
                 <StyledLink to={node.fields.slug}>
                   <Header>
                     <PostTitle>{title}</PostTitle>
@@ -133,7 +136,7 @@ const AllPosts = ({ pageContext, data }) => {
                     </Link>
                   </TagItem>
                 </TagWrapper>
-              </ArticleWrapper>
+              </SingleArticleWrapper>
             )
           })}
 
@@ -144,7 +147,7 @@ const AllPosts = ({ pageContext, data }) => {
             nextPage={nextPage}
             currentPage={currentPage}
           />
-        </div>
+        </ol>
         <Sidebar />
       </GridWrapper>
     </Layout>
@@ -169,16 +172,6 @@ export const pageQuery = graphql`
             tags
             description
             date(formatString: "MMMM DD, YYYY")
-            featuredImage {
-              childCloudinaryAsset {
-                fluid {
-                  ...CloudinaryAssetFluid
-                }
-                fixed {
-                  ...CloudinaryAssetFixed
-                }
-              }
-            }
           }
           fields {
             slug
@@ -190,6 +183,13 @@ export const pageQuery = graphql`
       siteMetadata {
         title
         description
+      }
+    }
+    image: file(name: { eq: "home-page-banner" }) {
+      childCloudinaryAsset {
+        fluid(maxWidth: 1200) {
+          ...CloudinaryAssetFluid
+        }
       }
     }
   }

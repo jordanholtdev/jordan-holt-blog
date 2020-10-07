@@ -4,103 +4,113 @@ slug: powershell-new-item-command
 date: "2020-08-25"
 description: "A basic guide to using the New-Item command in PowerShell"
 author: "Jordan"
-featuredImage: new-item-image.jpg
 tags: ["CLI"]
 ---
+
 import { Link } from "gatsby"
 
-Besides basic navigation, creating files is a fundamental operation that you probably do regularly. Save some time and learn to use 
+Besides basic navigation, creating files is a fundamental operation that you probably do regularly. Save some time and learn to use
 PowerShell to quickly create files and directories and speed up your workflow. In this post I'll show you how you can use the `New-Item` cmdlet in Powershell to create files
-and directories. 
+and directories.
 
-This post assumes you have some basic knowledge of working with the command line, including opening PowerShell and 
+This post assumes you have some basic knowledge of working with the command line, including opening PowerShell and
 understanding what directory you're in. Make sure to check out my crash course <Link to={`/powershell-for-devs`}> PowerShell for Developers</Link> which covers the basics.
 In this article most of the commands are written long-hand for readability but there are short-hand versions for most of these commands and parameters.
 
 Let's start by having a quick look at the basics.
 
-### Creating files 
+### Creating files
 
-If you wanted to create a new file in the current directory you could do the following. 
+If you wanted to create a new file in the current directory you could do the following.
+
 ```powershell
 New-Item -Path . -Name "testing.txt" -ItemType "file" -Confirm
 ```
+
 First we invoke the `New-Item` cmdlet, then we enter a few different parameters:
 
-* The `-Path` parameter takes in a [string](https://docs.microsoft.com/en-us/dotnet/api/system.string?view=netcore-3.1), specifying a path for where the item wil be created.
-In this case the dot character ('.') which indicates that the path is the current directory. 
-* Then we use the `-Name` parameter to indicate the filename.
-* The `-ItemType` parameter to indicate that it is a file that we want to create. 
-* `-Confirm` will require you to confirm the command before it executes. This is a good idea because if there is already a file with the same name in the 
-target location it will replace that file. 
+- The `-Path` parameter takes in a [string](https://docs.microsoft.com/en-us/dotnet/api/system.string?view=netcore-3.1), specifying a path for where the item wil be created.
+  In this case the dot character ('.') which indicates that the path is the current directory.
+- Then we use the `-Name` parameter to indicate the filename.
+- The `-ItemType` parameter to indicate that it is a file that we want to create.
+- `-Confirm` will require you to confirm the command before it executes. This is a good idea because if there is already a file with the same name in the
+  target location it will replace that file.
 
 You don't always need to explicitly indicate these parameters, some have default values. For instance, if we omit the `-Path`
-parameter it will default to the current location. 
+parameter it will default to the current location.
 
-We also don't necessarily need to indicate that a parameter value type is a string by using double quotes (""), we can omit those in many 
-circumstances. This code will do the same thing. 
+We also don't necessarily need to indicate that a parameter value type is a string by using double quotes (""), we can omit those in many
+circumstances. This code will do the same thing.
 
 ```powershell
 # these are the same
 New-Item -Path . testing.txt -ItemType "file"
 New-Item -Path . "testing.txt" -ItemType "file"
 ```
+
 In the next example we omit the `-Path` parameter, which will default to the current location. The `-Path` also can take in the name of the file, so we
-take advantage of that and pass the name `testing.txt` into it. Since `-Path` has a position of 0 we can simply invoke the cmdlet and specify the name. which 
-will make the command nice and short. 
+take advantage of that and pass the name `testing.txt` into it. Since `-Path` has a position of 0 we can simply invoke the cmdlet and specify the name. which
+will make the command nice and short.
 
 ```powershell
 # passing the name into the -Path parameter
-New-Item testing.txt 
+New-Item testing.txt
 ```
 
-`New-Item` also has the alias `ni` that you can use to further shorten your commands. 
+`New-Item` also has the alias `ni` that you can use to further shorten your commands.
+
 ```powershell
 # these are the same
 ni testing.txt
 New-Item testing.txt
 ```
 
-You can add data to the files you create using the `-Value` paramater. 
+You can add data to the files you create using the `-Value` paramater.
 
-For example you could add some text into a text file. 
+For example you could add some text into a text file.
 
 ```powershell
 New-Item "another-example.txt" -Value "This text will be inside the file we are creating"
 ```
-Here's another example creating HTML: 
+
+Here's another example creating HTML:
 
 ```powershell
 New-Item "index.html" -Value "<html><body><h1>This is a heading</h1></body></html>"
 ```
+
 ### Creating directories
 
-You can easily create directories by adding using the `-ItemType` parameter and then 
-indicating the type. 
+You can easily create directories by adding using the `-ItemType` parameter and then
+indicating the type.
 
 ```powershell
 New-Item "styles" -ItemType "directory"
 ```
-This will create a directory called **styles** in our current location. 
 
-If you wanted to create a directory in another location you can simply use the `-Path` parameter and 
+This will create a directory called **styles** in our current location.
+
+If you wanted to create a directory in another location you can simply use the `-Path` parameter and
 specify the path where you want to create that directory.
+
 ```powershell
 New-Item -Path "c:\" -Name "todo-app" -ItemType "directory"
 ```
+
 This will create a directory called **todo-app** at the root of the C: drive.
 
 ### Creating multiple files
 
-You can also create multiple files by passing in two strings seperated by a comma. 
+You can also create multiple files by passing in two strings seperated by a comma.
 
 ```powershell
 New-Item -ItemType "file" "index.html", "styles.css"
 ```
+
 ### Creating files in multiple directories
 
 You can create files in multiple directories by using [wildcards](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_wildcards?view=powershell-7)
-in the `-Path` parameter. 
+in the `-Path` parameter.
 
 For example, if you had a 3 directories in one location like this:
 
@@ -117,15 +127,16 @@ d----          2020-08-25  8:58 PM                Dir-Two
 
 ```
 
-You could create a file in each one of those directories. In this example we'll create a file called `README.md` in all three of those directories. 
-Because we are using the `*` wildcard as the -`Path` value, the cmdlet will create a file in every directory in the current one.  
+You could create a file in each one of those directories. In this example we'll create a file called `README.md` in all three of those directories.
+Because we are using the `*` wildcard as the -`Path` value, the cmdlet will create a file in every directory in the current one.
 
 ```powershell
 New-Item -Path * -Name README.md -ItemType "file" -Value "## Thanks for Reading!"
 ```
-## Wrap up 
+
+## Wrap up
 
 Using `New-Item` can create a number of different item types, in this post we saw how we can create files and directories quicly in various locations. The `New-Item`
-cmdlet is very useful for creating files repeatedly in multiple locations. In future posts I will show you how to combine this cmdlet into scripts that can be used 
+cmdlet is very useful for creating files repeatedly in multiple locations. In future posts I will show you how to combine this cmdlet into scripts that can be used
 as project boilerplate generators. Make sure to check out the PowerShell docs on [`New-Item`](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/new-item?view=powershell-7#examples)
 and my <Link to={'/powershell-for-devs'}>PowerShell for developers</Link> crash course for more information.

@@ -1,8 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 
-
-const PostWrapper = styled.main`
+const PostWrapper = styled.section`
   margin-left: auto;
   margin-right: auto;
   width: 100%;
@@ -58,7 +57,7 @@ const PostWrapper = styled.main`
   }
 
   h6 {
-    font-size: 1.50rem;
+    font-size: 1.5rem;
     line-height: 1rem;
     font-weight: 600;
   }
@@ -69,83 +68,79 @@ const PostWrapper = styled.main`
   }
 
   p {
-      margin-top: 2rem;
-      font-size: ${props => props.theme.fontSizes.small};
-      line-height: 1.875rem;
-      font-weight: 400;
+    margin-top: 2rem;
+    font-size: ${props => props.theme.fontSizes.small};
+    line-height: 1.875rem;
+    font-weight: 400;
   }
 
   strong {
-      font-weight: 700;
+    font-weight: 700;
   }
 
   blockquote p {
-      font-style: italic;
-      font-size: 1.5rem;
-      line-height: 2.25rem;
-      text-align: left;
-      max-width: 48rem;
-      margin: 3rem auto;
+    font-style: italic;
+    font-size: 1.5rem;
+    line-height: 2.25rem;
+    text-align: left;
+    max-width: 48rem;
+    margin: 3rem auto;
   }
 
   ul,
   ol {
-      margin: 1rem 0 1rem 2rem;
-      font-size: 1.20rem;
+    margin: 1rem 0 1rem 2rem;
+    font-size: ${props => props.theme.fontSizes.small};
   }
 
   ul {
-      list-style: disc;
+    list-style: disc;
   }
 
   li {
-      margin: 0.25rem 0;
+    margin: 0.25rem 0;
   }
 
   table {
-      width: 100%;
-      border-spacing: 0.25rem;
-      border-collapse: collapse;
-      font-size: 1.15rem;
-      line-height: 1.5rem;
-      font-weight: 500;
-      overflow-wrap: anywhere; 
-      @media ${props => props.theme.breakpoints.smallViewport} {
-        overflow-wrap: normal;
-  }
+    width: 100%;
+    border-spacing: 0.25rem;
+    border-collapse: collapse;
+    font-size: 1.15rem;
+    line-height: 1.5rem;
+    font-weight: 500;
+    overflow-wrap: anywhere;
+    @media ${props => props.theme.breakpoints.smallViewport} {
+      overflow-wrap: normal;
+    }
   }
 
   table,
   th,
   td {
-      border: 1px solid black;
+    border: 1px solid black;
   }
 
   th,
   td {
-      padding: 0.5rem;
+    padding: 0.5rem;
   }
 
   th {
-      font-weight: 700;
+    font-weight: 700;
   }
 
   pre {
     margin: 1.25rem 0;
   }
 
-/* inline code styling */
-.language-text {
-  color: ${props => props.theme.colors.darkText};
-  background-color: #eeeeff;
-}
-
+  /* inline code styling */
+  .language-text {
+    color: ${props => props.theme.colors.darkText};
+    background-color: #eeeeff;
+  }
 `
 const Post = ({ children }) => {
-    return (
-        <PostWrapper>{children}</PostWrapper>
-    )
+  return <PostWrapper>{children}</PostWrapper>
 }
-
 
 export default Post

@@ -2,6 +2,7 @@ import React from "react"
 import styled from "styled-components"
 
 import Header from "./header"
+import Footer from "./footer"
 
 // layout componenet styles
 const Container = styled.div`
@@ -22,6 +23,7 @@ const Layout = ({ children }) => {
     <Container>
       <Header />
       <ContentWrapper>{children}</ContentWrapper>
+      <Footer />
     </Container>
   )
 }

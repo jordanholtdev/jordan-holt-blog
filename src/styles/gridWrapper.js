@@ -1,10 +1,9 @@
 import styled from "styled-components"
 
-
 const GridWrapper = styled.div`
   display: grid;
-  grid-template-columns: 900px 200px;
-  column-gap: 100px;
+  grid-template-columns: 900px 250px;
+  column-gap: 50px;
   row-gap: 1em;
   max-width: 1200px;
   margin-left: auto;

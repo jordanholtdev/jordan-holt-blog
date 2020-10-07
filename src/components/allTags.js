@@ -3,7 +3,6 @@ import { Link, useStaticQuery, graphql } from "gatsby"
 import _ from "lodash"
 import styled from "styled-components"
 
-
 const TagWrapper = styled.div`
   float: none;
   display: inline;
@@ -11,9 +10,9 @@ const TagWrapper = styled.div`
 `
 const TagButton = styled.button`
   border: none;
-  padding: 0.50em;
-  color: ${props => props.theme.colors.babyPowder};
-  background-color: ${props => props.theme.colors.tiffanyBlue};
+  padding: 0.5em;
+  color: ${props => props.theme.colors.lightShades};
+  background-color: ${props => props.theme.colors.mainBrandColor};
   font-weight: 700;
   border-radius: 0.2rem;
   margin-top: 0.35rem;
@@ -24,31 +23,29 @@ const TagButton = styled.button`
   }
 `
 
-const AllTags = ( tag ) => {
-    const data = useStaticQuery(graphql`
-      query MyQuery {
-        allMdx {
-          group(field: frontmatter___tags) {
-            fieldValue
-            totalCount
-          }
+const AllTags = tag => {
+  const data = useStaticQuery(graphql`
+    query MyQuery {
+      allMdx {
+        group(field: frontmatter___tags) {
+          fieldValue
+          totalCount
         }
       }
-    `)
+    }
+  `)
 
-    return (
-      <TagWrapper>
-        {data.allMdx.group.map(({ fieldValue }) => {
-          return (
-            <Link key={fieldValue} to={`/tags/${_.kebabCase(fieldValue)}/`}>
-              <TagButton>
-                {fieldValue}
-              </TagButton>
-            </Link>
-          )
-        })}
-      </TagWrapper>
-    )
+  return (
+    <TagWrapper>
+      {data.allMdx.group.map(({ fieldValue }) => {
+        return (
+          <Link key={fieldValue} to={`/tags/${_.kebabCase(fieldValue)}/`}>
+            <TagButton>{fieldValue}</TagButton>
+          </Link>
+        )
+      })}
+    </TagWrapper>
+  )
 }
 
 export default AllTags
