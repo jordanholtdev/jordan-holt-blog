@@ -2,9 +2,10 @@ import React from "react"
 import addToMailchimp from "gatsby-plugin-mailchimp"
 import styled from "styled-components"
 
-const StyledTitle = styled.h1`
+const StyledTitle = styled.h2`
   margin-top: 0;
   color: ${props => props.theme.colors.darkText};
+  font-size: ${props => props.theme.fontSizes.large};
 `
 
 const StyledInput = styled.input`

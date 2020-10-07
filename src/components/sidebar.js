@@ -58,9 +58,10 @@ const TagWrapper = styled.div`
   }
 `
 
-const StyledTitles = styled.h1`
+const StyledTitles = styled.h2`
   color: #424242;
   margin-top: 0;
+  font-size: ${props => props.theme.fontSizes.large};
   ::after {
     content: "";
     display: inline-block;
