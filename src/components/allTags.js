@@ -3,24 +3,12 @@ import { Link, useStaticQuery, graphql } from "gatsby"
 import _ from "lodash"
 import styled from "styled-components"
 
+import TagButton from "../components/TagButton"
+
 const TagWrapper = styled.div`
   float: none;
   display: inline;
   text-align: left;
-`
-const TagButton = styled.button`
-  border: none;
-  padding: 0.5em;
-  color: ${props => props.theme.colors.lightShades};
-  background-color: ${props => props.theme.colors.mainBrandColor};
-  font-weight: 700;
-  border-radius: 0.2rem;
-  margin-top: 0.35rem;
-  margin-left: 0.2rem;
-  :hover {
-    cursor: pointer;
-    opacity: 0.75;
-  }
 `
 
 const AllTags = tag => {

@@ -1,5 +1,5 @@
 import React from "react"
-import Pagination from "../components/pagination"
+import Pagination from "../components/Pagination"
 import { Link, graphql } from "gatsby"
 import Img from "gatsby-image"
 import kebabCase from "lodash/kebabCase"
@@ -7,6 +7,7 @@ import kebabCase from "lodash/kebabCase"
 import Layout from "../components/layout"
 import GridWrapper from "../styles/gridWrapper"
 import SingleArticleWrapper from "../styles/singleArticleWrapper"
+import TagButton from "../components/TagButton"
 import Sidebar from "../components/sidebar"
 import styled from "styled-components"
 import SEO from "../components/seo"
@@ -76,17 +77,6 @@ const TagWrapper = styled.div`
 const TagItem = styled.span`
   box-sizing: inherit;
 `
-const Tagbtn = styled.button`
-  border: none;
-  background-color: ${props => props.theme.colors.mainBrandColor};
-  color: ${props => props.theme.colors.lightShades};
-  font-weight: 700;
-  border-radius: 0.2rem;
-  :hover {
-    cursor: pointer;
-    opacity: 0.75;
-  }
-`
 
 const AllPosts = ({ pageContext, data }) => {
   const { currentPage, numPages } = pageContext
@@ -132,7 +122,7 @@ const AllPosts = ({ pageContext, data }) => {
                 <TagWrapper>
                   <TagItem>
                     <Link to={`/tags/${kebabCase(node.frontmatter.tags)}`}>
-                      <Tagbtn> {node.frontmatter.tags}</Tagbtn>
+                      <TagButton> {node.frontmatter.tags}</TagButton>
                     </Link>
                   </TagItem>
                 </TagWrapper>

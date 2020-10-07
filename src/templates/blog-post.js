@@ -5,7 +5,7 @@ import styled from "styled-components"
 
 import Layout from "../components/layout"
 import PostGridWrapper from "../styles/postGridWrapper"
-import Post from "../components/post"
+import Post from "../styles/post"
 import SEO from "../components/seo"
 
 // styled components
