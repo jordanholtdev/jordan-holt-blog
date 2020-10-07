@@ -1,6 +1,5 @@
 import { createGlobalStyle } from "styled-components"
 
-
 const GlobalStyles = createGlobalStyle`
 
 
@@ -20,6 +19,10 @@ code {
 
 a {
     color: inherit;
+}
+
+ol {
+    margin: 0;
 }
 
 ul {

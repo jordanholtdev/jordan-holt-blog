@@ -3,11 +3,11 @@ import PropTypes from "prop-types"
 import styled from "styled-components"
 
 // Components
-import AllPostImg from "../components/allPostImg"
 import GridWrapper from "../styles/gridWrapper"
+import SingleArticleWrapper from "../styles/singleArticleWrapper"
 import Sidebar from "../components/sidebar"
 import { Link, graphql } from "gatsby"
-import Layout from "../components/layout";
+import Layout from "../components/layout"
 
 // component styles
 
@@ -26,28 +26,7 @@ const TagsTitle = styled.h1`
     font-size: 2.5rem;
   }
 `
-const ArticleContainer = styled.article`
-  display: grid;
-  grid-template-columns: 100%;
-  gap: 1rem;
-  text-align: left;
-  border-block-end: 1px dotted black;
-  background-color: #fefefe;
-  padding: 1.5rem;
-  :hover {
-    border: 1px solid; 
-    border-color: ${props => props.theme.colors.tiffanyBlue};
-  }
-  @media ${props => props.theme.breakpoints.xSmallViewport} {
-    grid-template-columns: 100%;
-  }
-  @media ${props => props.theme.breakpoints.smallViewport} {
-    grid-template-columns: 1fr  3fr;
-  }
-  @media ${props => props.theme.breakpoints.largeViewport} {
-    grid-template-columns: 1fr  3fr;
-  }
-`
+
 const StyledLink = styled(Link)`
   box-sizing: content-box;
   display: block;
@@ -84,7 +63,7 @@ const Date = styled.small`
 `
 const AllButton = styled.button`
   border: none;
-  padding: 0.50em;
+  padding: 0.5em;
   color: white;
   background-color: ${props => props.theme.colors.roseMadder};
   font-weight: 700;
@@ -116,27 +95,21 @@ const Tags = ({ pageContext, data }) => {
             const { slug } = node.fields
             const { title } = node.frontmatter
             return (
-              <li key={slug}>
-                <ArticleContainer>
-                  <AllPostImg
-                    image={node.frontmatter.featuredImage}
-                    alt={title}
-                  />
-                  <StyledLink to={slug}>
-                    <header>
-                      <PostTitle>{title}</PostTitle>
-                      <Date>{node.frontmatter.date}</Date>
-                    </header>
-                    <section>
-                      <p
-                        dangerouslySetInnerHTML={{
-                          __html: node.frontmatter.description || node.excerpt,
-                        }}
-                      />
-                    </section>
-                  </StyledLink>
-                </ArticleContainer>
-              </li>
+              <SingleArticleWrapper key={slug}>
+                <StyledLink to={slug}>
+                  <header>
+                    <PostTitle>{title}</PostTitle>
+                    <Date>{node.frontmatter.date}</Date>
+                  </header>
+                  <section>
+                    <p
+                      dangerouslySetInnerHTML={{
+                        __html: node.frontmatter.description || node.excerpt,
+                      }}
+                    />
+                  </section>
+                </StyledLink>
+              </SingleArticleWrapper>
             )
           })}
         </TagList>
@@ -192,13 +165,6 @@ export const pageQuery = graphql`
             date(formatString: "MMMM DD, YYYY")
             title
             description
-            featuredImage {
-              childImageSharp{
-                fluid {
-                  ...GatsbyImageSharpFluid
-                }
-              }
-            }
           }
         }
       }

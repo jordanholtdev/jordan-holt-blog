@@ -6,7 +6,6 @@ import styled from "styled-components"
 
 import NewsletterLandingPageForm from "../components/Forms/newsletterPageForm"
 
-
 const Wrapper = styled.div`
   display: grid;
   grid-template-columns: 1fr;
@@ -20,40 +19,39 @@ const Wrapper = styled.div`
 `
 
 const SignupWrapper = styled.div`
-    margin: 0 2%;
+  margin: 0 2%;
 `
 
 const CopyWrapper = styled.div`
-    margin: 0 2%;
-    @media ${props => props.theme.breakpoints.largeViewport} {
+  margin: 0 2%;
+  @media ${props => props.theme.breakpoints.largeViewport} {
     grid-row-start: 2;
-    grid-column-start: 2;  
-    }
+    grid-column-start: 2;
+  }
 `
 const StyledHeading = styled.h2`
-    margin: 2rem auto;
-    border: none;
-    font-size: ${props => props.theme.fontSizes.medium};
-    @media ${props => props.theme.breakpoints.largeViewport} {
-        margin: 0 auto;
-    }
+  margin: 2rem auto;
+  border: none;
+  font-size: ${props => props.theme.fontSizes.medium};
+  @media ${props => props.theme.breakpoints.largeViewport} {
+    margin: 0 auto;
+  }
 `
 const StyledDescription = styled.p`
-    margin: 0;
-    padding-bottom: 2rem;
-    font-size: ${props => props.theme.fontSizes.small};
+  margin: 0;
+  padding-bottom: 2rem;
+  font-size: ${props => props.theme.fontSizes.small};
 `
 
 const StyledList = styled.ul`
-    padding-bottom: 2rem;
-    font-size: ${props => props.theme.fontSizes.small};
+  padding-bottom: 2rem;
+  font-size: ${props => props.theme.fontSizes.small};
 `
 const StyledDetialText = styled.p`
-    opacity: 0.7;
+  opacity: 0.7;
 `
 
 const Newsletter = ({ data, location }) => {
-
   return (
     <>
       <Seo
@@ -64,7 +62,7 @@ const Newsletter = ({ data, location }) => {
       />
       <Wrapper>
         <Img
-          fluid={data.logo.childImageSharp.fluid}
+          fluid={data.logo.childCloudinaryAsset.fluid}
           style={{
             position: "relative",
             maxWidth: "200px",
@@ -81,7 +79,7 @@ const Newsletter = ({ data, location }) => {
           <StyledDescription>
             Every Friday, I send out an email with tips, tricks, resources and
             other cool things in the world of web development that I've come
-            across. 
+            across.
           </StyledDescription>
         </SignupWrapper>
         <CopyWrapper>
@@ -102,8 +100,7 @@ const Newsletter = ({ data, location }) => {
   )
 }
 
-
-export default Newsletter;
+export default Newsletter
 
 export const pageQuery = graphql`
   query {
@@ -112,15 +109,12 @@ export const pageQuery = graphql`
         title
       }
     }
-    logo: file(relativePath: {eq: "logo-the-coderton.png"}) {
-        childImageSharp {
-          fluid(
-            quality: 100,
-            maxWidth: 1200,
-            ) {
-            ...GatsbyImageSharpFluid
-          }
+    logo: file(relativePath: { eq: "logo-the-coderton.png" }) {
+      childCloudinaryAsset {
+        fluid(maxWidth: 1200) {
+          ...CloudinaryAssetFluid
         }
       }
+    }
   }
 `

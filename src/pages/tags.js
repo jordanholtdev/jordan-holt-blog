@@ -1,6 +1,6 @@
 import React from "react"
 import PropTypes from "prop-types"
-import Layout from "../components/layout";
+import Layout from "../components/layout"
 import styled from "styled-components"
 
 // Utilities
@@ -9,7 +9,6 @@ import kebabCase from "lodash/kebabCase"
 // Components
 import { Helmet } from "react-helmet"
 import { Link, graphql } from "gatsby"
-
 
 // component styles
 const Title = styled.h1`
@@ -24,9 +23,9 @@ const Title = styled.h1`
 `
 const TagButtons = styled.button`
   border: none;
-  padding: 0.50em;
-  color: ${props => props.theme.colors.babyPowder};
-  background-color: ${props => props.theme.colors.tiffanyBlue};
+  padding: 0.5em;
+  color: ${props => props.theme.colors.lightShades};
+  background-color: ${props => props.theme.colors.mainBrandColor};
   font-weight: 700;
   border-radius: 0.2rem;
   margin-top: 0.35rem;

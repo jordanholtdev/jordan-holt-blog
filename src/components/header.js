@@ -4,7 +4,7 @@ import styled from "styled-components"
 
 // component styles
 const Container = styled.header`
-  background: ${props => props.theme.colors.tiffanyBlue};
+  background: ${props => props.theme.colors.darkShades};
   display: block;
   height: 100%;
   position: relative;
@@ -39,7 +39,7 @@ const Nav = styled.nav`
 `
 
 const Title = styled.h4`
-  color: ${props => props.theme.colors.babyPowder};
+  color: ${props => props.theme.colors.lightShades};
   font-size: ${props => props.theme.fontSizes.medium};
   font-weight: 800;
   margin: 0;
@@ -53,7 +53,7 @@ const Title = styled.h4`
 `
 
 const List = styled.ul`
-  color: ${props => props.theme.colors.babyPowder};
+  color: ${props => props.theme.colors.lightShades};
   font-size: ${props => props.theme.fontSizes.small};
   font-weight: 500;
   @media ${props => props.theme.breakpoints.xSmallViewport} {
@@ -62,11 +62,11 @@ const List = styled.ul`
   }
   @media ${props => props.theme.breakpoints.smallViewport} {
     display: block;
-    font-size: ${props => props.theme.fontSizes.small}
+    font-size: ${props => props.theme.fontSizes.small};
   }
   @media ${props => props.theme.breakpoints.mediumViewport} {
     display: block;
-    font-size: ${props => props.theme.fontSizes.small}
+    font-size: ${props => props.theme.fontSizes.small};
   }
 `
 const ListItem = styled.li`
@@ -75,13 +75,13 @@ const ListItem = styled.li`
 `
 const StyledLink = styled(Link)`
   text-transform: uppercase;
-:hover {
-  opacity: 0.5;
-};
-:active {
-  color: ${props => props.theme.colors.orangePeel};
-  opacity: 1;
-}
+  :hover {
+    opacity: 0.5;
+  }
+  :active {
+    color: ${props => props.theme.colors.roseMadder};
+    opacity: 1;
+  }
 `
 
 const ListLink = props => (
@@ -108,18 +108,10 @@ const Header = () => {
           <Link to="/">{data.site.siteMetadata.title}</Link>
         </Title>
         <List>
-          <ListLink to="/">
-            Home
-          </ListLink>        
-          <ListLink to="/search/">
-            Search
-          </ListLink>
-          <ListLink to="/about/">
-            About
-          </ListLink>
-          <ListLink to="/newsletter/">
-            Newsletter
-          </ListLink>
+          <ListLink to="/">Home</ListLink>
+          <ListLink to="/search/">Search</ListLink>
+          <ListLink to="/about/">About</ListLink>
+          <ListLink to="/newsletter/">Newsletter</ListLink>
         </List>
       </Nav>
     </Container>
