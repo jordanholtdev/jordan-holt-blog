@@ -1,5 +1,5 @@
 import React from "react"
-import Pagination from "../components/Pagination"
+import Pagination from "../components/pagination"
 import { Link, graphql } from "gatsby"
 import Img from "gatsby-image"
 import kebabCase from "lodash/kebabCase"
