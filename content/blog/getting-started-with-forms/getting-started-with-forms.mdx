@@ -1,0 +1,428 @@
+---
+title: Getting started with forms
+slug: getting-started-with-forms
+date: "2020-10-09"
+description: "Learn the basics of writing markup for HTML forms."
+author: "Jordan"
+tags: ["HTML"]
+---
+
+Forms are one of the most common ways that users interact with a site or app. From a simple newsletter subscription to a complex multi-line shipping form, they are found on almost every site and app on the web. In this article we'll build a basic form that introduces some commonly used concepts and elements.
+
+## What is an HTML form?
+
+A form is a component of a web page that a user can interact with, and provide data to, which will then be submitted and sent to a server for processing (e.g. submitting an email address to subscribe to a newsletter) or in some cases used client-side (e.g. update the UI to add or remove elements).
+
+Forms have various control elements that users can interact with such as buttons, text inputs, range controls and checkboxes. We'll have a closer look at those elements shortly.
+
+## The steps to creating a form
+
+Creating a form can generally be broken down into a few steps:
+
+1. Designing the form
+2. Creating the user interface
+3. Creating the server-side or client-side code to process the form data
+4. Configuring the form to communicate with a server.
+
+Form design and server-side form processing are beyond the scope of this article and deserve some thorough attention. If you're interested in reading more about form design check out these articles:
+
+Form design:
+
+- UXMatters has several great resources on forms [like this article on best practices](https://www.uxmatters.com/mt/archives/2012/05/7-basic-best-practices-for-buttons.php).
+- UX Planet is a blog about user experience and has a good article on the [basics of efficient forms](https://uxplanet.org/designing-more-efficient-forms-structure-inputs-labels-and-actions-e3a47007114f)
+
+Server-side form processing:
+
+- MDN has a great article about [processing HTML form data using Node.js and Express](https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/forms).
+
+## Defining the data
+
+In this article we'll be creating a form for ordering a hamburger. Let's quickly define what data this form needs to collect.
+
+- User information
+
+  - [ ] Customer name
+  - [ ] Telephone number
+  - [ ] Email address
+
+- Hamburger type
+
+  - [ ] Beef
+  - [ ] Veggie
+
+- Toppings
+
+  - [ ] Cheese
+  - [ ] Ketchup
+  - [ ] Mustard
+  - [ ] Pickle
+  - [ ] Onion
+
+- Delivery instructions
+  - [ ] Any special comments for delivery (e.g. enter through side-door)
+
+Now that we have a better idea of what data the form needs to collect, let's go ahead and start building the form.
+
+## The form element
+
+The first thing we do when we create any form is to use the [`<form>`](https://html.spec.whatwg.org/multipage/forms.html#the-form-element) element. All of the form controls will then be placed inside.
+
+```html
+<form
+  action="https://tasty.hamburgers.example..com/order"
+  enctype="application/x-www-form-urlencoded"
+  method="POST"
+></form>
+```
+
+The form element is a container element that defines our form. While the attributes are optional, you'll find these are very common for web forms.
+
+- **[action](https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#attr-fs-action)** - The form action takes a URL that defines the location where the form data will be sent for processing. In this case when a user submits this form the data will be sent to `https://tasty.hamburgers.example.com/order` for processing on the server.
+- **[method](https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#attr-fs-method)** - Forms interact with servers in a few ways, most commonly is the HTTP GET and POST methods. This attribute defines which method the form uses.
+- **[enctype](https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#attr-fs-enctype)** - Defines the type of content that is used when submitting form data.
+
+Now we can start adding the form controls.
+
+## Form controls
+
+The form controls will be contained inside the form element. Let's start by adding an input that will collect the users name.
+
+```html
+<form
+  action="https://tasty.hamburgers.example.com/order"
+  enctype="application/x-www-form-urlencoded"
+  method="POST"
+>
+  <p>
+    <label>Name: <input name="custname" type="text" required /></label>
+  </p>
+</form>
+```
+
+Inside of a `<p>` element we added our first form control, a label and an input to collect the users name. Inputs are the most common type of form control. You'll notice that the label and input is contained inside a `<p>` element. It's very common to see forms that are structured using list elements such as `<ul>` and `<li>` but in this article the form controls will be contained in `<p>` elements.
+
+- **[`<label>`](https://html.spec.whatwg.org/multipage/forms.html#the-label-element)** - The label element represents a caption for the form control, in this case an `<input>`. In this example the form control (the `<input`) is directly inside the label element, however you'll often see them seperated like this:
+
+```html
+<p>
+  <label for="name">Name: </label>
+  <input name="custname" type="text" id="name" required />
+</p>
+```
+
+When the control is not directly inside the label, you need to use the []() attribute and a corresponding []() on the control. When users click / activate the label, the form control will be activated as if the user clicked on it.
+
+- **[`<input>`](https://html.spec.whatwg.org/multipage/input.html#the-input-element)** - The input accepts data from the user. It accepts a huge number of data types and attributes and is fairly complex HTML element because of the countless combinations. Here are the attributes we are currently using in our example:
+  - [name](https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#attr-fe-name) - For every form control that is submitted, we need to give a name to the data. When a user submits the form to our server, the server will expect to receive that data in this case as parameters in a HTTP POST body. In our example the "custname" represents a parameter that the server is expecting.
+  - [type](https://html.spec.whatwg.org/multipage/input.html#attr-input-type) - The type attribute defines and controls the data type of the input element. In our example we are using the keyword ["text"](<https://html.spec.whatwg.org/multipage/input.html#text-(type=text)-state-and-search-state-(type=search)>) whose data type is "text with no line breaks".
+  * [required](https://html.spec.whatwg.org/multipage/input.html#attr-input-required) - This is a constraint attribute that is used in simple [client-side validation](https://developer.mozilla.org/en-US/docs/Learn/Forms/Form_validation). When required is used, the user will be notified when attempting to submit the form without the corrosponding input fields completed.
+
+Let's finish off the customer information controls by adding the telephone and email fields.
+
+```html
+<form
+  action="https://tasty.hamburgers.example.com/order"
+  enctype="application/x-www-form-urlencoded"
+  method="POST"
+>
+  <p>
+    <label>Name: <input name="custname" type="text" required /></label>
+  </p>
+  <p>
+    <label>Telephone: <input type="tel" name="custtel" required /></label>
+  </p>
+  <p>
+    <label
+      >Email address: <input type="email" name="custemail" required
+    /></label>
+  </p>
+</form>
+```
+
+## Grouping form controls
+
+Let's add the ability to choose the hamburger type to our form. There are two types of hamburgers patties available, "Beef" & "Veggie". The most intuitive way for a user to select the option is by using [radio buttons](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/radio). Radio buttons also use the input element and are often grouped together.
+
+To select a radio button, the input attribute `type` must be set to "radio". For the radio buttons to work as a group they must share a common `name` attribute, in this case the attribute has a value of "patty".
+
+```html
+<form
+  action="https://tasty.hamburgers.example.com/order"
+  enctype="application/x-www-form-urlencoded"
+  method="POST"
+>
+  <p>
+    <label>Name: <input name="custname" type="text" required /></label>
+  </p>
+  <p>
+    <label>Telephone: <input type="tel" name="custtel" required /></label>
+  </p>
+  <p>
+    <label
+      >Email address: <input type="email" name="custemail" required
+    /></label>
+  </p>
+  <fieldset>
+    <legend>Hamburger patty</legend>
+    <p>
+      <label> <input type="radio" name="patty" /> Beef </label>
+    </p>
+    <p>
+      <label> <input type="radio" name="patty" /> Veggie </label>
+    </p>
+  </fieldset>
+</form>
+```
+
+- **[`<fieldset>`](https://html.spec.whatwg.org/multipage/form-elements.html#the-fieldset-element)** - This element is used when grouping a set of form controls together. It usually contains a caption that is supplied by the `<legend>` element.
+
+Now let's go ahead and add the ability for a user to pick the hamburger toppings. For this we will use the input type ["checkbox"](<https://html.spec.whatwg.org/multipage/input.html#checkbox-state-(type=checkbox)>) since people will usually want more than one topping on thier burgers. Again we will give these controls a shared name attribute and contain them inside the `<fieldset>` element.
+
+```html
+<form
+  action="https://tasty.hamburgers.example.com/order"
+  enctype="application/x-www-form-urlencoded"
+  method="POST"
+>
+  <p>
+    <label>Name: <input name="custname" type="text" required /></label>
+  </p>
+  <p>
+    <label>Telephone: <input type="tel" name="custtel" required /></label>
+  </p>
+  <p>
+    <label
+      >Email address: <input type="email" name="custemail" required
+    /></label>
+  </p>
+  <fieldset>
+    <legend>Hamburger patty</legend>
+    <p>
+      <label> <input type="radio" name="patty" /> Beef </label>
+    </p>
+    <p>
+      <label> <input type="radio" name="patty" /> Veggie </label>
+    </p>
+  </fieldset>
+  <fieldset>
+    <legend>Toppings</legend>
+    <p>
+      <label> <input type="checkbox" name="topping" /> Cheese </label>
+    </p>
+    <p>
+      <label> <input type="checkbox" name="topping" /> Ketchup </label>
+    </p>
+    <p>
+      <label> <input type="checkbox" name="topping" /> Mustard </label>
+    </p>
+    <p>
+      <label> <input type="checkbox" name="topping" /> Pickle </label>
+    </p>
+    <p>
+      <label> <input type="checkbox" name="topping" /> Onion </label>
+    </p>
+  </fieldset>
+</form>
+```
+
+## Add a text area
+
+A common part of a form for deliveries is a special instructions text area. This input allows users to add a small amount of instructions for the delivery. Let's go ahead and add one to this form using the [`<textarea>`](https://html.spec.whatwg.org/multipage/form-elements.html#the-textarea-element) element.
+
+```html
+<form
+  action="https://tasty.hamburgers.example.com/order"
+  enctype="application/x-www-form-urlencoded"
+  method="POST"
+>
+  <p>
+    <label>Name: <input name="custname" type="text" required /></label>
+  </p>
+  <p>
+    <label>Telephone: <input type="tel" name="custtel" required /></label>
+  </p>
+  <p>
+    <label
+      >Email address: <input type="email" name="custemail" required
+    /></label>
+  </p>
+  <fieldset>
+    <legend>Hamburger patty</legend>
+    <p>
+      <label> <input type="radio" name="patty" /> Beef </label>
+    </p>
+    <p>
+      <label> <input type="radio" name="patty" /> Veggie </label>
+    </p>
+  </fieldset>
+  <fieldset>
+    <legend>Toppings</legend>
+    <p>
+      <label> <input type="checkbox" name="topping" /> Cheese </label>
+    </p>
+    <p>
+      <label> <input type="checkbox" name="topping" /> Ketchup </label>
+    </p>
+    <p>
+      <label> <input type="checkbox" name="topping" /> Mustard </label>
+    </p>
+    <p>
+      <label> <input type="checkbox" name="topping" /> Pickle </label>
+    </p>
+    <p>
+      <label> <input type="checkbox" name="topping" /> Onion </label>
+    </p>
+  </fieldset>
+  <p>
+    <label
+      >Special instructions:
+      <textarea name="comments" maxlength="500"></textarea>
+    </label>
+  </p>
+</form>
+```
+
+You'll notice we added a [`maxlength`](https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#attr-fe-maxlength) attribute to the text area. This was done to prevent really long special instructions and is another example of a constraint attribute and client-side validation.
+
+## Add a submit button
+
+We now have all the markup we need to collect the customers data for their hamburger order. However, they need a way to submit the order. Let's go ahead and add a submit button that will send the data to the server when activated.
+
+```html
+<form
+  action="https://tasty.hamburgers.example.com/order"
+  enctype="application/x-www-form-urlencoded"
+  method="POST"
+>
+  <p>
+    <label>Name: <input name="custname" type="text" required /></label>
+  </p>
+  <p>
+    <label>Telephone: <input type="tel" name="custtel" required /></label>
+  </p>
+  <p>
+    <label
+      >Email address: <input type="email" name="custemail" required
+    /></label>
+  </p>
+  <fieldset>
+    <legend>Hamburger patty</legend>
+    <p>
+      <label> <input type="radio" name="patty" /> Beef </label>
+    </p>
+    <p>
+      <label> <input type="radio" name="patty" /> Veggie </label>
+    </p>
+  </fieldset>
+  <fieldset>
+    <legend>Toppings</legend>
+    <p>
+      <label> <input type="checkbox" name="topping" /> Cheese </label>
+    </p>
+    <p>
+      <label> <input type="checkbox" name="topping" /> Ketchup </label>
+    </p>
+    <p>
+      <label> <input type="checkbox" name="topping" /> Mustard </label>
+    </p>
+    <p>
+      <label> <input type="checkbox" name="topping" /> Pickle </label>
+    </p>
+    <p>
+      <label> <input type="checkbox" name="topping" /> Onion </label>
+    </p>
+  </fieldset>
+  <p>
+    <label
+      >Special instructions:
+      <textarea name="comments" maxlength="500"></textarea>
+    </label>
+  </p>
+  <p><button type="submit">Submit</button></p>
+</form>
+```
+
+The default action for a button is submit but it was added to the markup for clarity.
+
+## Adding autocomplete functionality
+
+Some browsers try and help users fill out forms by autocompleting certain fields with previously stored information such as name and address. We can add the [autocomplete]() attribute to certain inputs in an attempt to make it easier for the user to complete the form.
+
+Let's add the autocomplete attribute to the following inputs:
+
+- customer name
+- telephone number
+- email address
+
+```html
+<form
+  action="https://tasty.hamburgers.example.com/order"
+  enctype="application/x-www-form-urlencoded"
+  method="POST"
+>
+  <p>
+    <label
+      >Name: <input name="custname" type="text" autocomplete="name" required
+    /></label>
+  </p>
+  <p>
+    <label
+      >Telephone: <input type="tel" name="custtel" autocomplete="tel" required
+    /></label>
+  </p>
+  <p>
+    <label
+      >Email address:
+      <input type="email" name="custemail" autocomplete="email" required
+    /></label>
+  </p>
+  <fieldset>
+    <legend>Hamburger patty</legend>
+    <p>
+      <label> <input type="radio" name="patty" /> Beef </label>
+    </p>
+    <p>
+      <label> <input type="radio" name="patty" /> Veggie </label>
+    </p>
+  </fieldset>
+  <fieldset>
+    <legend>Toppings</legend>
+    <p>
+      <label> <input type="checkbox" name="topping" /> Cheese </label>
+    </p>
+    <p>
+      <label> <input type="checkbox" name="topping" /> Ketchup </label>
+    </p>
+    <p>
+      <label> <input type="checkbox" name="topping" /> Mustard </label>
+    </p>
+    <p>
+      <label> <input type="checkbox" name="topping" /> Pickle </label>
+    </p>
+    <p>
+      <label> <input type="checkbox" name="topping" /> Onion </label>
+    </p>
+  </fieldset>
+  <p>
+    <label
+      >Special instructions:
+      <textarea name="comments" maxlength="500"></textarea>
+    </label>
+  </p>
+  <p><button type="submit">Submit</button></p>
+</form>
+```
+
+## Wrap up
+
+We covered the basic markup of an HTML form, form controls and introduced client-side validation and features like autocomplete. While this only scratches the surface of HTML forms, hopefully you now have a better understanding of the structure and functionality of them. In future posts I'll continue with this example and style this form and build on the client-side validation by using JavaScript.
+
+You can find the source code for this form here (or simply copy from the final code block):
+[Completed hamburger form](https://gist.github.com/jordanholtdev/1dd0a0adacadfc5ec038a6451d7f0a96)
+
+## Further resources
+
+- **[HTML Forms - WHATWG](https://html.spec.whatwg.org/multipage/forms.html#forms)**
+- **[HTML Form Elements - MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element#Forms)**
+- **[Client-side Validation - MDN](https://developer.mozilla.org/en-US/docs/Learn/Forms/Form_validation)**
+- **[The input element - MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input)**
