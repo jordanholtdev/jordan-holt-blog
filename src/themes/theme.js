@@ -9,10 +9,10 @@ export default {
     roseMadder: "#E71D36",
   },
   fontSizes: {
-    small: "1.20em",
-    medium: "2em",
-    large: "2.5em",
-    xlarge: "4em",
+    small: "1.20rem",
+    medium: "2rem",
+    large: "2.5rem",
+    xlarge: "4rem",
   },
   breakpoints: {
     // Mobile-landscape (and larger)
