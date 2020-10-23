@@ -1,0 +1,170 @@
+---
+title: Client-side validation using built-in form validation
+slug: client-side-validation-using-built-in-form-validation
+date: "2020-10-23"
+description: "How to use built-in form validation for client-side data validation"
+author: "Jordan"
+tags: ["HTML"]
+---
+
+There are many ways to work validate user data when working with forms on the client-side. You can write custom JavaScript to do this, or use one of the many 3rd party libraries that are available like [Formik](https://formik.org/) for React. However, one of the easiest ways is to take advantage of the built-in validation in the HTML5 specs.
+
+Let's create a basic newsletter sign up form as an example. You can see the final [form here](https://gist.github.com/jordanholtdev/61c82857b88f366f3678b51b1a28eb51).
+
+One of the first ways to implement validation is by using the input element [`type`](https://html.spec.whatwg.org/multipage/input.html#attr-input-type) attribute. When we include the `type` attribute some basic constraint validation and in some cases a [value sanitization algorithm](https://html.spec.whatwg.org/multipage/input.html#value-sanitization-algorithm) will be applied to the value of the form control.
+
+For example, if we set the `type` attribute to "email", the value attribute must be a [valid email-address](https://html.spec.whatwg.org/multipage/input.html#valid-e-mail-address). If the value is not a valid email address then the browser will generate an error message for the user.
+
+```html
+<p>
+  <label
+    >Email:
+    <input type="email" />
+  </label>
+</p>
+```
+
+However, the `type="email"` attribute in this case would still consider a value like "hello@b" as valid because it accepts [intranet](https://en.wikipedia.org/wiki/Intranet) email addresses. So we could further constrain the validation by using the [`pattern`](https://html.spec.whatwg.org/multipage/input.html#attr-input-pattern) attribute. The `pattern` attribute accepts a regular expression.
+
+```html
+<p>
+  <label
+    >Email(required):
+    <input
+      type="email"
+      pattern="^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$"
+      title="example@example.com"
+    />
+  </label>
+  An email address uses the following format: example@example.com
+</p>
+```
+
+You'll notice that we also added a [`title`](https://html.spec.whatwg.org/multipage/input.html#attr-input-title) attribute that is used to describe the `pattern`. Most browsers will display the title as a tooltip when hovered over the element, and will inlcude the title in the error message when the value does not match the pattern. However this isn't always the case and it's good practice to display that information in other ways to assist the user.
+
+Another common attribute when using built-in validation is [`required`](https://html.spec.whatwg.org/multipage/input.html#attr-input-required). When this attribute is included on an input element, the field will mandatory and an error message will be displayed if the form is submitted and the input is empty.
+
+```html
+<p>
+  <label
+    >Email(required):
+    <input
+      type="email"
+      pattern="^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$"
+      title="example@example.com"
+      required
+      placeholder="john@example.com"
+      aria-required="true"
+    />
+  </label>
+  An email address uses the following format: example@example.com
+</p>
+```
+
+Again, it's a good idea to convey this visually to the user. In this case simply by adding "(required)" to the label. The aria-requried attribute is set to true which is mostly redundant as current browsers often set this value to `true` when the `required` attribute is present. But to support more browsers it's been included in this example. We also added a `placeholder` attribute to provide a hint to the user at the intended use of the data entry.
+
+Let's go ahead and add a field that collects the users name. This will be a required field that accepts the users name. We'll add a length constraint because most names are going to contain only a small number of letters.
+
+```html
+<p>
+  <label
+    >Name(required):
+    <input
+      type="text"
+      pattern="^[a-zA-z]+[ a-zA-z]{1,}"
+      title="Name contains the characters a-z and is under 100 characters in lenth"
+      required
+      aria-required="true"
+      maxlength="100"
+      placeholder="John"
+    />
+  </label>
+</p>
+```
+
+Again, we've added the a `pattern` to this input element so only names containing the characters A-Z in upper of lower case will be valid. Be careful when writing your regular expressions as it's easy to exclude people. For example if there are [diacritic](https://en.wikipedia.org/wiki/Diacritic) characters in a name the above `pattern` would not accept them as valid.
+
+Now we could add a few styles to the form elements and take advantage of some of the [UI pseudo-classes](https://developer.mozilla.org/en-US/docs/Learn/Forms/UI_pseudo-classes) that are set when we use certain validation attributes. For example we can the `:invalid` pseudo-class to style the input elements when they do not meet the validation requirements.
+
+```css
+form {
+  padding: 1rem;
+  font: 1em sans-serif;
+  max-width: 320px;
+}
+
+form > h2 {
+  line-height: 1.25;
+  font-weight: 600;
+  font-size: 1.5rem;
+  color: rgb(26, 32, 44);
+}
+
+p > label {
+  font-size: 1rem;
+  padding-right: 12px;
+  padding-bottom: 6px;
+  opacity: 1;
+  font-weight: 500;
+  text-align: left;
+  line-height: 1.25;
+  display: block;
+  border-width: 0px;
+  border-style: solid;
+  border-color: rgb(226, 232, 240);
+}
+
+input[type="text"],
+input[type="email"],
+fieldset {
+  width: 100%;
+  border: 1px solid #333;
+  box-sizing: border-box;
+  font-size: 1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  height: 2.5rem;
+  border-radius: 0.25rem;
+  border-style: solid;
+  border-color: inherit;
+  background-color: rgb(255, 255, 255);
+}
+
+input:focus {
+  z-index: 1;
+  border-color: rgb(49, 130, 206);
+  box-shadow: rgb(49, 130, 206) 0px 0px 0px 1px;
+}
+
+input:invalid {
+  background-color: rgba(255, 0, 0, 0.301);
+}
+
+input:valid {
+  background-color: rgba(0, 128, 0, 0.301);
+}
+
+form > p > button {
+  margin-top: 1rem;
+  height: 2.5rem;
+  min-width: 2.5rem;
+  background-color: rgb(49, 151, 149);
+  color: rgb(255, 255, 255);
+  font-size: 1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  font-weight: 600;
+  border: 1px solid black;
+  border-radius: 0.25rem;
+}
+
+form > p > button:hover {
+  background-color: rgb(44, 122, 123);
+  cursor: pointer;
+}
+```
+
+## Wrap up
+
+With just a few simple attributes we can easily start to implement client-side validation when working with forms. While this won't be as flexible as using JavaScript it can provide a simple solution.
+Remember that you should always be using thorough server-side validation and sanitization in addition to client-side validation.
