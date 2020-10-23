@@ -38,6 +38,7 @@ const Footer = () => {
           </a>
         </li>
         <li>
+          Friends of:{" "}
           <a href="https://interactiveimmersive.io/blog/">
             Interactive Immersive
           </a>
