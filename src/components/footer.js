@@ -1,51 +1,30 @@
 import React from "react"
+import AllTags from "./allTags"
 
-import styled from "styled-components"
-import { Coffee } from "@styled-icons/fa-solid"
-
-const StyledFooter = styled.footer`
-  display: block;
-  position: relative;
-  background-color: ${props => props.theme.colors.darkShades};
-`
-
-const List = styled.footer`
-  margin-top: 2rem;
-  margin-bottom: 1rem;
-  opacity: 0.4;
-  color: ${props => props.theme.colors.lightShades};
-  font-size: smaller;
-  list-style: none;
-`
-
-const StyledCoffee = styled(Coffee)`
-  color: ${props => props.theme.colors.lightAccents};
-  height: 20px;
-  :hover {
-    opacity: 0.75;
-  }
-`
+import { Flex, Text, List, ListItem } from "@chakra-ui/core"
 
 const Footer = () => {
   return (
-    <StyledFooter>
-      <List>
-        <li>
+    <Flex align="center" my={4} py={4} direction="column">
+      <Text fontWeight="500" my={2}>
+        Browse all topics
+      </Text>
+      <AllTags />
+      <List textAlign="center" spacing={4} color="gray.500">
+        <ListItem>
           <a href={"https://www.buymeacoffee.com/jordanholtdev"}>
             Buy me a coffee
-            <br />
-            <StyledCoffee />
           </a>
-        </li>
-        <li>
+        </ListItem>
+        <ListItem>
           Friends of:{" "}
           <a href="https://interactiveimmersive.io/blog/">
             Interactive Immersive
           </a>
-        </li>
-        <li>© {new Date().getFullYear()} Jordan Holt</li>
+        </ListItem>
+        <ListItem>© {new Date().getFullYear()} Jordan Holt</ListItem>
       </List>
-    </StyledFooter>
+    </Flex>
   )
 }
 

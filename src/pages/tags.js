@@ -1,7 +1,8 @@
 import React from "react"
 import PropTypes from "prop-types"
 import Layout from "../components/layout"
-import styled from "styled-components"
+
+import { Heading, Tag } from "@chakra-ui/core"
 
 // Utilities
 import kebabCase from "lodash/kebabCase"
@@ -10,31 +11,6 @@ import kebabCase from "lodash/kebabCase"
 import { Helmet } from "react-helmet"
 import { Link, graphql } from "gatsby"
 
-// component styles
-const Title = styled.h1`
-  font-size: 2rem;
-  font-weight: 900;
-  @media screen and (min-width: 320px) {
-    font-size: calc(1.75rem + 6 * ((100vw - 320px) / 680));
-  }
-  @media screen and (min-width: 1000px) {
-    font-size: 2.5rem;
-  }
-`
-const TagButtons = styled.button`
-  border: none;
-  padding: 0.5em;
-  color: ${props => props.theme.colors.lightShades};
-  background-color: ${props => props.theme.colors.mainBrandColor};
-  font-weight: 700;
-  border-radius: 0.2rem;
-  margin-top: 0.35rem;
-  margin-left: 0.2rem;
-  :hover {
-    cursor: pointer;
-    opacity: 0.75;
-  }
-`
 const TagsPage = ({
   data: {
     allMdx: { group },
@@ -47,14 +23,14 @@ const TagsPage = ({
     <div>
       <Helmet title={title} />
       <div>
-        <Title>All Tags</Title>
+        <Heading as="h1">All Tags</Heading>
         <ul>
           {group.map(tag => (
             <li key={tag.fieldValue}>
               <Link to={`/tags/${kebabCase(tag.fieldValue)}/`}>
-                <TagButtons>
+                <Tag variantColor="cyan">
                   {tag.fieldValue} ({tag.totalCount})
-                </TagButtons>
+                </Tag>
               </Link>
             </li>
           ))}

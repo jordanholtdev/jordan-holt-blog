@@ -1,38 +1,83 @@
 import React from "react"
+import { Link } from "gatsby"
 import algoliasearch from "algoliasearch/lite"
 
 import {
+  Stack,
+  Flex,
+  Box,
+  Input,
+  FormControl,
+  List,
+  ListItem,
+  Heading,
+} from "@chakra-ui/core"
+
+import {
   PoweredBy,
+  connectSearchBox,
   InstantSearch,
-  SearchBox,
-  Hits,
+  connectHits,
+  Highlight,
 } from "react-instantsearch-dom"
-import SearchResult from "./search-result"
-import styled from "styled-components"
-
-const StyledSearchBox = styled(SearchBox)`
-  margin-top: 2rem;
-`
-
-const StyledPoweredBy = styled(PoweredBy)`
-  color: ${props => props.theme.colors.tiffanyBlue};
-`
-
-const StyledHits = styled(Hits)`
-  list-style: none;
-`
 
 const searchClient = algoliasearch(
   process.env.GATSBY_ALGOLIA_APP_ID,
   process.env.GATSBY_ALGOLIA_SEARCH_KEY
 )
 
+const Hits = ({ hits }) => {
+  return (
+    <List>
+      {hits.map(hit => (
+        <ListItem mb={4} key={hit.slug} borderWidth="1px" p={4} rounded="8px">
+          <Link to={hit.slug}>
+            <Stack>
+              <Heading size="lg">
+                <Highlight attribute="title" hit={hit} tagName="mark" />
+              </Heading>
+              <Highlight attribute="description" hit={hit} tagName="mark" />
+            </Stack>
+          </Link>
+        </ListItem>
+      ))}
+    </List>
+  )
+}
+
+const CustomHits = connectHits(Hits)
+
+const SearchBox = ({ currentRefinement, refine }) => {
+  return (
+    <form noValidate role="search">
+      <FormControl w={["400px", "500px", "700px"]}>
+        <Input
+          w="100%"
+          focusBorderColor="teal.400"
+          placeholder="Search here..."
+          type="search"
+          value={currentRefinement}
+          onChange={event => refine(event.currentTarget.value)}
+        />
+      </FormControl>
+    </form>
+  )
+}
+
+const CustomSearchBox = connectSearchBox(SearchBox)
+
 const Search = () => (
-  <InstantSearch searchClient={searchClient} indexName="Blog">
-    <StyledSearchBox />
-    <StyledPoweredBy />
-    <StyledHits hitComponent={SearchResult} />
-  </InstantSearch>
+  <Flex width="100%" flexDirection="column" justifyContent="start">
+    <InstantSearch searchClient={searchClient} indexName="Blog">
+      <Box mb={6}>
+        <CustomSearchBox />
+      </Box>
+      <PoweredBy />
+      <Flex my={6}>
+        <CustomHits />
+      </Flex>
+    </InstantSearch>
+  </Flex>
 )
 
 export default Search

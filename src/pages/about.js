@@ -1,25 +1,12 @@
 import React from "react"
 import { Link, graphql } from "gatsby"
 import Layout from "../components/layout"
-import AboutGrid from "../styles/aboutContainer"
-import Img from "gatsby-image"
+
+import { Box, Stack } from "@chakra-ui/core"
 
 import Seo from "../components/seo"
-import Post from "../styles/post"
-import styled from "styled-components"
 
 // component styles
-
-const ImageWrapper = styled.div`
-  margin: 15% auto 5%;
-  width: 225px;
-`
-
-const StyledSection = styled.section`
-  text-align: left;
-  padding-right: 1rem;
-  padding-left: 1rem;
-`
 
 const About = ({ data, location }) => {
   const siteTitle = data.site.siteMetadata.title
@@ -32,16 +19,16 @@ const About = ({ data, location }) => {
           "A little bit of information about the site and its creator."
         }
       />
-      <AboutGrid>
-        <Post>
-          <ImageWrapper>
-            <Img
-              fluid={data.image.childCloudinaryAsset.fluid}
-              style={{ maxWidth: "300px" }}
-            />
-          </ImageWrapper>
+      <Stack
+        spacing={8}
+        justifyContent="center"
+        alignItems="flex-start"
+        m="0 auto 4rem auto"
+        maxWidth="700px"
+      >
+        <Box>
           <h1>Hello!</h1>
-          <StyledSection>
+          <Box>
             <h3>Hey, I'm Jordan</h3>
             <p>I am a web developer, digital creative and blogger.</p>
 
@@ -49,8 +36,8 @@ const About = ({ data, location }) => {
               I'm a JavaScript enthusiast who is currently focusing on the
               Jamstack architecture. I'm a big fan of Gatsby and Next.js.{" "}
             </p>
-          </StyledSection>
-          <StyledSection>
+          </Box>
+          <Box>
             <h3>A little bit more about me...</h3>
             <p>
               I spent a decade in music production and broadcast video before I
@@ -62,8 +49,8 @@ const About = ({ data, location }) => {
               been involved in many rewarding projects with talented artists and
               producers. I continue to produce my own music in my spare time.
             </p>
-          </StyledSection>
-          <StyledSection>
+          </Box>
+          <Box>
             <h3>Platforms I use</h3>
             <p>
               Here are some of the platforms I use. Feel free to connect with
@@ -111,8 +98,8 @@ const About = ({ data, location }) => {
                 other developers here.
               </li>
             </ul>
-          </StyledSection>
-          <StyledSection>
+          </Box>
+          <Box>
             <h3>The Coderton</h3>
             <p>
               Every Friday, I send out an email with tips, tricks, resources and
@@ -123,9 +110,9 @@ const About = ({ data, location }) => {
               If you're interested in recieving this newsletter,{" "}
               <Link to="/newsletter/">you can sign up here.</Link>
             </p>
-          </StyledSection>
-        </Post>
-      </AboutGrid>
+          </Box>
+        </Box>
+      </Stack>
     </Layout>
   )
 }

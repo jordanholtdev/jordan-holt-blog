@@ -1,7 +1,7 @@
 import React from "react"
-import styled from "styled-components"
+import { css } from "@emotion/core"
 
-const PostWrapper = styled.section`
+const PostStyle = css`
   margin-left: auto;
   margin-right: auto;
   width: 100%;
@@ -13,7 +13,6 @@ const PostWrapper = styled.section`
   h4,
   h5,
   h6 {
-    color: #424242;
     border-bottom: none;
   }
 
@@ -64,12 +63,11 @@ const PostWrapper = styled.section`
 
   a {
     text-decoration: underline;
-    color: #007faa;
   }
 
   p {
     margin-top: 2rem;
-    font-size: ${props => props.theme.fontSizes.small};
+
     line-height: 1.875rem;
     font-weight: 400;
   }
@@ -90,7 +88,6 @@ const PostWrapper = styled.section`
   ul,
   ol {
     margin: 1rem 0 1rem 2rem;
-    font-size: ${props => props.theme.fontSizes.small};
   }
 
   ul {
@@ -109,9 +106,7 @@ const PostWrapper = styled.section`
     line-height: 1.5rem;
     font-weight: 500;
     overflow-wrap: anywhere;
-    @media ${props => props.theme.breakpoints.smallViewport} {
-      overflow-wrap: normal;
-    }
+
   }
 
   table,
@@ -134,13 +129,13 @@ const PostWrapper = styled.section`
   }
 
   /* inline code styling */
-  .language-text {
+  /* .language-text {
     color: ${props => props.theme.colors.darkText};
     background-color: #eeeeff;
-  }
+  } */
 `
-const Post = ({ children }) => {
-  return <PostWrapper>{children}</PostWrapper>
-}
+// const PostStyleWrapper = ({ children }) => {
+//   return <PostStyle>{children}</PostStyle>
+// }
 
-export default Post
+export default PostStyleWrapper

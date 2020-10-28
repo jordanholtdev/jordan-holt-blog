@@ -1,30 +1,38 @@
 import React from "react"
-import styled from "styled-components"
+import { Flex, useColorMode } from "@chakra-ui/core"
 
-import Header from "./header"
+import Header from "../components/Header/header"
 import Footer from "./footer"
 
-// layout componenet styles
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-align: center;
-`
-const ContentWrapper = styled.main`
-  margin-left: auto;
-  margin-right: auto;
-  width: 100%;
-  padding-top: 0;
-`
-
 const Layout = ({ children }) => {
+  const { colorMode } = useColorMode()
+
+  const bgColor = {
+    light: "white",
+    dark: "gray.900",
+  }
+
+  const primarytextColor = {
+    light: "black",
+    dark: "white",
+  }
+
   return (
-    <Container>
+    <>
       <Header />
-      <ContentWrapper>{children}</ContentWrapper>
-      <Footer />
-    </Container>
+      <Flex
+        as="main"
+        spacing="1.5rem"
+        width="100%"
+        justifyContent="center"
+        flexDirection="column"
+        color={primarytextColor[colorMode]}
+        bg={bgColor[colorMode]}
+      >
+        {children}
+        <Footer />
+      </Flex>
+    </>
   )
 }
 

@@ -1,13 +1,21 @@
 import "prismjs/themes/prism-tomorrow.css"
 
-import { ThemeProvider } from "styled-components"
-import Theme from "./src/themes/theme"
-import GlobalStyles from "./src/themes/globalStyle"
+import { MDXProvider } from "@mdx-js/react"
+import MDXComponents from "./src/components/MDXComponents"
+
+import {
+  ColorModeProvider,
+  CSSReset,
+  ThemeProvider,
+  theme,
+} from "@chakra-ui/core"
 
 const React = require("react")
 export const wrapRootElement = ({ element }) => (
-  <ThemeProvider theme={Theme}>
-    <GlobalStyles />
-    {element}
+  <ThemeProvider theme={theme}>
+    <MDXProvider components={MDXComponents}>
+      <CSSReset />
+      <ColorModeProvider>{element}</ColorModeProvider>
+    </MDXProvider>
   </ThemeProvider>
 )

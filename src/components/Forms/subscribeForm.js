@@ -1,50 +1,26 @@
 import React from "react"
 import addToMailchimp from "gatsby-plugin-mailchimp"
-import styled from "styled-components"
 
-const StyledTitle = styled.h2`
-  margin-top: 0;
-  color: ${props => props.theme.colors.darkText};
-  font-size: ${props => props.theme.fontSizes.large};
-`
-
-const StyledInput = styled.input`
-  width: 100%;
-  :focus {
-    outline-color: ${props => props.theme.colors.orangePeel};
-  }
-`
-
-const StyledButton = styled.button`
-  border: none;
-  width: 100%;
-  border-radius: 0.2rem;
-  margin-top: 1em;
-  padding: 0.25rem;
-  color: ${props => props.theme.colors.lightShades};
-  background-color: ${props => props.theme.colors.roseMadder};
-  font-weight: 700;
-  :hover {
-    cursor: pointer;
-    opacity: 0.75;
-  }
-  @media ${props => props.theme.breakpoints.xSmallViewport} {
-    padding: 0.25rem;
-  }
-  @media ${props => props.theme.breakpoints.smallViewport} {
-    padding: 0.3rem;
-  }
-`
+import {
+  Button,
+  Box,
+  Input,
+  FormControl,
+  FormLabel,
+  FormErrorMessage,
+  FormHelperText,
+  Heading,
+} from "@chakra-ui/core"
 
 class SubscribeForm extends React.Component {
-  state = { email: "", result: null, message: "Subscribe to my newsletter!" }
+  state = { email: "", result: null, message: "" }
 
   handleSubmit = async e => {
     e.preventDefault()
     const result = await addToMailchimp(this.state.email)
     if (result.result === "error") {
       this.setState({ email: "", message: `${result.msg} 🤕` })
-      console.log(result)
+      // console.log(result)
       this.setState({ email: "" })
     } else {
       // alert(`Thank you for subscribing ${this.state.email}!`)
@@ -55,18 +31,29 @@ class SubscribeForm extends React.Component {
 
   render() {
     return (
-      <div>
-        <StyledTitle>{this.state.message}</StyledTitle>
+      <Box>
+        <Heading as="h3">Subscribe:</Heading>
         <form name="subscribe" onSubmit={this.handleSubmit}>
-          <StyledInput
-            type="email"
-            value={this.state.email}
-            onChange={e => this.setState({ email: e.target.value })}
-            placeholder="E-mail"
-          />
-          <StyledButton type="submit">Subscribe</StyledButton>
+          <FormControl>
+            <FormLabel htmlFor="email">Email address</FormLabel>
+            <Input
+              type="email"
+              id="email"
+              value={this.state.email}
+              onChange={e => this.setState({ email: e.target.value })}
+              aria-describedby="email-helper-text"
+              placeholder="E-mail"
+            />
+            <FormErrorMessage>{this.state.message}</FormErrorMessage>
+            <FormHelperText id="email-helper-text">
+              We'll never share your email.
+            </FormHelperText>
+            <Button mt={4} variantColor="cyan" type="submit">
+              Submit
+            </Button>
+          </FormControl>
         </form>
-      </div>
+      </Box>
     )
   }
 }

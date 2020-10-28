@@ -1,123 +1,71 @@
 import React from "react"
 import PropTypes from "prop-types"
-import styled from "styled-components"
+
+import {
+  Box,
+  Button,
+  Heading,
+  Text,
+  List,
+  ListItem,
+  Flex,
+} from "@chakra-ui/core"
 
 // Components
-import GridWrapper from "../styles/gridWrapper"
-import SingleArticleWrapper from "../styles/singleArticleWrapper"
-import Sidebar from "../components/sidebar"
+
 import { Link, graphql } from "gatsby"
 import Layout from "../components/layout"
-
-// component styles
-
-const TagsTitle = styled.h1`
-  color: #424242;
-  margin-top: 2rem;
-  font-size: 2rem;
-  font-weight: 900;
-  margin-bottom: 3rem;
-  text-decoration: none;
-  border: 0;
-  @media screen and (min-width: 320px) {
-    font-size: calc(1.75rem + 6 * ((100vw - 320px) / 680));
-  }
-  @media screen and (min-width: 1000px) {
-    font-size: 2.5rem;
-  }
-`
-
-const StyledLink = styled(Link)`
-  box-sizing: content-box;
-  display: block;
-  width: 100%;
-  box-shadow: none;
-`
-
-const TagList = styled.ul`
-  list-style: none;
-  margin: 0;
-`
-const PostTitle = styled.h3`
-  color: #424242;
-  margin-top: 0;
-  font-size: 2rem;
-  font-weight: 900;
-  @media screen and (min-width: 320px) {
-    font-size: calc(1.75rem + 6 * ((100vw - 320px) / 680));
-  }
-  @media screen and (min-width: 1200px) {
-    font-size: 2.5rem;
-  }
-`
-const Date = styled.small`
-  justify-content: right;
-  font-size: 20px;
-  font-weight: 300;
-  @media screen and (min-width: 320px) {
-    font-size: calc(15px + 6 * ((100vw - 320px) / 680));
-  }
-  @media screen and (min-width: 1200px) {
-    font-size: 19px;
-  }
-`
-const AllButton = styled.button`
-  border: none;
-  padding: 0.5em;
-  color: white;
-  background-color: ${props => props.theme.colors.roseMadder};
-  font-weight: 700;
-  border-radius: 0.2rem;
-  margin-top: 4rem;
-  margin-bottom: 4rem;
-  margin-left: 0.2rem;
-  :hover {
-    color: white;
-    cursor: pointer;
-    opacity: 0.75;
-    scale: 1.05;
-  }
-`
 
 const Tags = ({ pageContext, data }) => {
   const { tag } = pageContext
   const { edges, totalCount } = data.allMdx
   const tagHeader = `${totalCount} post${
     totalCount === 1 ? "" : "s"
-  } tagged with "${tag}"`
+  } tagged with ${tag}`
 
   return (
     <Layout>
-      <TagsTitle>{tagHeader}</TagsTitle>
-      <GridWrapper>
-        <TagList>
-          {edges.map(({ node }) => {
-            const { slug } = node.fields
-            const { title } = node.frontmatter
-            return (
-              <SingleArticleWrapper key={slug}>
-                <StyledLink to={slug}>
-                  <header>
-                    <PostTitle>{title}</PostTitle>
-                    <Date>{node.frontmatter.date}</Date>
-                  </header>
-                  <section>
-                    <p
-                      dangerouslySetInnerHTML={{
-                        __html: node.frontmatter.description || node.excerpt,
-                      }}
-                    />
-                  </section>
-                </StyledLink>
-              </SingleArticleWrapper>
-            )
-          })}
-        </TagList>
-        <Sidebar />
-        <Link to="/tags">
-          <AllButton>All tags</AllButton>
-        </Link>
-      </GridWrapper>
+      <Flex
+        w="100%"
+        flexDirection="column"
+        // bg={bgColor[colorMode]}
+        // color={primarytextColor[colorMode]}
+        justifyContent="center"
+        alignItems="center"
+      >
+        <Heading color="blue.400" size="2xl">
+          {tagHeader}
+        </Heading>
+        <Box>
+          <List>
+            {edges.map(({ node }) => {
+              const { slug } = node.fields
+              const { title } = node.frontmatter
+              return (
+                <ListItem as="article" key={slug}>
+                  <Link to={slug}>
+                    <header>
+                      <Heading as="h2">{title}</Heading>
+                      <Text>{node.frontmatter.date}</Text>
+                    </header>
+                    <section>
+                      <p
+                        dangerouslySetInnerHTML={{
+                          __html: node.frontmatter.description || node.excerpt,
+                        }}
+                      />
+                    </section>
+                  </Link>
+                </ListItem>
+              )
+            })}
+          </List>
+
+          <Link to="/tags">
+            <Button>All tags</Button>
+          </Link>
+        </Box>
+      </Flex>
     </Layout>
   )
 }
