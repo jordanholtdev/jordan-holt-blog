@@ -31,6 +31,10 @@ const HomePage = ({ data }) => {
     light: "black",
     dark: "white",
   }
+  const secondarytextColor = {
+    light: "gray.900",
+    dark: "gray.400",
+  }
 
   return (
     <Layout>
@@ -62,7 +66,7 @@ const HomePage = ({ data }) => {
         maxWidth="700px"
       >
         <Box w="100%" pt={6}>
-          <Heading>What's New</Heading>
+          <Heading as="h2">What's New</Heading>
           <Text>The latest articles</Text>
         </Box>
         <SimpleGrid
@@ -79,7 +83,7 @@ const HomePage = ({ data }) => {
                 key={node.frontmatter.slug}
                 p={6}
                 maxW="md"
-                minH="200px"
+                minH={["200px", "350px"]}
                 borderWidth="1px"
                 rounded="lg"
                 overflow="hidden"
@@ -88,8 +92,14 @@ const HomePage = ({ data }) => {
               >
                 <Stack spacing={4}>
                   <Link to={node.fields.slug}>
-                    <Heading size="lg">{title}</Heading>
-                    <Text py={2} fontSize="sm" color="blue">
+                    <Heading size="lg" as="h3">
+                      {title}
+                    </Heading>
+                    <Text
+                      py={2}
+                      fontSize="sm"
+                      color={secondarytextColor[colorMode]}
+                    >
                       {node.frontmatter.description}
                     </Text>
                   </Link>
@@ -98,7 +108,7 @@ const HomePage = ({ data }) => {
                       {node.frontmatter.date}
                     </Text>
                     <Box>
-                      <Tag size="sm" variantColor="gray" variant="outline">
+                      <Tag size="sm" color="gray.500" variant="ghost" pl={0}>
                         <TagIcon icon="time" size="14px" />
                         <TagLabel>{node.timeToRead} min</TagLabel>
                       </Tag>
@@ -106,7 +116,12 @@ const HomePage = ({ data }) => {
                   </Stack>
 
                   <Link to={node.fields.slug}>
-                    <Button size="md" variant="outline" variantColor="green">
+                    <Button
+                      pl={0}
+                      size="md"
+                      variant="ghost"
+                      variantColor="green"
+                    >
                       Read More →
                     </Button>
                   </Link>
@@ -116,7 +131,7 @@ const HomePage = ({ data }) => {
           })}
         </SimpleGrid>
         <Box w="100%" pt={6}>
-          <Heading>Recent JavaScript</Heading>
+          <Heading as="h4">Recent JavaScript</Heading>
           <Text>Discover the latest JavaScript articles</Text>
         </Box>
         <Box w="100%">
@@ -134,10 +149,12 @@ const HomePage = ({ data }) => {
                   mb={6}
                 >
                   <Stack w="80%">
-                    <Heading as="h4" size="md">
+                    <Heading as="h5" size="md">
                       {title}
                     </Heading>
-                    <Text>{description}</Text>
+                    <Text color={secondarytextColor[colorMode]}>
+                      {description}
+                    </Text>
                   </Stack>
                   <Box textAlign="center">
                     <Tag mt={4} variant="outline" variantColor="cyan" size="sm">
@@ -166,7 +183,9 @@ const HomePage = ({ data }) => {
         flexDirection="column"
         bg={bgColor[colorMode]}
       >
-        <Heading size="lg">Subscribe to the newsletter</Heading>
+        <Heading size="lg" as="h5">
+          Subscribe to the newsletter
+        </Heading>
         <Text py={4}>
           Get emails from me about web development, tech, and early access to
           new articles.

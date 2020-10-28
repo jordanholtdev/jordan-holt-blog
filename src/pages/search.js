@@ -16,7 +16,7 @@ const SearchPage = ({ data, location }) => {
         m="3rem auto 4rem auto"
         maxWidth="700px"
       >
-        <Heading as="h1" size="xl" pb={4}>
+        <Heading as="h1" size="2xl" pb={4}>
           Search{" "}
         </Heading>
         <SearchBox />

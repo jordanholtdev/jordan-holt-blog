@@ -35,7 +35,10 @@ const AllPosts = ({ pageContext, data }) => {
     light: "white",
     dark: "gray.800",
   }
-
+  const secondarytextColor = {
+    light: "gray.900",
+    dark: "gray.400",
+  }
   return (
     <Layout>
       <SEO title={"Blog"} description={data.site.siteMetadata.description} />
@@ -49,7 +52,9 @@ const AllPosts = ({ pageContext, data }) => {
         <Flex w="100%" justifyContent="center" alignItems="center" mt="3rem">
           <Box>
             <Box pb={4}>
-              <Heading>All Articles</Heading>
+              <Heading as="h1" size="2xl">
+                All Articles
+              </Heading>
               <Text>All articles, sorted chronologically.</Text>
             </Box>
             <List as="ol" styleType="none" spacing={4} textAlign="left">
@@ -71,20 +76,16 @@ const AllPosts = ({ pageContext, data }) => {
                   >
                     <Link to={node.fields.slug}>
                       <Box>
-                        <Heading as="h4" size="lg">
+                        <Heading as="h3" size="lg">
                           {title}
                         </Heading>
-                        <Text
-                          fontSize="xs"
-                          color="gray.500"
-                          py={2}
-                          fontWeight="600"
-                        >
+                        <Text fontSize="xs" py={2} fontWeight="600">
                           {node.frontmatter.date}
                         </Text>
                       </Box>
                       <Box>
                         <Text
+                          color={secondarytextColor[colorMode]}
                           fontWeight="400"
                           lineHeight="tight"
                           fontSize="1rem"

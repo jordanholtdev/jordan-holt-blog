@@ -38,10 +38,10 @@ const Header = () => {
       align="center"
       justify="space-evenly"
       wrap="wrap"
-      padding="1.5rem"
+      padding={["0.50rem", "1.5rem"]}
       bg={navBgColor[colorMode]}
     >
-      <Flex align="center" mx={5}>
+      <Flex align="center" mx={2}>
         <Heading as="h1" size="md">
           <Link to="/">{data.site.siteMetadata.title}</Link>
         </Heading>
@@ -90,30 +90,30 @@ const Header = () => {
             alignItems="center"
             flexGrow={1}
           >
-            <Box mx={5}>
+            <Box mx={[0, 1, 2, 2]}>
               {" "}
               <Link to="/articles">
-                <Button variant="outline" variantColor="blue" mr={2} size="sm">
+                <Button variant="ghost" variantColor="blue" mr={1} size="md">
                   Articles
                 </Button>
               </Link>
               <Link to="/">
-                <Button variant="outline" variantColor="blue" mr={2} size="sm">
+                <Button variant="ghost" variantColor="blue" mr={1} size="md">
                   Home
                 </Button>
               </Link>
               <Link to="/search/">
-                <Button variant="outline" variantColor="blue" mr={2} size="sm">
+                <Button variant="ghost" variantColor="blue" mr={1} size="md">
                   Search
                 </Button>
               </Link>
               <Link to="/about/">
-                <Button variant="outline" variantColor="blue" mr={2} size="sm">
+                <Button variant="ghost" variantColor="blue" mr={1} size="md">
                   About
                 </Button>
               </Link>
               <Link to="/newsletter/">
-                <Button variant="outline" variantColor="blue" mr={2} size="sm">
+                <Button variant="ghost" variantColor="blue" mr={1} size="md">
                   Newsletter
                 </Button>
               </Link>
