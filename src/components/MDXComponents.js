@@ -161,7 +161,7 @@ const MDXComponents = {
   inlineCode: props => (
     <Code variantColor="yellow" fontSize="0.84em" {...props} />
   ),
-  p: props => <Text as="p" mt={4} lineHeight="tall" {...props} />,
+  p: props => <Text as="p" my={4} lineHeight="tall" {...props} />,
   ul: props => <Box as="ul" pt={2} pl={4} ml={2} {...props} />,
   ol: props => <Box as="ol" pt={2} pl={4} ml={2} {...props} />,
   li: props => <Box as="li" pb={1} {...props} />,

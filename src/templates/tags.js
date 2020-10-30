@@ -6,9 +6,14 @@ import {
   Button,
   Heading,
   Text,
+  Tag,
   List,
   ListItem,
   Flex,
+  Stack,
+  Stat,
+  StatLabel,
+  StatNumber,
 } from "@chakra-ui/core"
 
 // Components
@@ -19,9 +24,18 @@ import Layout from "../components/layout"
 const Tags = ({ pageContext, data }) => {
   const { tag } = pageContext
   const { edges, totalCount } = data.allMdx
-  const tagHeader = `${totalCount} post${
-    totalCount === 1 ? "" : "s"
-  } tagged with ${tag}`
+  const tagHeader = `Article${totalCount === 1 ? "" : "s"} tagged with `
+
+  const readtimes = edges.map(({ node }) => {
+    const { timeToRead } = node
+    let sum = timeToRead
+    return sum
+  })
+
+  let sumReadTime = 0
+  for (let i = 0; i < readtimes.length; i++) {
+    sumReadTime += readtimes[i]
+  }
 
   return (
     <Layout>
@@ -33,37 +47,69 @@ const Tags = ({ pageContext, data }) => {
         justifyContent="center"
         alignItems="center"
       >
-        <Heading color="blue.400" size="2xl">
-          {tagHeader}
-        </Heading>
         <Box>
-          <List>
+          <Heading mt="3rem" as="h1" size="2xl">
+            {tagHeader}{" "}
+            <Text color="blue.400" as="span">
+              {tag}
+            </Text>
+          </Heading>
+          <Box py={4}>
+            All articles that are tagged with{" "}
+            <Tag size="sm" rounded="8px" variant="outline" variantColor="cyan">
+              {tag}
+            </Tag>
+          </Box>
+          <Stack isInline maxW="60%" mb="3rem">
+            <Stat>
+              <StatLabel>Articles</StatLabel>
+              <StatNumber>{totalCount}</StatNumber>
+            </Stat>
+            <Stat>
+              <StatLabel>Total Read Time</StatLabel>
+              <StatNumber>{sumReadTime}min</StatNumber>
+            </Stat>
+          </Stack>
+        </Box>
+        <Box>
+          <List spacing={4}>
             {edges.map(({ node }) => {
               const { slug } = node.fields
               const { title } = node.frontmatter
               return (
-                <ListItem as="article" key={slug}>
-                  <Link to={slug}>
+                <Link key={slug} to={slug}>
+                  <ListItem
+                    p={4}
+                    _hover={{ borderColor: "gray.800" }}
+                    mb={4}
+                    as="article"
+                    borderWidth="1px"
+                    rounded="8px"
+                  >
                     <header>
                       <Heading as="h2">{title}</Heading>
-                      <Text>{node.frontmatter.date}</Text>
+                      <Text color="gray.400">{node.frontmatter.date}</Text>
                     </header>
-                    <section>
+                    <Box>
                       <p
                         dangerouslySetInnerHTML={{
                           __html: node.frontmatter.description || node.excerpt,
                         }}
                       />
-                    </section>
-                  </Link>
-                </ListItem>
+                    </Box>
+                  </ListItem>
+                </Link>
               )
             })}
           </List>
 
-          <Link to="/tags">
-            <Button>All tags</Button>
-          </Link>
+          <Box pt={4} textAlign="center">
+            <Link to="/tags">
+              <Button variantColor="blue" variant="solid">
+                All tags
+              </Button>
+            </Link>
+          </Box>
         </Box>
       </Flex>
     </Layout>
@@ -83,6 +129,7 @@ Tags.propTypes = {
             frontmatter: PropTypes.shape({
               title: PropTypes.string.isRequired,
             }),
+            timeToRead: PropTypes.number.isRequired,
             fields: PropTypes.shape({
               slug: PropTypes.string.isRequired,
             }),
@@ -105,6 +152,7 @@ export const pageQuery = graphql`
       totalCount
       edges {
         node {
+          timeToRead
           excerpt
           fields {
             slug

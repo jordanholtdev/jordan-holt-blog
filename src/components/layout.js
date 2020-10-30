@@ -23,6 +23,7 @@ const Layout = ({ children }) => {
       <Flex
         as="main"
         spacing="1.5rem"
+        p={[2, 0]}
         width="100%"
         justifyContent="center"
         flexDirection="column"

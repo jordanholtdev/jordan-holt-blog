@@ -49,12 +49,18 @@ const HomePage = ({ data }) => {
       >
         <Box maxW="700px" p={[2, 2, 0]}>
           <Heading as="h1" size="2xl">
-            Get the latest articles in your inbox.
+            Get the latest newsletter in your inbox.
           </Heading>
-          <Text>Every week I send out a newsletter</Text>
-          <Button mt={4} variantColor="blue">
-            Subscribe
-          </Button>
+          <Text mt={4}>
+            {" "}
+            Every Friday, I send out an email with useful tips, techniques and
+            resources on web development that I've come across.
+          </Text>
+          <Link to={"/newsletter"}>
+            <Button mt={4} variantColor="blue">
+              Subscribe
+            </Button>
+          </Link>
         </Box>
       </Flex>
 
@@ -134,7 +140,7 @@ const HomePage = ({ data }) => {
           <Heading as="h4">Recent JavaScript</Heading>
           <Text>Discover the latest JavaScript articles</Text>
         </Box>
-        <Box w="100%">
+        <Box w="100%" m="0 auto 4rem auto">
           {javascriptPosts.map(({ node }) => {
             const title = node.frontmatter.title || node.fields.slug
             const description = node.frontmatter.description
@@ -182,6 +188,7 @@ const HomePage = ({ data }) => {
         m="0 auto 4rem auto"
         flexDirection="column"
         bg={bgColor[colorMode]}
+        id="newsletter"
       >
         <Heading size="lg" as="h5">
           Subscribe to the newsletter

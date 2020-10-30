@@ -29,9 +29,6 @@ const NewsletterLandingPageForm = () => {
           const result = await addToMailchimp(values.email)
 
           if (result.result === "error") {
-            // alert(`Sorry ${result.msg}!`)
-            // this.setState({ email: "" })
-
             setSubmitting(false)
             toast({
               title: "An error occurred.",
@@ -42,10 +39,6 @@ const NewsletterLandingPageForm = () => {
             })
             return
           } else {
-            // alert(`Thank you for subscribing ${this.state.email}!`)
-            // this.setState({ email: "" })
-
-            resetForm()
             toast({
               title: "Success!.",
               description: "Thank you! 🎉 You are now subscribed",
@@ -53,6 +46,7 @@ const NewsletterLandingPageForm = () => {
               duration: 4000,
               isClosable: true,
             })
+            resetForm()
           }
         }}
       >

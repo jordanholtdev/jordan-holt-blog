@@ -50,7 +50,7 @@ const CustomHits = connectHits(Hits)
 const SearchBox = ({ currentRefinement, refine }) => {
   return (
     <form noValidate role="search">
-      <FormControl w={["400px", "500px", "700px"]}>
+      <FormControl w={["250px", "500px", "700px"]}>
         <Input
           w="100%"
           focusBorderColor="teal.400"

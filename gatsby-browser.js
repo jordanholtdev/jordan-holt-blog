@@ -1,4 +1,5 @@
-import "prismjs/themes/prism-tomorrow.css"
+import "./src/themes/prismTheme.css"
+import "prismjs/plugins/line-numbers/prism-line-numbers.css"
 
 import { MDXProvider } from "@mdx-js/react"
 import MDXComponents from "./src/components/MDXComponents"

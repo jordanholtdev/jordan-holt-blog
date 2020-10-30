@@ -16,7 +16,7 @@ const AllTags = tag => {
   `)
 
   return (
-    <Box my={2}>
+    <Box my={6}>
       {data.allMdx.group.map(({ fieldValue }) => {
         return (
           <Link key={fieldValue} to={`/tags/${_.kebabCase(fieldValue)}/`}>
@@ -24,8 +24,7 @@ const AllTags = tag => {
               size="md"
               m={2}
               variant="outline"
-              colorScheme="cyan"
-              variantColor="cyan"
+              variantColor="gray"
               _hover={{ opacity: "0.5" }}
             >
               <TagLabel>{fieldValue}</TagLabel>

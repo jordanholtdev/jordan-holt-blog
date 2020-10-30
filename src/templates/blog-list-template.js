@@ -12,6 +12,9 @@ import {
   List,
   ListItem,
   Stack,
+  Stat,
+  StatLabel,
+  StatNumber,
   useColorMode,
 } from "@chakra-ui/core"
 
@@ -28,6 +31,7 @@ const AllPosts = ({ pageContext, data }) => {
   const nextPage = `/articles/${currentPage + 1}`
 
   const posts = data.allMdx.edges
+  const totalPosts = data.allMdx.totalCount
 
   const { colorMode } = useColorMode()
 
@@ -56,6 +60,10 @@ const AllPosts = ({ pageContext, data }) => {
                 All Articles
               </Heading>
               <Text>All articles, sorted chronologically.</Text>
+              <Stat mt={4}>
+                <StatLabel>Total Articles</StatLabel>
+                <StatNumber>{totalPosts}</StatNumber>
+              </Stat>
             </Box>
             <List as="ol" styleType="none" spacing={4} textAlign="left">
               {posts.map(({ node }) => {
@@ -137,6 +145,7 @@ export const pageQuery = graphql`
       skip: $skip
       limit: $limit
     ) {
+      totalCount
       edges {
         node {
           excerpt
