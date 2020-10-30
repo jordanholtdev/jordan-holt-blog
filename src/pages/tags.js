@@ -1,7 +1,19 @@
 import React from "react"
 import PropTypes from "prop-types"
 import Layout from "../components/layout"
-import styled from "styled-components"
+
+import {
+  Flex,
+  Heading,
+  Text,
+  Tag,
+  Box,
+  Stack,
+  Stat,
+  StatLabel,
+  StatNumber,
+  SimpleGrid,
+} from "@chakra-ui/core"
 
 // Utilities
 import kebabCase from "lodash/kebabCase"
@@ -10,31 +22,6 @@ import kebabCase from "lodash/kebabCase"
 import { Helmet } from "react-helmet"
 import { Link, graphql } from "gatsby"
 
-// component styles
-const Title = styled.h1`
-  font-size: 2rem;
-  font-weight: 900;
-  @media screen and (min-width: 320px) {
-    font-size: calc(1.75rem + 6 * ((100vw - 320px) / 680));
-  }
-  @media screen and (min-width: 1000px) {
-    font-size: 2.5rem;
-  }
-`
-const TagButtons = styled.button`
-  border: none;
-  padding: 0.5em;
-  color: ${props => props.theme.colors.lightShades};
-  background-color: ${props => props.theme.colors.mainBrandColor};
-  font-weight: 700;
-  border-radius: 0.2rem;
-  margin-top: 0.35rem;
-  margin-left: 0.2rem;
-  :hover {
-    cursor: pointer;
-    opacity: 0.75;
-  }
-`
 const TagsPage = ({
   data: {
     allMdx: { group },
@@ -44,23 +31,69 @@ const TagsPage = ({
   },
 }) => (
   <Layout>
-    <div>
+    <Flex
+      w="100%"
+      flexDirection="column"
+      // bg={bgColor[colorMode]}
+      // color={primarytextColor[colorMode]}
+      justifyContent="center"
+      alignItems="center"
+    >
       <Helmet title={title} />
-      <div>
-        <Title>All Tags</Title>
-        <ul>
+      <Stack
+        spacing={8}
+        justifyContent="center"
+        alignItems={["center", "flex-start"]}
+        m="0 auto 4rem auto"
+        maxWidth="700px"
+      >
+        <Heading as="h1" mt="3rem" size="2xl">
+          All Tags
+        </Heading>
+        <Text pb={4}>Explore all the topics on the site</Text>
+        <SimpleGrid columns={[1, 2, 3, 4]} spacingY={6}>
           {group.map(tag => (
-            <li key={tag.fieldValue}>
-              <Link to={`/tags/${kebabCase(tag.fieldValue)}/`}>
-                <TagButtons>
-                  {tag.fieldValue} ({tag.totalCount})
-                </TagButtons>
-              </Link>
-            </li>
+            <Link to={`/tags/${kebabCase(tag.fieldValue)}/`}>
+              <Flex
+                p={2}
+                borderWidth="1px"
+                mr={[0, 4]}
+                textAlign="center"
+                alignItems="center"
+                justifyContent="center"
+                rounded="8px"
+              >
+                <Stat p={0}>
+                  <StatLabel>{tag.fieldValue}</StatLabel>
+                  <StatNumber>{tag.totalCount}</StatNumber>
+                </Stat>
+              </Flex>
+            </Link>
           ))}
-        </ul>
-      </div>
-    </div>
+        </SimpleGrid>
+        <Flex
+          align={["center", "left"]}
+          my={4}
+          py={4}
+          direction="column"
+          w="100%"
+        >
+          {group.map(tag => (
+            <Box key={tag.fieldValue} mt={4}>
+              <Link to={`/tags/${kebabCase(tag.fieldValue)}/`}>
+                <Tag
+                  _hover={{ opacity: "0.5" }}
+                  variantColor="gray"
+                  variant="outline"
+                >
+                  {tag.fieldValue}
+                </Tag>
+              </Link>
+            </Box>
+          ))}
+        </Flex>
+      </Stack>
+    </Flex>
   </Layout>
 )
 

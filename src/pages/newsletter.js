@@ -2,100 +2,107 @@ import React from "react"
 import { graphql } from "gatsby"
 import Img from "gatsby-image"
 import Seo from "../components/seo"
-import styled from "styled-components"
+import Layout from "../components/layout"
+
+import {
+  Box,
+  List,
+  ListItem,
+  ListIcon,
+  Stack,
+  Heading,
+  Link as CharkaLink,
+  Text,
+  SimpleGrid,
+} from "@chakra-ui/core"
 
 import NewsletterLandingPageForm from "../components/Forms/newsletterPageForm"
-
-const Wrapper = styled.div`
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: auto;
-  grid-column-gap: 2rem;
-  justify-items: center;
-  align-content: space-between;
-  margin: 10rem auto;
-  max-width: 50rem;
-  width: 90%;
-`
-
-const SignupWrapper = styled.div`
-  margin: 0 2%;
-`
-
-const CopyWrapper = styled.div`
-  margin: 0 2%;
-  @media ${props => props.theme.breakpoints.largeViewport} {
-    grid-row-start: 2;
-    grid-column-start: 2;
-  }
-`
-const StyledHeading = styled.h2`
-  margin: 2rem auto;
-  border: none;
-  font-size: ${props => props.theme.fontSizes.medium};
-  @media ${props => props.theme.breakpoints.largeViewport} {
-    margin: 0 auto;
-  }
-`
-const StyledDescription = styled.p`
-  margin: 0;
-  padding-bottom: 2rem;
-  font-size: ${props => props.theme.fontSizes.small};
-`
-
-const StyledList = styled.ul`
-  padding-bottom: 2rem;
-  font-size: ${props => props.theme.fontSizes.small};
-`
-const StyledDetialText = styled.p`
-  opacity: 0.7;
-`
 
 const Newsletter = ({ data, location }) => {
   return (
     <>
-      <Seo
-        title={"Newsletter"}
-        description={
-          "Subscribe to my newsletter to recieve the latest tips, techniques and news about web development"
-        }
-      />
-      <Wrapper>
-        <Img
-          fluid={data.logo.childCloudinaryAsset.fluid}
-          style={{
-            position: "relative",
-            maxWidth: "200px",
-            width: "400px",
-            height: "100px",
-          }}
+      <Layout>
+        <Seo
+          title={"Newsletter"}
+          description={
+            "Subscribe to my newsletter to recieve the latest tips, techniques and news about web development"
+          }
         />
-        <SignupWrapper>
-          <StyledHeading>
-            A weekly newsletter helping you be productive, feel inspired and
-            learn about web development.
-          </StyledHeading>
-          <NewsletterLandingPageForm />
-          <StyledDescription>
-            Every Friday, I send out an email with tips, tricks, resources and
-            other cool things in the world of web development that I've come
-            across.
-          </StyledDescription>
-        </SignupWrapper>
-        <CopyWrapper>
-          <StyledList>
-            <li>- useful tips and techniques</li>
-            <li>- Intriguing apps and services</li>
-            <li>- Inspiring SaaS and indie dev projects</li>
-            <li>- Intersting things to read/listen/watch</li>
-          </StyledList>
-          <StyledDetialText>
-            Follow me <a href="https://twitter.com/jordanholtdev">on Twitter</a>{" "}
-            to be notified about new issues. The Coderton is published by Jordan
-            Holt.
-          </StyledDetialText>
-        </CopyWrapper>
-      </Wrapper>
+        <Stack
+          spacing={8}
+          justifyContent="center"
+          alignItems="flex-start"
+          m="3rem auto 4rem auto"
+          maxWidth="700px"
+        >
+          <Stack isInline>
+            <Box>
+              <Heading as="h1" size="2xl">
+                Email Newsletter
+              </Heading>
+              <Text py={4}>
+                Every Friday, I send out an email with useful tips, techniques
+                and resources on web development that I've come across.
+              </Text>
+            </Box>
+            <Img
+              fluid={data.logo.childCloudinaryAsset.fluid}
+              style={{
+                position: "relative",
+                maxWidth: "200px",
+                width: "400px",
+                height: "100px",
+              }}
+            />
+          </Stack>
+          <SimpleGrid columns={1} spacingX="100px" mt={10}>
+            <Box mb={4} borderWidth="1px" p={4} rounded="8px">
+              <Heading as="h2" size="xl">
+                Subscribe to the newsletter
+              </Heading>
+              <Text py={4}>
+                Get emails from me about web development, coding, and early
+                access to new articles.
+              </Text>
+              <NewsletterLandingPageForm />
+            </Box>
+            <Box mt={10}>
+              <Text>
+                My newsletter is curated, written and edited with love. Every
+                week I send out useful resources and techniques about
+                development. No third-party mailings, spam or hidden
+                advertising. Here's what you can expect.
+              </Text>
+              <List styleType="none" mt={4} spacing={1}>
+                <ListItem>
+                  <ListIcon icon="check-circle" color="green.500" />
+                  useful tips and techniques
+                </ListItem>
+                <ListItem>
+                  <ListIcon icon="check-circle" color="green.500" />
+                  Intriguing apps and services
+                </ListItem>
+                <ListItem>
+                  <ListIcon icon="check-circle" color="green.500" />
+                  SaaS and indie dev projects
+                </ListItem>
+                <ListItem>
+                  <ListIcon icon="check-circle" color="green.500" />
+                  Intersting things to read/listen/watch
+                </ListItem>
+              </List>
+              <Text mt={20}>
+                Follow me{" "}
+                <CharkaLink href="https://twitter.com/jordanholtdev">
+                  on Twitter
+                </CharkaLink>{" "}
+                to be notified about new issues. The Coderton is published by
+                Jordan Holt.
+              </Text>
+            </Box>
+          </SimpleGrid>
+        </Stack>
+      </Layout>
     </>
   )
 }

@@ -1,145 +1,137 @@
 import React from "react"
 import Pagination from "../components/pagination"
 import { Link, graphql } from "gatsby"
-import Img from "gatsby-image"
 import kebabCase from "lodash/kebabCase"
 
+import {
+  Tag,
+  Flex,
+  Box,
+  Heading,
+  Text,
+  List,
+  ListItem,
+  Stack,
+  Stat,
+  StatLabel,
+  StatNumber,
+  useColorMode,
+} from "@chakra-ui/core"
+
 import Layout from "../components/layout"
-import GridWrapper from "../styles/gridWrapper"
-import SingleArticleWrapper from "../styles/singleArticleWrapper"
-import TagButton from "../components/TagButton"
-import Sidebar from "../components/sidebar"
-import styled from "styled-components"
+
 import SEO from "../components/seo"
-
-const StyledHero = styled.section`
-  display: flex;
-  width: 100%;
-  justify-content: center;
-  margin: 3rem 0 3rem 0;
-`
-const StyledHeroDiv = styled.div`
-  display: block;
-  position: relative;
-  width: 375px;
-  box-shadow: 12px 12px 34px #dce1de, -12px -12px 34px #ffffff;
-  @media ${props => props.theme.breakpoints.xSmallViewport} {
-    width: 600px;
-  }
-  @media ${props => props.theme.breakpoints.mediumViewport} {
-    width: 800px;
-  }
-  @media ${props => props.theme.breakpoints.largeViewport} {
-    width: 1200px;
-  }
-`
-
-const StyledLink = styled(Link)`
-  box-sizing: content-box;
-  display: block;
-  box-shadow: none;
-`
-
-const Header = styled.header`
-  box-sizing: content-box;
-`
-const PostTitle = styled.h3`
-  color: ${props => props.theme.colors.darkText};
-  margin-top: 0;
-  font-size: ${props => props.theme.fontSizes.large};
-  font-weight: 900;
-  @media screen and (min-width: 320px) {
-    font-size: calc(1.75rem + 6 * ((100vw - 320px) / 680));
-  }
-  @media screen and (min-width: 1200px) {
-    font-size: ${props => props.theme.fontSizes.large};
-  }
-`
-
-const Date = styled.small`
-  justify-content: right;
-  font-size: 20px;
-  font-weight: 300;
-  @media screen and (min-width: 320px) {
-    font-size: calc(15px + 6 * ((100vw - 320px) / 680));
-  }
-  @media screen and (min-width: 1200px) {
-    font-size: 19px;
-  }
-`
-
-const TagWrapper = styled.div`
-  display: flex;
-  @media screen and (max-width: 500px) {
-    display: inline;
-  }
-`
-const TagItem = styled.span`
-  box-sizing: inherit;
-`
 
 const AllPosts = ({ pageContext, data }) => {
   const { currentPage, numPages } = pageContext
   const isFirst = currentPage === 1
   const isLast = currentPage === numPages
-  const prevPage = currentPage - 1 === 1 ? "/" : `/${currentPage - 1}`
-  const nextPage = `/${currentPage + 1}`
+  const prevPage =
+    currentPage - 1 === 1 ? "/articles" : `/articles/${currentPage - 1}`
+  const nextPage = `/articles/${currentPage + 1}`
 
   const posts = data.allMdx.edges
+  const totalPosts = data.allMdx.totalCount
 
+  const { colorMode } = useColorMode()
+
+  const bgColor = {
+    light: "white",
+    dark: "gray.800",
+  }
+  const secondarytextColor = {
+    light: "gray.900",
+    dark: "gray.400",
+  }
   return (
     <Layout>
       <SEO title={"Blog"} description={data.site.siteMetadata.description} />
-      <StyledHero>
-        <StyledLink to="/newsletter/">
-          <StyledHeroDiv>
-            <Img
-              fluid={data.image.childCloudinaryAsset.fluid}
-              alt="Newsletter promotion banner"
-            />
-          </StyledHeroDiv>
-        </StyledLink>
-      </StyledHero>
-      <GridWrapper>
-        <ol>
-          {posts.map(({ node }) => {
-            const title = node.frontmatter.title || node.fields.slug
-            return (
-              <SingleArticleWrapper key={node.fields.slug}>
-                <StyledLink to={node.fields.slug}>
-                  <Header>
-                    <PostTitle>{title}</PostTitle>
-                    <Date>{node.frontmatter.date}</Date>
-                  </Header>
-                  <section>
-                    <p
-                      dangerouslySetInnerHTML={{
-                        __html: node.frontmatter.description || node.excerpt,
-                      }}
-                    />
-                  </section>
-                </StyledLink>
-                <TagWrapper>
-                  <TagItem>
-                    <Link to={`/tags/${kebabCase(node.frontmatter.tags)}`}>
-                      <TagButton> {node.frontmatter.tags}</TagButton>
+      <Stack
+        spacing={8}
+        justifyContent="center"
+        alignItems="flex-start"
+        m="0 auto 4rem auto"
+        maxWidth="700px"
+      >
+        <Flex w="100%" justifyContent="center" alignItems="center" mt="3rem">
+          <Box>
+            <Box pb={4}>
+              <Heading as="h1" size="2xl">
+                All Articles
+              </Heading>
+              <Text>All articles, sorted chronologically.</Text>
+              <Stat mt={4}>
+                <StatLabel>Total Articles</StatLabel>
+                <StatNumber>{totalPosts}</StatNumber>
+              </Stat>
+            </Box>
+            <List as="ol" styleType="none" spacing={4} textAlign="left">
+              {posts.map(({ node }) => {
+                const title = node.frontmatter.title || node.fields.slug
+                return (
+                  <ListItem
+                    as="li"
+                    fontWeight="semibold"
+                    letterSpacing="wide"
+                    fontSize="xs"
+                    mt={4}
+                    p={4}
+                    borderWidth="1px"
+                    rounded="8px"
+                    textTransform="uppercase"
+                    key={node.fields.slug}
+                    bg={bgColor[colorMode]}
+                  >
+                    <Link to={node.fields.slug}>
+                      <Box>
+                        <Heading as="h3" size="lg">
+                          {title}
+                        </Heading>
+                        <Text fontSize="xs" py={2} fontWeight="600">
+                          {node.frontmatter.date}
+                        </Text>
+                      </Box>
+                      <Box>
+                        <Text
+                          color={secondarytextColor[colorMode]}
+                          fontWeight="400"
+                          lineHeight="tight"
+                          fontSize="1rem"
+                          textTransform="capitalize"
+                          dangerouslySetInnerHTML={{
+                            __html:
+                              node.frontmatter.description || node.excerpt,
+                          }}
+                        />
+                      </Box>
                     </Link>
-                  </TagItem>
-                </TagWrapper>
-              </SingleArticleWrapper>
-            )
-          })}
 
-          <Pagination
-            isFirst={isFirst}
-            isLast={isLast}
-            prevPage={prevPage}
-            nextPage={nextPage}
-            currentPage={currentPage}
-          />
-        </ol>
-        <Sidebar />
-      </GridWrapper>
+                    <Link to={`/tags/${kebabCase(node.frontmatter.tags)}`}>
+                      <Tag
+                        mt={2}
+                        size="sm"
+                        variantColor="cyan"
+                        variant="outline"
+                      >
+                        {" "}
+                        {node.frontmatter.tags}
+                      </Tag>
+                    </Link>
+                  </ListItem>
+                )
+              })}
+
+              <Pagination
+                isFirst={isFirst}
+                isLast={isLast}
+                prevPage={prevPage}
+                nextPage={nextPage}
+                currentPage={currentPage}
+              />
+            </List>
+          </Box>
+        </Flex>
+      </Stack>
     </Layout>
   )
 }
@@ -153,6 +145,7 @@ export const pageQuery = graphql`
       skip: $skip
       limit: $limit
     ) {
+      totalCount
       edges {
         node {
           excerpt

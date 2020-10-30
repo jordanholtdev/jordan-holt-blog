@@ -1,15 +1,7 @@
 import React from "react"
 import { Link, useStaticQuery, graphql } from "gatsby"
 import _ from "lodash"
-import styled from "styled-components"
-
-import TagButton from "../components/TagButton"
-
-const TagWrapper = styled.div`
-  float: none;
-  display: inline;
-  text-align: left;
-`
+import { Tag, Box, TagLabel } from "@chakra-ui/core"
 
 const AllTags = tag => {
   const data = useStaticQuery(graphql`
@@ -24,15 +16,23 @@ const AllTags = tag => {
   `)
 
   return (
-    <TagWrapper>
+    <Box my={6}>
       {data.allMdx.group.map(({ fieldValue }) => {
         return (
           <Link key={fieldValue} to={`/tags/${_.kebabCase(fieldValue)}/`}>
-            <TagButton>{fieldValue}</TagButton>
+            <Tag
+              size="md"
+              m={2}
+              variant="outline"
+              variantColor="gray"
+              _hover={{ opacity: "0.5" }}
+            >
+              <TagLabel>{fieldValue}</TagLabel>
+            </Tag>
           </Link>
         )
       })}
-    </TagWrapper>
+    </Box>
   )
 }
 

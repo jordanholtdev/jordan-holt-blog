@@ -1,76 +1,90 @@
-import React from "react";
-import addToMailchimp from 'gatsby-plugin-mailchimp'
-import styled from "styled-components";
+import React from "react"
+import addToMailchimp from "gatsby-plugin-mailchimp"
+import { Field, Formik } from "formik"
+import * as Yup from "yup"
 
+import {
+  Box,
+  Button,
+  Input,
+  FormControl,
+  FormLabel,
+  FormErrorMessage,
+  useToast,
+} from "@chakra-ui/core"
 
-const StyledInput = styled.input`
-width: 100%;
-margin: 2rem 0;
-padding: 0.8rem;
-box-sizing: border-box;
-box-shadow:  14px 14px 28px #d2d4d1, 
-             -14px -14px 28px #ffffff;
-:focus {
-    outline-color: ${props => props.theme.colors.orangePeel};
-}
-`
-const StyledSpan = styled.span`
-    position: relative;
-    display: block;
-`
+const validateEmailSchema = Yup.object().shape({
+  email: Yup.string().email("Invalid email").required("Required"),
+})
 
-const StyledFromButton = styled.button`
-  cursor: pointer;
-  width: 1.2em;
-  overflow: visible;
-  position: absolute;
-  font-size: 150%;
-  z-index: 10;
-  top: 50%;
-  right: 0;
-  border: 0;
-  font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI",
-    "Helvetica Neue", sans-serif;
-  transform: translate(-25%, -50%);
-  background: rgba(255, 255, 255, 0);
-  color: rgba(0, 0, 0, 0.9);
-`
+const NewsletterLandingPageForm = () => {
+  const toast = useToast()
 
+  return (
+    <Box w="100%">
+      <Formik
+        initialValues={{ email: "" }}
+        validationSchema={validateEmailSchema}
+        onSubmit={async (values, { setSubmitting, resetForm }) => {
+          const result = await addToMailchimp(values.email)
 
-class NewsletterLandingPageForm extends React.Component {
-    
-    state = { email: "", result: null }
-
-    handleSubmit = async (e) => {
-        e.preventDefault();
-        const result = await addToMailchimp(this.state.email)
-        if (result.result === 'error') {
-            alert(`Sorry ${result.msg}!`)
-            this.setState({ email: ''})            
+          if (result.result === "error") {
+            setSubmitting(false)
+            toast({
+              title: "An error occurred.",
+              description: result.msg,
+              status: "error",
+              duration: 4000,
+              isClosable: true,
+            })
+            return
           } else {
-            alert(`Thank you for subscribing ${this.state.email}!`)
-            this.setState({ email: ''})
+            toast({
+              title: "Success!.",
+              description: "Thank you! 🎉 You are now subscribed",
+              status: "success",
+              duration: 4000,
+              isClosable: true,
+            })
+            resetForm()
           }
-        this.setState({ result: result });
-      }
-    
-  render() {
-      return (
-        <div>
-          <form name="subscribe" onSubmit={this.handleSubmit}>
-              <StyledSpan>
-                  <StyledFromButton>→</StyledFromButton>
-            <StyledInput
-              type="email"
-              value={this.state.email}
-              onChange={e => this.setState({ email: e.target.value })}
-              placeholder="Enter your email address"
-            />
-            </StyledSpan>
+        }}
+      >
+        {formik => (
+          <form onSubmit={formik.handleSubmit}>
+            <Field name="email">
+              {({ field, form }) => (
+                <FormControl
+                  isInvalid={form.errors.email && form.touched.email}
+                >
+                  <FormLabel htmlFor="email" id="email">
+                    Email address:
+                  </FormLabel>
+                  <Input
+                    {...field}
+                    type="email"
+                    focusBorderColor="teal.200"
+                    id="email"
+                    aria-label="your email"
+                    placeholder="E-mail"
+                  />
+                  <FormErrorMessage>{form.errors.email}</FormErrorMessage>
+                </FormControl>
+              )}
+            </Field>
+            <Button
+              mt={4}
+              variantColor="cyan"
+              type="submit"
+              isLoading={formik.isSubmitting}
+            >
+              Submit
+            </Button>
           </form>
-        </div>
-      )
-  }
+        )}
+      </Formik>
+    </Box>
+  )
 }
 
-export default NewsletterLandingPageForm;
+export default NewsletterLandingPageForm

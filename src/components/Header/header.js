@@ -1,96 +1,27 @@
 import React from "react"
 import { Link, graphql, useStaticQuery } from "gatsby"
-import styled from "styled-components"
+import DarkModeToggle from "../darkmodeToggle"
 
-// component styles
-const Container = styled.header`
-  background: ${props => props.theme.colors.darkShades};
-  display: block;
-  height: 100%;
-  position: relative;
-  padding: 1rem;
-  @media ${props => props.theme.breakpoints.xSmallViewport} {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    position: relative;
-  }
-  @media ${props => props.theme.breakpoints.smallViewport} {
-    justify-content: space-between;
-    padding: 1rem;
-  }
-  @media ${props => props.theme.breakpoints.mediumViewport} {
-    padding: 1rem 3rem 1rem 3rem;
-  }
-  @media ${props => props.theme.breakpoints.largeViewport} {
-    padding: 1rem;
-  }
-`
-const Nav = styled.nav`
-  display: block;
-  align-items: center;
-  margin: 0 auto;
-  width: 1200px;
-  max-width: 100%;
-  @media ${props => props.theme.breakpoints.smallViewport} {
-    display: flex;
-    justify-content: space-between;
-  }
-`
-
-const Title = styled.h4`
-  color: ${props => props.theme.colors.lightShades};
-  font-size: ${props => props.theme.fontSizes.medium};
-  font-weight: 800;
-  margin: 0;
-  @media ${props => props.theme.breakpoints.xSmallViewport} {
-    font-size: ${props => props.theme.fontSizes.medium};
-    margin-left: auto;
-  }
-  @media ${props => props.theme.breakpoints.smallViewport} {
-    margin: 0;
-  }
-`
-
-const List = styled.ul`
-  color: ${props => props.theme.colors.lightShades};
-  font-size: ${props => props.theme.fontSizes.small};
-  font-weight: 500;
-  @media ${props => props.theme.breakpoints.xSmallViewport} {
-    display: inline;
-    font-size: ${props => props.theme.fontSizes.small};
-  }
-  @media ${props => props.theme.breakpoints.smallViewport} {
-    display: block;
-    font-size: ${props => props.theme.fontSizes.small};
-  }
-  @media ${props => props.theme.breakpoints.mediumViewport} {
-    display: block;
-    font-size: ${props => props.theme.fontSizes.small};
-  }
-`
-const ListItem = styled.li`
-  display: inline-block;
-  margin: 0.5rem 1rem 0 1rem;
-`
-const StyledLink = styled(Link)`
-  text-transform: uppercase;
-  :hover {
-    opacity: 0.5;
-  }
-  :active {
-    color: ${props => props.theme.colors.roseMadder};
-    opacity: 1;
-  }
-`
-
-const ListLink = props => (
-  <ListItem>
-    <StyledLink to={props.to}>{props.children}</StyledLink>
-  </ListItem>
-)
+import {
+  Flex,
+  Heading,
+  Box,
+  Button,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  useColorMode,
+} from "@chakra-ui/core"
 
 const Header = () => {
+  const { colorMode } = useColorMode()
+
+  const navBgColor = {
+    light: "rgba(255, 255, 255, 0.8)",
+    dark: "rgba(23, 25, 35, 0.8)",
+  }
+
   const data = useStaticQuery(graphql`
     query {
       site {
@@ -102,19 +33,96 @@ const Header = () => {
   `)
 
   return (
-    <Container>
-      <Nav>
-        <Title>
+    <Flex
+      as="nav"
+      align="center"
+      justify="space-evenly"
+      wrap="wrap"
+      padding={["0.50rem", "1.5rem"]}
+      bg={navBgColor[colorMode]}
+    >
+      <Flex align="center" mx={2}>
+        <Heading as="h1" size="md">
           <Link to="/">{data.site.siteMetadata.title}</Link>
-        </Title>
-        <List>
-          <ListLink to="/">Home</ListLink>
-          <ListLink to="/search/">Search</ListLink>
-          <ListLink to="/about/">About</ListLink>
-          <ListLink to="/newsletter/">Newsletter</ListLink>
-        </List>
-      </Nav>
-    </Container>
+        </Heading>
+      </Flex>
+
+      <Box>
+        <Box>
+          <Menu>
+            <MenuButton
+              mx={5}
+              display={{ sm: "block", md: "none" }}
+              as={Button}
+              rightIcon="chevron-down"
+              size="sm"
+              variant="outline"
+              variantColor="blue"
+            >
+              Menu
+            </MenuButton>
+            <MenuList>
+              <MenuItem>
+                <Link to="/articles">Articles</Link>
+              </MenuItem>
+              <MenuItem>
+                <Link to="/">Home</Link>
+              </MenuItem>
+              <MenuItem>
+                <Link to="/search">Search</Link>
+              </MenuItem>
+              <MenuItem>
+                <Link to="/about">About</Link>
+              </MenuItem>
+              <MenuItem>
+                <Link to="/newsletter">Newsletter</Link>
+              </MenuItem>
+            </MenuList>
+          </Menu>
+          <Box
+            display={{
+              xs: "none",
+
+              md: "flex",
+            }}
+            width={{ sm: "100px", md: "auto" }}
+            mt={{ base: 4, md: 0 }}
+            alignItems="center"
+            flexGrow={1}
+          >
+            <Box mx={[0, 1, 2, 2]}>
+              {" "}
+              <Link to="/articles">
+                <Button variant="ghost" variantColor="blue" mr={1} size="md">
+                  Articles
+                </Button>
+              </Link>
+              <Link to="/">
+                <Button variant="ghost" variantColor="blue" mr={1} size="md">
+                  Home
+                </Button>
+              </Link>
+              <Link to="/search/">
+                <Button variant="ghost" variantColor="blue" mr={1} size="md">
+                  Search
+                </Button>
+              </Link>
+              <Link to="/about/">
+                <Button variant="ghost" variantColor="blue" mr={1} size="md">
+                  About
+                </Button>
+              </Link>
+              <Link to="/newsletter/">
+                <Button variant="ghost" variantColor="blue" mr={1} size="md">
+                  Newsletter
+                </Button>
+              </Link>
+            </Box>
+          </Box>
+        </Box>
+      </Box>
+      <DarkModeToggle />
+    </Flex>
   )
 }
 

@@ -1,123 +1,117 @@
 import React from "react"
 import PropTypes from "prop-types"
-import styled from "styled-components"
+
+import {
+  Box,
+  Button,
+  Heading,
+  Text,
+  Tag,
+  List,
+  ListItem,
+  Flex,
+  Stack,
+  Stat,
+  StatLabel,
+  StatNumber,
+} from "@chakra-ui/core"
 
 // Components
-import GridWrapper from "../styles/gridWrapper"
-import SingleArticleWrapper from "../styles/singleArticleWrapper"
-import Sidebar from "../components/sidebar"
+
 import { Link, graphql } from "gatsby"
 import Layout from "../components/layout"
-
-// component styles
-
-const TagsTitle = styled.h1`
-  color: #424242;
-  margin-top: 2rem;
-  font-size: 2rem;
-  font-weight: 900;
-  margin-bottom: 3rem;
-  text-decoration: none;
-  border: 0;
-  @media screen and (min-width: 320px) {
-    font-size: calc(1.75rem + 6 * ((100vw - 320px) / 680));
-  }
-  @media screen and (min-width: 1000px) {
-    font-size: 2.5rem;
-  }
-`
-
-const StyledLink = styled(Link)`
-  box-sizing: content-box;
-  display: block;
-  width: 100%;
-  box-shadow: none;
-`
-
-const TagList = styled.ul`
-  list-style: none;
-  margin: 0;
-`
-const PostTitle = styled.h3`
-  color: #424242;
-  margin-top: 0;
-  font-size: 2rem;
-  font-weight: 900;
-  @media screen and (min-width: 320px) {
-    font-size: calc(1.75rem + 6 * ((100vw - 320px) / 680));
-  }
-  @media screen and (min-width: 1200px) {
-    font-size: 2.5rem;
-  }
-`
-const Date = styled.small`
-  justify-content: right;
-  font-size: 20px;
-  font-weight: 300;
-  @media screen and (min-width: 320px) {
-    font-size: calc(15px + 6 * ((100vw - 320px) / 680));
-  }
-  @media screen and (min-width: 1200px) {
-    font-size: 19px;
-  }
-`
-const AllButton = styled.button`
-  border: none;
-  padding: 0.5em;
-  color: white;
-  background-color: ${props => props.theme.colors.roseMadder};
-  font-weight: 700;
-  border-radius: 0.2rem;
-  margin-top: 4rem;
-  margin-bottom: 4rem;
-  margin-left: 0.2rem;
-  :hover {
-    color: white;
-    cursor: pointer;
-    opacity: 0.75;
-    scale: 1.05;
-  }
-`
 
 const Tags = ({ pageContext, data }) => {
   const { tag } = pageContext
   const { edges, totalCount } = data.allMdx
-  const tagHeader = `${totalCount} post${
-    totalCount === 1 ? "" : "s"
-  } tagged with "${tag}"`
+  const tagHeader = `Article${totalCount === 1 ? "" : "s"} tagged with `
+
+  const readtimes = edges.map(({ node }) => {
+    const { timeToRead } = node
+    let sum = timeToRead
+    return sum
+  })
+
+  let sumReadTime = 0
+  for (let i = 0; i < readtimes.length; i++) {
+    sumReadTime += readtimes[i]
+  }
 
   return (
     <Layout>
-      <TagsTitle>{tagHeader}</TagsTitle>
-      <GridWrapper>
-        <TagList>
-          {edges.map(({ node }) => {
-            const { slug } = node.fields
-            const { title } = node.frontmatter
-            return (
-              <SingleArticleWrapper key={slug}>
-                <StyledLink to={slug}>
-                  <header>
-                    <PostTitle>{title}</PostTitle>
-                    <Date>{node.frontmatter.date}</Date>
-                  </header>
-                  <section>
-                    <p
-                      dangerouslySetInnerHTML={{
-                        __html: node.frontmatter.description || node.excerpt,
-                      }}
-                    />
-                  </section>
-                </StyledLink>
-              </SingleArticleWrapper>
-            )
-          })}
-        </TagList>
-        <Sidebar />
-        <Link to="/tags">
-          <AllButton>All tags</AllButton>
-        </Link>
-      </GridWrapper>
+      <Flex
+        w="100%"
+        flexDirection="column"
+        // bg={bgColor[colorMode]}
+        // color={primarytextColor[colorMode]}
+        justifyContent="center"
+        alignItems="center"
+      >
+        <Box>
+          <Heading mt="3rem" as="h1" size="2xl">
+            {tagHeader}{" "}
+            <Text color="blue.400" as="span">
+              {tag}
+            </Text>
+          </Heading>
+          <Box py={4}>
+            All articles that are tagged with{" "}
+            <Tag size="sm" rounded="8px" variant="outline" variantColor="cyan">
+              {tag}
+            </Tag>
+          </Box>
+          <Stack isInline maxW="60%" mb="3rem">
+            <Stat>
+              <StatLabel>Articles</StatLabel>
+              <StatNumber>{totalCount}</StatNumber>
+            </Stat>
+            <Stat>
+              <StatLabel>Total Read Time</StatLabel>
+              <StatNumber>{sumReadTime}min</StatNumber>
+            </Stat>
+          </Stack>
+        </Box>
+        <Box>
+          <List spacing={4}>
+            {edges.map(({ node }) => {
+              const { slug } = node.fields
+              const { title } = node.frontmatter
+              return (
+                <Link key={slug} to={slug}>
+                  <ListItem
+                    p={4}
+                    _hover={{ borderColor: "gray.800" }}
+                    mb={4}
+                    as="article"
+                    borderWidth="1px"
+                    rounded="8px"
+                  >
+                    <header>
+                      <Heading as="h2">{title}</Heading>
+                      <Text color="gray.400">{node.frontmatter.date}</Text>
+                    </header>
+                    <Box>
+                      <p
+                        dangerouslySetInnerHTML={{
+                          __html: node.frontmatter.description || node.excerpt,
+                        }}
+                      />
+                    </Box>
+                  </ListItem>
+                </Link>
+              )
+            })}
+          </List>
+
+          <Box pt={4} textAlign="center">
+            <Link to="/tags">
+              <Button variantColor="blue" variant="solid">
+                All tags
+              </Button>
+            </Link>
+          </Box>
+        </Box>
+      </Flex>
     </Layout>
   )
 }
@@ -135,6 +129,7 @@ Tags.propTypes = {
             frontmatter: PropTypes.shape({
               title: PropTypes.string.isRequired,
             }),
+            timeToRead: PropTypes.number.isRequired,
             fields: PropTypes.shape({
               slug: PropTypes.string.isRequired,
             }),
@@ -157,6 +152,7 @@ export const pageQuery = graphql`
       totalCount
       edges {
         node {
+          timeToRead
           excerpt
           fields {
             slug
