@@ -19,17 +19,6 @@ const Footer = () => {
             Buy me a coffee
           </ChakraLink>
         </ListItem>
-        <ListItem>
-          Friends of:{" "}
-          <ChakraLink
-            isExternal
-            color="blue.400"
-            fontWeight="200"
-            href="https://interactiveimmersive.io/blog/"
-          >
-            Interactive Immersive
-          </ChakraLink>
-        </ListItem>
         <ListItem>© {new Date().getFullYear()} Jordan Holt</ListItem>
       </List>
     </Flex>
