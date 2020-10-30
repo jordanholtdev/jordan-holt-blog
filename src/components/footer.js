@@ -10,7 +10,7 @@ const Footer = () => {
         Browse all topics
       </Text>
       <AllTags />
-      <List textAlign="center" spacing={4} color="gray.500">
+      <List textAlign="center" spacing={4} color="gray.400">
         <ListItem>
           <ChakraLink
             color="blue.400"
@@ -22,7 +22,9 @@ const Footer = () => {
         <ListItem>
           Friends of:{" "}
           <ChakraLink
+            isExternal
             color="blue.400"
+            fontWeight="200"
             href="https://interactiveimmersive.io/blog/"
           >
             Interactive Immersive

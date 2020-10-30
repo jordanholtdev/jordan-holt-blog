@@ -99,8 +99,7 @@ const About = ({ data, location }) => {
                 >
                   Hacker News -
                 </ChakraLink>{" "}
-                This is one where I explore new topics and look for feedback on
-                projects I'm working on.
+                This is one where I explore new topics and areas of technology.
               </ListItem>
               <ListItem>
                 <ChakraLink
