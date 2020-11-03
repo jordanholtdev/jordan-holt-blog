@@ -1,0 +1,186 @@
+---
+title: "An introduction to JavaScript variables"
+slug: learn-javascript-variables
+date: "2020-11-03"
+description: "Learn all about JavaScript variables including how to create and access them."
+author: "Jordan"
+tags: ["JavaScript"]
+---
+
+- You can think of variables as containers of information.
+
+- Variables allow a way of labeling data with a descriptive name that can be understood by someone reading them
+
+- Variables are not values, they contain values and represent them with a descriptive name.
+
+## Declaring a variable
+
+Variables are declared using one of three keywords in JavaScript `var`, `let` and `const`.
+
+```javascript
+var fruit = "Banana"
+const userNames = ["Joe", "Jessica", "Alice"]
+let counter = 0
+```
+
+- `var` declares a variable. The variable is not block-scoped. This is the original keyword, you'll see this less frequently used in many current projects.
+- `let` declares a variable that is block-scoped. You can initialize without a value, in which case it will initialize `undefined`.
+
+## Variable scope
+
+An important difference between JavaScript and other languages like Java, is that in JavaScript, blocks do not have scope, only functions have a scope. So if a variable is defined using `var` in a compound statement (for example inside an `if` control structure), it will be visible to the entire function. However, starting with ECMAScript 2015, `let` and `const` declarations allow you to create block-scoped variables. Let's have a closer look at this.
+
+If you declare a variable outside of any function, it is known as a _global_ variable, when you declare a variable inside of a function it is called a _local_ variable. Local variables are available within the function they are declared.
+
+```javascript
+var y // Global variable
+function example() {
+  var speak = "Hello" // Local variable
+}
+```
+
+Global variables are properties of the global object. You can see this by opening a browser console and creating a global variable, then access the variable through the window object. The window object is the global object in the browser.
+
+```javacript
+var globalNum = 10;
+window.globalNum // Output: 10
+```
+
+Prior to ECMAScript 2015 and the `let` and `const` keywords, JavaScript didn't have block statement scope. So a variable declared inside a block is local to the scope that the block is in.
+
+```javascript
+function example() {
+  var speak = "Hello"
+  if (true) {
+    var num = 5
+  }
+  console.log(num) // Ouput: 5; no block scope
+}
+```
+
+When using the `let` or `const` keywords to declare a variable, it will be block-scoped. That means it is only available in the scope of the containing block.
+
+```javascript
+function example() {
+  var speak = "Hello"
+  if (true) {
+    let num = 5
+  }
+  console.log(num) // Output: ReferenceError: num is not defined
+}
+```
+
+## Naming variables
+
+Variable names are called identifiers. Identifiers are sequences of characters that are used to identify a variable, function or property.
+
+JavaScript identifiers
+
+- Are case-sensitive
+- Must start with a letter, `$` or `_`
+- Can contain Unicode letters
+- Can contain digits (0-9), but cannot start with a digit
+- Can contain `$` and `_`
+
+These identifiers are all acceptable:
+
+```javascript
+const $one_name = "Jane"
+const Status_Number = 5
+let _speed10 // _underscore is sometimes used to indicate private vars
+```
+
+You can also use Unicode letters and Unicode escapes sequences.
+
+```javascript
+let \u0636 = [1, 2, 5];
+
+const exampleChar\u0E16 = "Thai"
+console.log(exampleCharถ) // Output: Thai
+```
+
+Although the variable names above are allowed, you'll generally try and choose variable names that are descriptive and therefor easy to read. Conventions like camel casing are followed to help readability.
+
+```javascript
+let userName = "Joe"
+let userEmail = "joe@example.com"
+```
+
+Although variable names are case sensitive, don't create multiples that share the same name but have different casing. This would be considered bad practice.
+
+```javascript
+// don't do this
+const exampleFruit = "Orange"
+const examplefruit = "Banana"
+```
+
+- Variable names cannot use [reserved keywords](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Lexical_grammar#Keywords). Watch out for keywords like `new`, `with`, `this` these are reserved. You'll likely get a `SyntaxError` if you attempt to use these.
+
+While that was a lot of information about naming variables, the overall goal should be creating variable names that are descriptive and easy to read. If you have a clear reason to steer away from common practice then try and be consistent in your choices.
+
+## Let keyword
+
+- `let` allows you to declare block level variables. The declared variable is available from the block it's enclosed in as well as sub-blocks.
+
+```javascript
+const myFunction = () => {
+  let x = 1
+  {
+    let x = 2
+    console.log(x) // Output: 2
+  }
+  console.log(x) // Output: 1
+}
+myFunction()
+```
+
+- `let` keyword allows you to reassign the variable to a different value
+
+```javascript
+let color = "red"
+console.log(color) // Output: red
+color = "blue"
+console.log(color) // Output: blue
+```
+
+- We can also declare a variable without assigning it a value. In this case the variable will be initialized with a value of `undefined`
+
+```javascript
+let pizza
+console.log(pizza) // Output: undefined
+pizza = "Cheese"
+console.log(pizza) // Output: Cheese
+```
+
+## Const keyword
+
+- `const` allows you to declare variables whose values are not meant to change. The variable is available from the block its declared in.
+
+- A variable declared with the `const` keyword cannot be reassigned. They are meaned to stay constant and attempting to reassign them will cause a [`TypeError`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors/Invalid_const_assignment)
+
+```javascript
+const fruit = "Orange"
+fruit = "Banana" // Output: TypeError
+```
+
+You'll see a `TypeError` like this in the console:
+
+```shell
+Uncaught TypeError: invalid assignment to const 'fruit'
+	fruit = 'Banana';
+       ^
+
+TypeError: Assignment to constant variable.
+```
+
+- `const` variables must be assigned a value when first declared. If not declared with a value, it will result in a `SyntaxError`
+
+```javascript
+const animals; // Ouput: SyntaxError
+```
+
+## var keyword
+
+- The `var` is the original keyword used to declare a variable. It does not have block scope
+
+- `var` does not have the same restrictions as the other two keywords. Variables declared with `var` are available from the function it is declared in.
