@@ -1,6 +1,7 @@
 import React from "react"
 import Layout from "../components/layout"
 import { graphql } from "gatsby"
+import SEO from "../components/SEO/seo"
 import SearchBox from "../components/search-box"
 import { Flex, Heading } from "@chakra-ui/core"
 
@@ -9,6 +10,11 @@ const SearchPage = ({ data, location }) => {
 
   return (
     <Layout location={location} title={siteTitle}>
+      <SEO
+        title={"Search"}
+        description={"Search for specific articles published on this site"}
+        pathname={"/search/"}
+      />
       <Flex
         flexDirection="column"
         justifyContent="center"

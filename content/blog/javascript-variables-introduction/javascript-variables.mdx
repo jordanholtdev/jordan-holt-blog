@@ -1,30 +1,135 @@
 ---
-title: "An introduction to JavaScript variables"
+title: "JavaScript variables: Getting started"
 slug: learn-javascript-variables
 date: "2020-11-03"
-description: "Learn all about JavaScript variables including how to create and access them."
+description: "Learn all about JavaScript variables in this guide for beginners."
 author: "Jordan"
 tags: ["JavaScript"]
 ---
 
-- You can think of variables as containers of information.
+You can think of variables as containers of information. Variables allow a way of labeling data with a descriptive name. They are not values themselves, but they contain values and represent them with a name.
 
-- Variables allow a way of labeling data with a descriptive name that can be understood by someone reading them
+You can assign different kinds of values to variables, such as strings, arrays and objects.
 
-- Variables are not values, they contain values and represent them with a descriptive name.
+```javascript
+const color = "blue"
+const counter = 10
+const names = ["Joe", "Alice", "Frank"]
+const engine = {
+  size: 600,
+  mileage: 1300,
+  operating: true,
+}
+```
 
 ## Declaring a variable
 
-Variables are declared using one of three keywords in JavaScript `var`, `let` and `const`.
+Variables are declared using one of three keywords in JavaScript `var`, `let` and `const`. Prior to ECMAScript 2015 `var` was used to declare all variables.
 
 ```javascript
 var fruit = "Banana"
-const userNames = ["Joe", "Jessica", "Alice"]
+const firstNames = ["Joe", "Jessica", "Alice"]
 let counter = 0
 ```
 
-- `var` declares a variable. The variable is not block-scoped. This is the original keyword, you'll see this less frequently used in many current projects.
-- `let` declares a variable that is block-scoped. You can initialize without a value, in which case it will initialize `undefined`.
+Many new programs will only use `let` and `const` but `var` is still out there.
+
+Let's have a closer look at a variable declaration.
+
+```javascript
+let userName = "Joe"
+```
+
+In the example above, a variable called `userName` has been declared using the `let` keyword, it has been assigned a value of `Joe`.
+
+![variable image](variable-declaration-marked.jpg)
+
+- `let` keyword declares a new variable.
+- `userName` is the variable name, or identifier.
+- `=` the assignment operator assigns the value to the variable.
+- `Joe` is the value that the variable was initialized with.
+
+You can also use destructuring assignment syntax to create a variable and assign value from object literals.
+
+```javascript
+const engine = {
+  size: 600,
+  mileage: 1300,
+  operatingStatus: true,
+}
+
+// creates a variable named size
+// assigns size value equal to engine.size
+const { size } = engine
+
+console.log(`engine size: ${size}`) // Output: engine size: 600
+```
+
+Above we unpack the name and value of the engine objects `size` property.
+
+Now that we've seen how easy it is to get started, let's have a closer look at naming JavaScript variables.
+
+## Naming variables
+
+When considering a name, it's important that it is relatively descriptive and easy to read. In contrast to variables in mathematics, variable names in JavaScript programs are usually choosen based on readability and descriptiveness .
+
+Camel casing is also a common convention used in JavaScript programs.
+
+```javascript
+const userSelectedItems = {}
+```
+
+Variable names are called identifiers. Identifiers are sequences of characters that are used to identify a variable, function or property.
+
+JavaScript identifiers
+
+- Are case-sensitive
+- Must start with a letter, `$` or `_`
+- Can contain Unicode letters
+- Can contain digits (0-9), but cannot start with a digit
+- Can contain `$` and `_`
+
+These identifiers are all acceptable:
+
+```javascript
+const $one_name = "Jane"
+const Status_Number = 5
+let _speed10 // _underscore is sometimes used to indicate private vars
+```
+
+You can also use Unicode letters and Unicode escapes sequences.
+
+```javascript
+let \u0636 = [1, 2, 5];
+
+const exampleChar\u0E16 = "Thai"
+console.log(exampleCharถ) // Output: Thai
+console.log(\u0636) // Ouput: [1, 2, 5]
+```
+
+Although the variable names above are allowed, you'll generally try and choose variable names that are descriptive and therefor easy to read. Conventions like camel casing are followed to help readability.
+
+These are good examples ✅
+
+```javascript
+// these are good names
+let userName = "Joe"
+let userEmail = "joe@example.com"
+```
+
+Although variable names are case sensitive, don't create multiples that share the same name but have different casing.
+
+This would be considered bad practice 🚫
+
+```javascript
+// don't do this
+const exampleFruit = "Orange"
+const examplefruit = "Banana"
+```
+
+Variable names cannot use [reserved keywords](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Lexical_grammar#Keywords). Watch out for keywords like `new`, `with`, `this` these are reserved. You'll likely get a `SyntaxError` if you attempt to use these.
+
+While that was a lot of information about naming variables, the overall goal should be creating variable names that are descriptive and easy to read. If you have a clear reason to steer away from common practice then try and be consistent in your choices.
 
 ## Variable scope
 
@@ -41,8 +146,8 @@ function example() {
 
 Global variables are properties of the global object. You can see this by opening a browser console and creating a global variable, then access the variable through the window object. The window object is the global object in the browser.
 
-```javacript
-var globalNum = 10;
+```javascript
+var globalNum = 10
 window.globalNum // Output: 10
 ```
 
@@ -70,57 +175,18 @@ function example() {
 }
 ```
 
-## Naming variables
+## `let` keyword
 
-Variable names are called identifiers. Identifiers are sequences of characters that are used to identify a variable, function or property.
-
-JavaScript identifiers
-
-- Are case-sensitive
-- Must start with a letter, `$` or `_`
-- Can contain Unicode letters
-- Can contain digits (0-9), but cannot start with a digit
-- Can contain `$` and `_`
-
-These identifiers are all acceptable:
+`let` keyword allows you to reassign the variable to a different value
 
 ```javascript
-const $one_name = "Jane"
-const Status_Number = 5
-let _speed10 // _underscore is sometimes used to indicate private vars
+let color = "red"
+console.log(color) // Output: red
+color = "blue"
+console.log(color) // Output: blue
 ```
 
-You can also use Unicode letters and Unicode escapes sequences.
-
-```javascript
-let \u0636 = [1, 2, 5];
-
-const exampleChar\u0E16 = "Thai"
-console.log(exampleCharถ) // Output: Thai
-```
-
-Although the variable names above are allowed, you'll generally try and choose variable names that are descriptive and therefor easy to read. Conventions like camel casing are followed to help readability.
-
-```javascript
-let userName = "Joe"
-let userEmail = "joe@example.com"
-```
-
-Although variable names are case sensitive, don't create multiples that share the same name but have different casing. This would be considered bad practice.
-
-```javascript
-// don't do this
-const exampleFruit = "Orange"
-const examplefruit = "Banana"
-```
-
-- Variable names cannot use [reserved keywords](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Lexical_grammar#Keywords). Watch out for keywords like `new`, `with`, `this` these are reserved. You'll likely get a `SyntaxError` if you attempt to use these.
-
-While that was a lot of information about naming variables, the overall goal should be creating variable names that are descriptive and easy to read. If you have a clear reason to steer away from common practice then try and be consistent in your choices.
-
-## Let keyword
-
-- `let` allows you to declare block level variables. The declared variable is available from the block it's enclosed in as well as sub-blocks.
+The `let` keyword declares block level variables. The declared variable is available from the block it's enclosed in as well as sub-blocks.
 
 ```javascript
 const myFunction = () => {
@@ -134,16 +200,7 @@ const myFunction = () => {
 myFunction()
 ```
 
-- `let` keyword allows you to reassign the variable to a different value
-
-```javascript
-let color = "red"
-console.log(color) // Output: red
-color = "blue"
-console.log(color) // Output: blue
-```
-
-- We can also declare a variable without assigning it a value. In this case the variable will be initialized with a value of `undefined`
+We can also declare a variable without assigning it a value. In this case the variable will be initialized with a value of `undefined`
 
 ```javascript
 let pizza
@@ -152,11 +209,15 @@ pizza = "Cheese"
 console.log(pizza) // Output: Cheese
 ```
 
-## Const keyword
+## `const` keyword
 
-- `const` allows you to declare variables whose values are not meant to change. The variable is available from the block its declared in.
+`const` allows you to declare variables whose values are not meant to change. The variable is available from the block its declared in.
 
-- A variable declared with the `const` keyword cannot be reassigned. They are meaned to stay constant and attempting to reassign them will cause a [`TypeError`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors/Invalid_const_assignment)
+```javascript
+const myBirthday = "1990-11-02"
+```
+
+A variable declared with the `const` keyword cannot be reassigned. They are meaned to stay constant and attempting to reassign them will cause a [`TypeError`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors/Invalid_const_assignment)
 
 ```javascript
 const fruit = "Orange"
@@ -173,14 +234,16 @@ Uncaught TypeError: invalid assignment to const 'fruit'
 TypeError: Assignment to constant variable.
 ```
 
-- `const` variables must be assigned a value when first declared. If not declared with a value, it will result in a `SyntaxError`
+`const` variables must be assigned a value when first declared. If not declared with a value, it will result in a `SyntaxError`
 
 ```javascript
 const animals; // Ouput: SyntaxError
 ```
 
-## var keyword
+## Wrap up
 
-- The `var` is the original keyword used to declare a variable. It does not have block scope
+Wow, that was a lot of information about JavaScript variables. But now you should have a pretty good understanding of JavaScript variables and how to use them. Remember that variables are not values themselves, `let` and `const` are block-scoped, watch out for reserved keywords and choose descriptive and easy to read names.
 
-- `var` does not have the same restrictions as the other two keywords. Variables declared with `var` are available from the function it is declared in.
+## Further reference
+
+[var - MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/var#Description)
