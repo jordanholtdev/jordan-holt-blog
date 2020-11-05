@@ -1,6 +1,6 @@
 import React from "react"
 import { Link, graphql } from "gatsby"
-import SEO from "../components/seo"
+import SEO from "../components/SEO/seo"
 import Layout from "../components/layout"
 import NewsletterLandingPageForm from "../components/Forms/newsletterPageForm"
 
@@ -38,7 +38,12 @@ const HomePage = ({ data }) => {
 
   return (
     <Layout>
-      <SEO title={"Blog"} description={"articles about web development"} />
+      <SEO
+        title={"Jordan | Holt - JavaScript, Web Development, and Technology"}
+        description={
+          "Join thousands of other people who have read my articles spanning coding, technology, and web development"
+        }
+      />
       <Flex
         w="100%"
         h="50vh"

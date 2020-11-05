@@ -42,8 +42,6 @@ const Tags = ({ pageContext, data }) => {
       <Flex
         w="100%"
         flexDirection="column"
-        // bg={bgColor[colorMode]}
-        // color={primarytextColor[colorMode]}
         justifyContent="center"
         alignItems="center"
       >

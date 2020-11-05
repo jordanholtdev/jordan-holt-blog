@@ -20,7 +20,7 @@ import {
 
 import Layout from "../components/layout"
 
-import SEO from "../components/seo"
+import SEO from "../components/SEO/seo"
 
 const AllPosts = ({ pageContext, data }) => {
   const { currentPage, numPages } = pageContext

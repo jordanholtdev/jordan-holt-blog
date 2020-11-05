@@ -1,7 +1,7 @@
 import React from "react"
 import { graphql } from "gatsby"
 import Img from "gatsby-image"
-import Seo from "../components/seo"
+import Seo from "../components/SEO/seo"
 import Layout from "../components/layout"
 
 import {
@@ -27,6 +27,7 @@ const Newsletter = ({ data, location }) => {
           description={
             "Subscribe to my newsletter to recieve the latest tips, techniques and news about web development"
           }
+          pathname={"/newsletter/"}
         />
         <Stack
           spacing={8}

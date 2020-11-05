@@ -14,7 +14,7 @@ import {
   useColorMode,
 } from "@chakra-ui/core"
 
-import Seo from "../components/seo"
+import Seo from "../components/SEO/seo"
 
 // component styles
 
@@ -34,6 +34,7 @@ const About = ({ data, location }) => {
         description={
           "A little bit of information about the site and its creator."
         }
+        pathname={"/about/"}
       />
       <Stack
         spacing={8}
@@ -159,6 +160,7 @@ export const pageQuery = graphql`
     site {
       siteMetadata {
         title
+        siteUrl
         social {
           github
           twitter

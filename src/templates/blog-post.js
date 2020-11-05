@@ -16,7 +16,7 @@ import {
 } from "@chakra-ui/core"
 
 import Layout from "../components/layout"
-import SEO from "../components/seo"
+import SEO from "../components/SEO/seo"
 
 // styled components
 
@@ -30,6 +30,9 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
       <SEO
         title={post.frontmatter.title}
         description={post.frontmatter.description || post.excerpt}
+        pathname={post.fields.slug}
+        postDate={post.frontmatter.date}
+        isBlogPost
       />
       <Stack spacing={8} justifyContent="center" alignItems="flex-start">
         <Flex
