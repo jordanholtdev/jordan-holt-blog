@@ -14,7 +14,7 @@ module.exports = {
       },
     ],
     author: {
-      name: `Jordan`,
+      name: `Jordan Holt`,
       summary: `I'm a JavaScript developer and I am passionate about technology creating cool things.`,
     },
     description: `Learn web development with practical tips and techniques on using JavaScript, HTML & CSS`,
@@ -129,6 +129,9 @@ module.exports = {
                 description
                 siteUrl
                 site_url: siteUrl
+                author {
+                  name
+                }
               }
             }
           }
@@ -140,6 +143,7 @@ module.exports = {
                 return Object.assign({}, edge.node.frontmatter, {
                   description: edge.node.excerpt,
                   date: edge.node.frontmatter.date,
+                  author: site.siteMetadata.author.name,
                   url: site.siteMetadata.siteUrl + edge.node.fields.slug,
                   guid: site.siteMetadata.siteUrl + edge.node.fields.slug,
                   custom_elements: [{ "content:encoded": edge.node.html }],
@@ -166,7 +170,7 @@ module.exports = {
               }
             `,
             output: "/rss.xml",
-            title: "Jordan | Holt",
+            title: "Jordan Holt | Personal Blog",
             // optional configuration to insert feed reference in pages:
             // if `string` is used, it will be used to create RegExp and then test if pathname of
             // current page satisfied this regular expression;
