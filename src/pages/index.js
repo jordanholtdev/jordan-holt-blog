@@ -39,7 +39,7 @@ const HomePage = ({ data }) => {
   return (
     <Layout>
       <SEO
-        title={"Jordan | Holt - JavaScript, Web Development, and Technology"}
+        title={"JavaScript, Web Development, and Technology"}
         description={
           "Join thousands of other people who have read my articles spanning coding, technology, and web development"
         }
