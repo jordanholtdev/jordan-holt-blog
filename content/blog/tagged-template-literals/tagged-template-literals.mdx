@@ -1,0 +1,114 @@
+---
+title: "JavaScript: Tagged template literals"
+slug: tagged-template-literals
+date: "2020-11-20"
+description: "Learn how to use tagged template literals in JavaScript"
+author: "Jordan"
+tags: ["JavaScript"]
+---
+
+The template literal syntax is a very useful feature in JavaScript. One often overlooked feature of template literals is the ability to use a tag function to perform actions on them. Instead of immediately assigning the template literals to a variable we can pass thier values as arguments, to a function. The function will then process those arguments anyway we want and return us something, often that will be a string but it could be anything.
+
+Let's have a look at how we can put a tagged template literal together. But first let's have a quick refresh of the template literal syntax.
+
+Template literals are enclosed with backticks ` (``) `, and can contain placeholders for expressions:
+
+```javascript
+const id = 89453
+const API_URL = `https://examplesite.com/blogs/${id}`
+console.log(API_URL) // Output: "https://examplesite.com/blogs/89453"
+```
+
+This syntax is very powerful and is used in many programs for a variety of tasks. For example you'll often see template literals used when making making a network request to an outside API.
+[CSS-in-JS](https://en.wikipedia.org/wiki/CSS-in-JS) libraries is another place you might frequently see template literals:
+
+```javascript
+import styled from "styled-components"
+
+const StyledButton = styled.button`
+  border-radius: 3px;
+  padding: 0.5rem 0;
+  margin: 0.5rem 1rem;
+  background: orange;
+  color: white;
+  border: 2px solid white;
+`
+```
+
+A tagged template literal allows us to run a template literal through a function as opposed to assigning it a value immediately.
+
+Here's how to create a tagged template literal:
+
+1. Create a function
+2. Create a template string
+3. Take the name of the function and put it in front of the template literal.
+
+```javascript
+const applyDeal = () => {
+  // some processing logic
+}
+
+const fruitType = "Citrus"
+const price = 5
+const deal = applyDeal`Today only, we have a great deal on ${fruitType} fruit. Currently only ${price}!!`
+console.log(deal) // Output: undefined
+```
+
+Once a template literal has been tagged, the browser will run this function and pass in the information. We can add some logic to process the template literal and whatever we return from the function will get assigned to the `deal` variable.
+
+The function will take a couple of arguments. The first argument are all the pieces of string which we'll pass in as a parameter called `strings`. Then we can pass in the other values we used in the placeholders, we can pass in a `price` and `fruitType` or take advantage of the `rest` operator and pass in `...values`
+
+```javascript
+const applyDeal = (strings, ...values) => {
+  console.log(strings, ...values)
+}
+```
+
+Here is what is logged to the console:
+
+```bash
+["Today only, we have a great deal on ", " fruit. Currently only ", "!!"],
+  "Citrus",
+  5
+```
+
+The argument `strings` is an array of string pieces that were seperated by the placeholders in the template literal. The `..values` are the expression values that the placeholders contain, in this case with the value `"Citrus"` and `5`.
+
+Now that we have access to those values in the `applyDeal` function we can add some logic.
+
+```javascript
+const applyDeal = (strings, ...values) => {
+  // some processing logic
+  const stringOne = strings[0]
+  const stringTwo = strings[1]
+  const stringThree = strings[2]
+
+  let msgStr = ""
+
+  if (values[1] < 10) {
+    msgStr = `!!DEAL ALERT!! `
+  }
+
+  return `${msgStr}${stringOne}${stringTwo}$${values[1]}${stringThree}`
+}
+
+const fruitType = "Citrus"
+const price = 5
+const deal = applyDeal`Today only, we have a great deal on ${fruitType} fruit. Currently only ${price}!!`
+
+console.log(deal) // Output: "!!DEAL ALERT!! Today only, we have a great deal on  fruit. Currently only $5!!"
+```
+
+The code above is fairly straight forward, we pass in the string and values to the function and then we have some conditional logic that checks to see if the second value (in this case that is `5`) is less than 10, if it is then we assign `"!!DEAL ALERT!!"` to a variable and then finally return another template literal which will be assigned to the variable `deal`
+
+Obviously this isn't the most practical example, but it does highlight how powerful tagged template literals can be.
+
+## Wrap up
+
+There are a ton of different uses for tagged template literals in JavaScript. In this article you saw the basic structure of tagged template literals. A tag function can perform actions on those arguments and then return another string or whatever your use case requires.
+
+## Further reference
+
+- [Template literals - MDN-](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals)
+- [Backticks in JavaScript - Stack Overflow](https://stackoverflow.com/questions/27678052/usage-of-the-backtick-character-in-javascript)
+- [How to work with strings in JavaScript - DigitalOcean](https://www.digitalocean.com/community/tutorials/how-to-work-with-strings-in-javascript)
