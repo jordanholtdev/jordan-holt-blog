@@ -90,7 +90,13 @@ module.exports = {
     },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
-    `gatsby-plugin-chakra-ui`,
+    {
+      resolve: "gatsby-plugin-chakra-ui",
+      options: {
+        isResettingCSS: true,
+        isUsingColorMode: true,
+      },
+    },
     {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
@@ -139,6 +145,7 @@ module.exports = {
         feeds: [
           {
             serialize: ({ query: { site, allMdx } }) => {
+              console.log(allMdx.edges)
               return allMdx.edges.map(edge => {
                 return Object.assign({}, edge.node.frontmatter, {
                   description: edge.node.excerpt,
