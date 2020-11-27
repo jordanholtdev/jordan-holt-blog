@@ -1,0 +1,129 @@
+---
+title: "JavaScript Scope: What is it? "
+slug: what-is-javascript-scope
+date: "2020-11-27"
+description: "Scope is an important concept is JavaScript but what is it actually?"
+author: "Jordan"
+tags: ["JavaScript"]
+---
+
+In JavaScript, the concept of scope relates to where variables and expressions can be accessed from. In this article we'll look at a few different types of scope, what they do and how you use scope to improve the performance of a program.
+
+If you're just starting out, check out my article on [JavaScript variables](/learn-javascript-variables/) which is a good introduction to scope.
+
+Here's what [MDN](https://developer.mozilla.org/en-US/) says about scope:
+
+> The current context of execution. The context in which values and expressions are "visible" or can be referenced
+
+The current context of a value or expression will determine where they are made available. So how do we determine the current context? We look at the location of the variable. This is because JavaScript has [lexical scoping](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures) and closures. Lexical scoping basically means that JavaScript will use the location of where a variable is declared, to determine where the variable is available.
+
+This means that we can read the source code to determine the scope.
+
+Let's look at the following example:
+
+```javascript
+function someFunction() {
+  var animal = "Lion"
+  // code can use animal inside this function
+}
+
+// Code outside of the function can't use animal
+```
+
+Code outside of the function cannot access the variable that was declared inside the function. In this context the variable `animal` would be known to have local scope.
+
+## Scope types
+
+There are four scopes in JavaScript, they are:
+
+- Global Scope - Global scoped values and expressions are visible by everything.
+- Block Scope - The values and expressions are only visible within the code block and any sub-blocks
+- Module Scope - Values and expressions are visible within the module.
+- Function Scope - Visible within the function.
+
+## Global scope
+
+If you declare a variable outside of any function than it is known to have global scope. Global variables go to the global namespace which allow the variables to be accessed anywhere in the program.
+
+```javascript
+// this is a global variable, it was declared outside of any function.
+const animal = "dog"
+
+const sayHello = () => {
+  // this is a local variable, it is declared inside a function.
+  const sound = "woof"
+  console.log(sound) // Output: 'woof'
+}
+
+console.log(sound) // ReferenceError: sound is not defined
+console.log(animal) // Output: dog
+```
+
+In the example about the first variable `animal` has been declared outside of any function, this is known as a global variable and its value is accessible in the global scope. Inside the function called `sayHello`, there is a variable `sound`. Because `sound` was declared inside a function, it is known to have local scope, and its values are only accessible inside of the function it was declared.
+
+When we attempt to log the value of `sound` we receive a `Reference Error` because in that context, `sound` does not exist, it is out of scope.
+
+## Block scope
+
+Prior to ECMAScript 2015 and the `let` and `const` keywords, JavaScript didn’t have block statement scope. So a variable declared inside a block is local to the scope that the block is in.
+
+Observe the following example:
+
+```javascript
+if (true) {
+  var counter = 5
+  let age = 25
+}
+console.log(counter) // Ouput: 5
+console.log(age) // Output: ReferenceError: age is not defined
+```
+
+You can see that we are able to access the `counter` variable from outside of the `if` code block. However when we try and log the `age` variable we recieve an error because the `let` variable is block-scoped.
+
+Before the `let` and `const` keywords were introduced in ECMAScript 2015, variables did not have block scope.
+
+## Module scope
+
+With the introduction of modules in ECMAScript 2015 came module scope. Modules allow us to split up code and seperate concerns in a program. Code contained inside modules needs to be imported into a script to be used. The code is then imported into the scope of that specific script, the code in the module is not globally scoped.
+
+```javascript
+// feature.js is a javascript module
+
+export const someFunction = num => {
+  let counter = 0
+  return counter + 1
+}
+
+const anotherFunction = num => {
+  let counter = 0
+  return counter + 2
+}
+```
+
+`someFunction` is declared inside a module. To access this function, it needs to be exported from the module and imported into the chosen script.
+
+```javascript
+// app.js is the chosen script
+import { someFunction } from "../feature.js"
+
+someFunction(1) // Output: 2
+
+anotherFunction(1) // Ouput: ReferenceError: anotherFunction is not defined
+```
+
+In the example above we import the `someFunction` from the module and import it into the `app.js` script where it can be used. However, when we try and invoke `anotherFunction` we get a reference error because the module scope prevents us from accessing those values unless it is properly imported and exported.
+
+## Scope pollution
+
+When there are too many variables in the global namespace then there is a possibility of name collision, especially if you're using many different libraries. Generally global scoped variables should be reserved for objects that have program-wide relevance.
+
+## Wrap up
+
+In this article we learned about the basics of scope in JavaScript. We looked at 4 different types of scope and how to determine them by looking at the source code. Scope is an important concept to understand in JavaScript and one that will be leveraged every time you code. Make sure to check out the references below for more information on JavaScript scopes.
+
+## Further reference
+
+[Scope - MDN ](https://developer.mozilla.org/en-US/docs/Glossary/Scope)
+[Lexical Environment - ECMA ](https://www.ecma-international.org/ecma-262/#sec-lexical-environments)
+[What is the scope of variables in javascript? - Stack Overflow](https://stackoverflow.com/questions/500431/what-is-the-scope-of-variables-in-javascript/500459#500459)
+[Closures - MDN ](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures)
