@@ -16,7 +16,7 @@ import {
   TagIcon,
   TagLabel,
   useColorMode,
-} from "@chakra-ui/core"
+} from "@chakra-ui/react"
 
 const HomePage = ({ data }) => {
   const posts = data.allMdx.edges
@@ -62,7 +62,7 @@ const HomePage = ({ data }) => {
             resources on web development that I've come across.
           </Text>
           <Link to={"/newsletter"}>
-            <Button mt={4} variantColor="blue">
+            <Button mt={4} colorScheme="blue">
               Subscribe
             </Button>
           </Link>
@@ -131,7 +131,7 @@ const HomePage = ({ data }) => {
                       pl={0}
                       size="md"
                       variant="ghost"
-                      variantColor="green"
+                      colorScheme="green"
                     >
                       Read More →
                     </Button>
@@ -168,11 +168,11 @@ const HomePage = ({ data }) => {
                     </Text>
                   </Stack>
                   <Box textAlign="center">
-                    <Tag mt={4} variant="outline" variantColor="cyan" size="sm">
+                    <Tag mt={4} variant="outline" colorScheme="cyan" size="sm">
                       {" "}
                       {node.frontmatter.tags}
                     </Tag>
-                    <Tag mt={2} size="sm" variantColor="gray" variant="outline">
+                    <Tag mt={2} size="sm" colorScheme="gray" variant="outline">
                       <TagIcon icon="time" size="14px" />
                       <TagLabel>{node.timeToRead} min</TagLabel>
                     </Tag>

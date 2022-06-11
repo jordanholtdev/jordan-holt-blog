@@ -11,7 +11,7 @@ import {
   FormLabel,
   FormErrorMessage,
   useToast,
-} from "@chakra-ui/core"
+} from "@chakra-ui/react"
 
 const validateEmailSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Required"),
@@ -74,7 +74,7 @@ const NewsletterLandingPageForm = () => {
             </Field>
             <Button
               mt={4}
-              variantColor="cyan"
+              colorScheme="cyan"
               type="submit"
               isLoading={formik.isSubmitting}
             >

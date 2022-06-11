@@ -1,7 +1,7 @@
 import React from "react"
 import { Link, useStaticQuery, graphql } from "gatsby"
 import _ from "lodash"
-import { Tag, Box, TagLabel } from "@chakra-ui/core"
+import { Tag, Box, TagLabel } from "@chakra-ui/react"
 
 const AllTags = tag => {
   const data = useStaticQuery(graphql`
@@ -24,7 +24,7 @@ const AllTags = tag => {
               size="md"
               m={2}
               variant="outline"
-              variantColor="gray"
+              colorScheme="gray"
               _hover={{ opacity: "0.5" }}
             >
               <TagLabel>{fieldValue}</TagLabel>

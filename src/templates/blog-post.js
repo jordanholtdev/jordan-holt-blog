@@ -13,7 +13,7 @@ import {
   Text,
   Stack,
   Button,
-} from "@chakra-ui/core"
+} from "@chakra-ui/react"
 
 import Layout from "../components/layout"
 import SEO from "../components/SEO/seo"
@@ -53,10 +53,10 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
               </Text>
               <Text>{post.frontmatter.date}</Text>
               <Box>
-                <Tag size="sm" variantColor="cyan" variant="outline">
+                <Tag size="sm" colorScheme="cyan" variant="outline">
                   {post.frontmatter.tags}
                 </Tag>
-                <Tag ml={2} size="sm" variantColor="gray" variant="outline">
+                <Tag ml={2} size="sm" colorScheme="gray" variant="outline">
                   <TagLabel>{post.timeToRead} min</TagLabel>
                   <TagIcon icon="time" />
                 </Tag>
@@ -72,7 +72,7 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
             <Stack isInline w="100%" justifyContent="space-between">
               {previous && (
                 <Link to={previous.fields.slug} rel="prev">
-                  <Button variantColor="green" variant="outline">
+                  <Button colorScheme="green" variant="outline">
                     ← Previous
                   </Button>
                 </Link>
@@ -81,7 +81,7 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
               <Box>
                 {next && (
                   <Link to={next.fields.slug} rel="next">
-                    <Button variantColor="green" variant="outline">
+                    <Button colorScheme="green" variant="outline">
                       Next →
                     </Button>
                   </Link>

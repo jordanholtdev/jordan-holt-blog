@@ -16,7 +16,7 @@ import {
   StatLabel,
   StatNumber,
   useColorMode,
-} from "@chakra-ui/core"
+} from "@chakra-ui/react"
 
 import Layout from "../components/layout"
 
@@ -110,7 +110,7 @@ const AllPosts = ({ pageContext, data }) => {
                       <Tag
                         mt={2}
                         size="sm"
-                        variantColor="cyan"
+                        colorScheme="cyan"
                         variant="outline"
                       >
                         {" "}

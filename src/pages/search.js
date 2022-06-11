@@ -3,7 +3,7 @@ import Layout from "../components/layout"
 import { graphql } from "gatsby"
 import SEO from "../components/SEO/seo"
 import SearchBox from "../components/search-box"
-import { Flex, Heading } from "@chakra-ui/core"
+import { Flex, Heading } from "@chakra-ui/react"
 
 const SearchPage = ({ data, location }) => {
   const siteTitle = data.site.siteMetadata.title

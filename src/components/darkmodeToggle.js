@@ -1,5 +1,5 @@
 import React from "react"
-import { Button, useColorMode } from "@chakra-ui/core"
+import { Button, useColorMode } from "@chakra-ui/react"
 
 const DarkModeToggle = () => {
   const { colorMode, toggleColorMode } = useColorMode()

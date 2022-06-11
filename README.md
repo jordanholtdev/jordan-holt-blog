@@ -3,15 +3,12 @@
   </a>
 </p>
 <h1 align="center">
-  Personal Blog
+  ARCHIVED - Personal Blog
 </h1>
 
 <p align="center">
   <a href="https://twitter.com/intent/follow?screen_name=jordanholtdev">
     <img src="https://img.shields.io/twitter/follow/jordanholtdev?style=social" />
-  </a>
-  <a href="https://blog.jordanholt.dev/">
-    <img src="https://img.shields.io/website?url=https%3A%2F%2Fblog.jordanholt.dev%2F" />
   </a>
   <img src="https://img.shields.io/maintenance/yes/2020" />
   <a href="https://github.com/jordanholtdev/jordan-holt-blog/graphs/commit-activity">
@@ -19,8 +16,8 @@
   </a>
 </p>
 
-This is the codebase behind my personal blog where I write about web development. 
-I created this as a way to sharpen my Gatsby and React skills but primarily as a platform where I could write about the things I'm learning about and interested in. 
+This is the codebase behind my personal blog where I write about web development. This is no longer mainted, blog has been moved.
+I created this as a way to sharpen my Gatsby and React skills but primarily as a platform where I could write about the things I'm learning about and interested in.
 
 <p align="left">You can view the <a href="https://blog.jordanholt.dev/">live site here.</a></p>
 
@@ -52,7 +49,7 @@ Whether you use this codebase, have learned something from one of the articles, 
 * Gatsby v2.24.43
 * React v16.12.0
 * 📴 PWA - Progressive Web App
-* 💅 CSS-in-JS via Styled-Components 
+* 💅 CSS-in-JS via Styled-Components
 * 🏠 Hosted & Deployed using Netlify
 * npm
 * React Instant-Search

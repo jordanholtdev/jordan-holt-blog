@@ -13,7 +13,7 @@ import {
   StatLabel,
   StatNumber,
   SimpleGrid,
-} from "@chakra-ui/core"
+} from "@chakra-ui/react"
 
 // Utilities
 import kebabCase from "lodash/kebabCase"
@@ -83,7 +83,7 @@ const TagsPage = ({
               <Link to={`/tags/${kebabCase(tag.fieldValue)}/`}>
                 <Tag
                   _hover={{ opacity: "0.5" }}
-                  variantColor="gray"
+                  colorScheme="gray"
                   variant="outline"
                 >
                   {tag.fieldValue}

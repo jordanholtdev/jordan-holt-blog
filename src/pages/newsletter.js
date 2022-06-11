@@ -14,7 +14,7 @@ import {
   Link as CharkaLink,
   Text,
   SimpleGrid,
-} from "@chakra-ui/core"
+} from "@chakra-ui/react"
 
 import NewsletterLandingPageForm from "../components/Forms/newsletterPageForm"
 

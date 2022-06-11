@@ -14,7 +14,7 @@ import {
   Stat,
   StatLabel,
   StatNumber,
-} from "@chakra-ui/core"
+} from "@chakra-ui/react"
 
 // Components
 
@@ -54,7 +54,7 @@ const Tags = ({ pageContext, data }) => {
           </Heading>
           <Box py={4}>
             All articles that are tagged with{" "}
-            <Tag size="sm" rounded="8px" variant="outline" variantColor="cyan">
+            <Tag size="sm" rounded="8px" variant="outline" colorScheme="cyan">
               {tag}
             </Tag>
           </Box>
@@ -103,7 +103,7 @@ const Tags = ({ pageContext, data }) => {
 
           <Box pt={4} textAlign="center">
             <Link to="/tags">
-              <Button variantColor="blue" variant="solid">
+              <Button colorScheme="blue" variant="solid">
                 All tags
               </Button>
             </Link>

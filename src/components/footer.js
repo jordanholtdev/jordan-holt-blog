@@ -1,7 +1,13 @@
 import React from "react"
 import AllTags from "./allTags"
 
-import { Flex, Text, List, ListItem, Link as ChakraLink } from "@chakra-ui/core"
+import {
+  Flex,
+  Text,
+  List,
+  ListItem,
+  Link as ChakraLink,
+} from "@chakra-ui/react"
 
 const Footer = () => {
   return (

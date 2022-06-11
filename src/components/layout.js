@@ -1,5 +1,5 @@
 import React from "react"
-import { Flex, useColorMode } from "@chakra-ui/core"
+import { Flex, useColorMode } from "@chakra-ui/react"
 
 import Header from "../components/Header/header"
 import Footer from "./footer"

@@ -12,7 +12,7 @@ import {
   Text,
   Heading,
   useColorMode,
-} from "@chakra-ui/core"
+} from "@chakra-ui/react"
 
 import Seo from "../components/SEO/seo"
 

@@ -11,7 +11,7 @@ import {
   List,
   ListItem,
   Heading,
-} from "@chakra-ui/core"
+} from "@chakra-ui/react"
 
 import {
   PoweredBy,

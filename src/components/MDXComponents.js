@@ -2,15 +2,14 @@ import React from "react"
 import { Link } from "gatsby"
 import {
   Box,
-  Callout,
+  Alert,
   useColorMode,
   Divider,
   Heading,
   Code,
   Text,
   Link as ChakraLink,
-  PseudoBox,
-} from "@chakra-ui/core"
+} from "@chakra-ui/react"
 
 const Table = props => (
   <Box overflowX="scroll" w="full">
@@ -56,7 +55,7 @@ const Quote = props => {
   }
 
   return (
-    <Callout
+    <Alert
       mt={4}
       w="98%"
       bg={bgColor[colorMode]}
@@ -126,7 +125,7 @@ const DocsHeading = props => (
     <Box pointerEvents="auto">
       {props.children}
       {props.id && (
-        <PseudoBox
+        <Box
           aria-label="anchor"
           as="a"
           color="blue.500"
@@ -141,7 +140,7 @@ const DocsHeading = props => (
           href={`#${props.id}`}
         >
           #
-        </PseudoBox>
+        </Box>
       )}
     </Box>
   </Heading>
@@ -159,7 +158,7 @@ const MDXComponents = {
   h3: props => <DocsHeading as="h3" size="md" fontWeight="bold" {...props} />,
   br: props => <Box height="24px" {...props} />,
   inlineCode: props => (
-    <Code variantColor="yellow" fontSize="0.84em" {...props} />
+    <Code colorScheme="yellow" fontSize="0.84em" {...props} />
   ),
   p: props => <Text as="p" my={4} lineHeight="tall" {...props} />,
   ul: props => <Box as="ul" pt={2} pl={4} ml={2} {...props} />,

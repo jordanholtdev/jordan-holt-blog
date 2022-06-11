@@ -12,7 +12,7 @@ import {
   MenuList,
   MenuItem,
   useColorMode,
-} from "@chakra-ui/core"
+} from "@chakra-ui/react"
 
 const Header = () => {
   const { colorMode } = useColorMode()
@@ -57,7 +57,7 @@ const Header = () => {
               rightIcon="chevron-down"
               size="sm"
               variant="outline"
-              variantColor="blue"
+              colorScheme="blue"
             >
               Menu
             </MenuButton>
@@ -93,27 +93,27 @@ const Header = () => {
             <Box mx={[0, 1, 2, 2]}>
               {" "}
               <Link to="/articles">
-                <Button variant="ghost" variantColor="blue" mr={1} size="md">
+                <Button variant="ghost" colorScheme="blue" mr={1} size="md">
                   Articles
                 </Button>
               </Link>
               <Link to="/">
-                <Button variant="ghost" variantColor="blue" mr={1} size="md">
+                <Button variant="ghost" colorScheme="blue" mr={1} size="md">
                   Home
                 </Button>
               </Link>
               <Link to="/search/">
-                <Button variant="ghost" variantColor="blue" mr={1} size="md">
+                <Button variant="ghost" colorScheme="blue" mr={1} size="md">
                   Search
                 </Button>
               </Link>
               <Link to="/about/">
-                <Button variant="ghost" variantColor="blue" mr={1} size="md">
+                <Button variant="ghost" colorScheme="blue" mr={1} size="md">
                   About
                 </Button>
               </Link>
               <Link to="/newsletter/">
-                <Button variant="ghost" variantColor="blue" mr={1} size="md">
+                <Button variant="ghost" colorScheme="blue" mr={1} size="md">
                   Newsletter
                 </Button>
               </Link>

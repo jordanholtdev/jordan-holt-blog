@@ -1,13 +1,13 @@
 import React from "react"
 import { Link } from "gatsby"
 
-import { Button, Flex, Text } from "@chakra-ui/core"
+import { Button, Flex, Text } from "@chakra-ui/react"
 
 const Pagination = ({ isFirst, isLast, prevPage, nextPage, currentPage }) => {
   return (
     <Flex w="100%" justifyContent="space-between">
       <Link to={prevPage}>
-        <Button variant="solid" variantColor="blue" isDisabled={isFirst}>
+        <Button variant="solid" colorScheme="blue" isDisabled={isFirst}>
           ← Prev 10
         </Button>
       </Link>
@@ -15,7 +15,7 @@ const Pagination = ({ isFirst, isLast, prevPage, nextPage, currentPage }) => {
         Page {currentPage}
       </Text>
       <Link to={nextPage}>
-        <Button variant="solid" variantColor="blue" isDisabled={isLast}>
+        <Button variant="solid" colorScheme="blue" isDisabled={isLast}>
           Next 10 →
         </Button>
       </Link>
